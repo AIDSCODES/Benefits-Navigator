@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import * as Icons from 'lucide-react';
-import { Volume2, Mic, MicOff, ArrowRight, ArrowLeft, SkipForward } from 'lucide-react';
+import { Volume2, Mic, MicOff, ArrowRight, ArrowLeft, SkipForward, Search } from 'lucide-react';
 import { UserProfile, SupportedLanguage } from '../lib/engine/types.ts';
 import { QUESTIONS, QuestionOption } from '../data/questions.ts';
 import { TRANSLATIONS } from '../lib/i18n/translations.ts';
@@ -30,6 +30,8 @@ export const QuestionFlow: React.FC<QuestionFlowProps> = ({
   const [speechSupported, setSpeechSupported] = useState(false);
   const [voiceRecognitionSupported, setVoiceRecognitionSupported] = useState(false);
   const [voiceFeedback, setVoiceFeedback] = useState<string | null>(null);
+  const [stateSearch, setStateSearch] = useState('');
+  const [stateFilter, setStateFilter] = useState<'all' | 'state' | 'ut'>('all');
 
   const t = TRANSLATIONS[lang];
   const currentQuestion = QUESTIONS[currentIndex];
@@ -165,6 +167,8 @@ export const QuestionFlow: React.FC<QuestionFlowProps> = ({
   };
 
   const handleNext = () => {
+    setStateSearch('');
+    setStateFilter('all');
     if (currentIndex < QUESTIONS.length - 1) {
       setCurrentIndex((prev) => prev + 1);
       setVoiceFeedback(null);
@@ -174,6 +178,8 @@ export const QuestionFlow: React.FC<QuestionFlowProps> = ({
   };
 
   const handleBack = () => {
+    setStateSearch('');
+    setStateFilter('all');
     if (currentIndex > 0) {
       setCurrentIndex((prev) => prev - 1);
       setVoiceFeedback(null);
@@ -193,6 +199,35 @@ export const QuestionFlow: React.FC<QuestionFlowProps> = ({
   };
 
   const progressPercent = Math.round(((currentIndex + 1) / QUESTIONS.length) * 100);
+
+  // Filter options for state question or return full set
+  const displayedOptions = currentQuestion.options.filter((option) => {
+    if (currentQuestion.field !== 'state') return true;
+
+    // Filter by type: State vs UT
+    if (stateFilter === 'state') {
+      const isUT = option.description?.en?.startsWith('UT');
+      if (isUT && option.value !== 'Other State') return false;
+    } else if (stateFilter === 'ut') {
+      const isUT = option.description?.en?.startsWith('UT');
+      if (!isUT && option.value !== 'Other State') return false;
+    }
+
+    // Filter by search query
+    if (stateSearch.trim()) {
+      const q = stateSearch.toLowerCase().trim();
+      const matchLabel =
+        option.label.en.toLowerCase().includes(q) ||
+        (option.label[lang] || '').toLowerCase().includes(q) ||
+        (option.description?.en || '').toLowerCase().includes(q);
+      const matchVoice =
+        (option.voiceKeywords?.en || []).some((kw) => kw.toLowerCase().includes(q)) ||
+        (option.voiceKeywords?.[lang] || []).some((kw) => kw.toLowerCase().includes(q));
+      return matchLabel || matchVoice;
+    }
+
+    return true;
+  });
 
   return (
     <div className="w-full max-w-3xl mx-auto px-4 py-6 sm:py-10">
@@ -267,17 +302,76 @@ export const QuestionFlow: React.FC<QuestionFlowProps> = ({
           )}
         </div>
 
+        {/* State Selection Search & Category Filter Pills */}
+        {currentQuestion.field === 'state' && (
+          <div className="mb-5 space-y-3 bg-stone-50/80 dark:bg-stone-800/50 p-3.5 rounded-2xl border border-stone-200/80 dark:border-stone-700/60">
+            <div className="relative">
+              <Search className="w-4 h-4 absolute left-3.5 top-3.5 text-stone-400" />
+              <input
+                type="text"
+                value={stateSearch}
+                onChange={(e) => setStateSearch(e.target.value)}
+                placeholder="Search state, capital, or UT (e.g., Karnataka, Delhi, UP, Bengal)..."
+                className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-stone-900 dark:focus:ring-white min-h-[44px]"
+              />
+            </div>
+            <div className="flex flex-wrap items-center gap-1.5 text-xs">
+              <span className="text-[11px] font-semibold text-stone-500 uppercase tracking-wider mr-1">Filter:</span>
+              <button
+                type="button"
+                onClick={() => setStateFilter('all')}
+                className={`px-3 py-1.5 rounded-lg font-semibold transition-all min-h-[32px] ${
+                  stateFilter === 'all'
+                    ? 'bg-stone-900 dark:bg-white text-white dark:text-stone-900 shadow-xs'
+                    : 'bg-white dark:bg-stone-800 text-stone-600 dark:text-stone-300 border border-stone-200 dark:border-stone-700 hover:bg-stone-100'
+                }`}
+              >
+                All States & UTs (37)
+              </button>
+              <button
+                type="button"
+                onClick={() => setStateFilter('state')}
+                className={`px-3 py-1.5 rounded-lg font-semibold transition-all min-h-[32px] ${
+                  stateFilter === 'state'
+                    ? 'bg-stone-900 dark:bg-white text-white dark:text-stone-900 shadow-xs'
+                    : 'bg-white dark:bg-stone-800 text-stone-600 dark:text-stone-300 border border-stone-200 dark:border-stone-700 hover:bg-stone-100'
+                }`}
+              >
+                States (28)
+              </button>
+              <button
+                type="button"
+                onClick={() => setStateFilter('ut')}
+                className={`px-3 py-1.5 rounded-lg font-semibold transition-all min-h-[32px] ${
+                  stateFilter === 'ut'
+                    ? 'bg-stone-900 dark:bg-white text-white dark:text-stone-900 shadow-xs'
+                    : 'bg-white dark:bg-stone-800 text-stone-600 dark:text-stone-300 border border-stone-200 dark:border-stone-700 hover:bg-stone-100'
+                }`}
+              >
+                Union Territories (8)
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* Options Grid (Mobile-friendly >=44px touch targets) */}
         <div
           role="radiogroup"
           aria-label={currentQuestion.title.en}
-          className={`grid gap-3 ${
-            isLowLiteracy || currentQuestion.options.length <= 4
+          className={`grid gap-2.5 ${
+            currentQuestion.field === 'state'
+              ? 'grid-cols-1 sm:grid-cols-2 max-h-[440px] overflow-y-auto pr-1.5'
+              : isLowLiteracy || currentQuestion.options.length <= 4
               ? 'grid-cols-1 sm:grid-cols-2'
               : 'grid-cols-1'
           }`}
         >
-          {currentQuestion.options.map((option) => {
+          {displayedOptions.length === 0 && (
+            <div className="col-span-full py-8 text-center text-sm text-stone-500 dark:text-stone-400">
+              No matching State or UT found for "{stateSearch}". Try clearing search or choose "Other State / UT".
+            </div>
+          )}
+          {displayedOptions.map((option) => {
             const isSelected = currentValue === option.value;
 
             return (

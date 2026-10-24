@@ -22,6 +22,8 @@ export interface QuestionConfig {
   options: QuestionOption[];
 }
 
+import { STATES_AND_UTS_DATA } from './statesData.ts';
+
 export const QUESTIONS: QuestionConfig[] = [
   {
     id: 'state',
@@ -32,62 +34,36 @@ export const QUESTIONS: QuestionConfig[] = [
       mr: 'आपण कोणत्या राज्यात राहता?',
     },
     helpText: {
-      en: 'Some benefits are sponsored by state governments, like Sanjay Gandhi Niradhar in Maharashtra.',
-      hi: 'कुछ योजनाएं राज्य सरकारों द्वारा चलाई जाती हैं।',
-      mr: 'काही योजना राज्य शासनातर्फे चालवल्या जातात (उदा. संजय गांधी योजना).',
+      en: 'Choose your state to discover state-sponsored benefits and citizen portal services across all 28 states & 8 UTs.',
+      hi: 'सभी 28 राज्यों व 8 केंद्र शासित प्रदेशों की राज्य-स्तरीय योजनाओं के लिए अपना राज्य चुनें।',
+      mr: 'सर्व २८ राज्ये आणि ८ केंद्रशासित प्रदेशांमधील राज्यस्तरीय योजना व पोर्टल शोधण्यासाठी आपले राज्य निवडा.',
     },
     isOptional: false,
     options: [
-      {
-        value: 'Maharashtra',
-        label: { en: 'Maharashtra', hi: 'महाराष्ट्र', mr: 'महाराष्ट्र' },
-        iconName: 'MapPin',
-        voiceKeywords: {
-          en: ['maharashtra', 'bombay', 'mumbai', 'pune', 'nagpur'],
-          hi: ['महाराष्ट्र', 'मुंबई', 'पुणे'],
-          mr: ['महाराष्ट्र', 'मुंबई', 'पुणे'],
+      ...STATES_AND_UTS_DATA.map((state) => ({
+        value: state.name,
+        label: {
+          ...state.localizedName,
+          en: state.localizedName.en || state.name,
+          hi: state.localizedName.hi || state.name,
+          mr: state.localizedName.mr || state.name,
         },
-      },
-      {
-        value: 'Uttar Pradesh',
-        label: { en: 'Uttar Pradesh', hi: 'उत्तर प्रदेश', mr: 'उत्तर प्रदेश' },
         iconName: 'MapPin',
-        voiceKeywords: {
-          en: ['uttar pradesh', 'up', 'lucknow'],
-          hi: ['उत्तर प्रदेश', 'यूपी'],
-          mr: ['उत्तर प्रदेश'],
+        description: {
+          en: `${state.type === 'union_territory' ? 'UT' : 'State'} · ${state.portal.name}`,
+          hi: `${state.type === 'union_territory' ? 'केंद्र शासित' : 'राज्य'} · ${state.portal.name}`,
+          mr: `${state.type === 'union_territory' ? 'केंद्रशासित' : 'राज्य'} · ${state.portal.name}`,
         },
-      },
-      {
-        value: 'Bihar',
-        label: { en: 'Bihar', hi: 'बिहार', mr: 'बिहार' },
-        iconName: 'MapPin',
         voiceKeywords: {
-          en: ['bihar', 'patna'],
-          hi: ['बिहार', 'पटना'],
-          mr: ['बिहार'],
+          en: [
+            state.name.toLowerCase(),
+            state.code.toLowerCase(),
+            state.capital.toLowerCase(),
+          ],
+          hi: [state.localizedName.hi?.toLowerCase() || state.name.toLowerCase()],
+          mr: [state.localizedName.mr?.toLowerCase() || state.name.toLowerCase()],
         },
-      },
-      {
-        value: 'Madhya Pradesh',
-        label: { en: 'Madhya Pradesh', hi: 'मध्य प्रदेश', mr: 'मध्य प्रदेश' },
-        iconName: 'MapPin',
-        voiceKeywords: {
-          en: ['madhya pradesh', 'mp'],
-          hi: ['मध्य प्रदेश', 'एमपी'],
-          mr: ['मध्य प्रदेश'],
-        },
-      },
-      {
-        value: 'Rajasthan',
-        label: { en: 'Rajasthan', hi: 'राजस्थान', mr: 'राजस्थान' },
-        iconName: 'MapPin',
-        voiceKeywords: {
-          en: ['rajasthan', 'jaipur'],
-          hi: ['राजस्थान'],
-          mr: ['राजस्थान'],
-        },
-      },
+      })),
       {
         value: 'Other State',
         label: { en: 'Other State / UT', hi: 'अन्य राज्य / केंद्र शासित', mr: 'इतर राज्य / केंद्रशासित प्रदेश' },

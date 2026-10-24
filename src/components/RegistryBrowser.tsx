@@ -18,9 +18,13 @@ import {
   Landmark,
   Layers,
   Sparkles,
+  MapPin,
+  Phone,
+  ChevronRight,
 } from 'lucide-react';
 import { SCHEMES } from '../data/schemes.ts';
 import { OFFICIAL_PORTALS, OfficialPortal } from '../data/officialPortals.ts';
+import { STATES_AND_UTS_DATA, StateData } from '../data/statesData.ts';
 import { Scheme, SchemeCategory, SupportedLanguage, LocalizedString } from '../lib/engine/types.ts';
 import { ExternalExitModal } from './ExternalExitModal.tsx';
 import { AiSchemeAnalysisModal } from './AiSchemeAnalysisModal.tsx';
@@ -34,10 +38,16 @@ export const RegistryBrowser: React.FC<RegistryBrowserProps> = ({
   lang,
   initialMode = 'schemes',
 }) => {
-  const [activeTab, setActiveTab] = useState<'schemes' | 'portals'>(initialMode);
+  const [activeTab, setActiveTab] = useState<'schemes' | 'states' | 'portals'>(
+    initialMode === 'portals' ? 'portals' : 'schemes'
+  );
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedLevel, setSelectedLevel] = useState<string>('all');
+  const [selectedStateFilter, setSelectedStateFilter] = useState<string>('all');
+  const [stateSearch, setStateSearch] = useState('');
+  const [stateTypeFilter, setStateTypeFilter] = useState<'all' | 'state' | 'ut'>('all');
+  const [selectedStateId, setSelectedStateId] = useState<string>(STATES_AND_UTS_DATA[0].id);
   const [portalCategory, setPortalCategory] = useState<string>('all');
   const [portalSearch, setPortalSearch] = useState('');
   const [copiedPortalId, setCopiedPortalId] = useState<string | null>(null);
@@ -108,9 +118,36 @@ export const RegistryBrowser: React.FC<RegistryBrowserProps> = ({
 
     const catMatch = selectedCategory === 'all' || scheme.category === selectedCategory;
     const levelMatch = selectedLevel === 'all' || scheme.level === selectedLevel;
+    const stateMatch =
+      selectedStateFilter === 'all'
+        ? true
+        : selectedStateFilter === 'central'
+        ? scheme.level === 'central'
+        : scheme.state?.toLowerCase() === selectedStateFilter.toLowerCase() || scheme.level === 'central';
 
-    return nameMatch && catMatch && levelMatch;
+    return nameMatch && catMatch && levelMatch && stateMatch;
   });
+
+  const filteredStates = STATES_AND_UTS_DATA.filter((state) => {
+    if (stateTypeFilter !== 'all' && state.type !== (stateTypeFilter === 'state' ? 'state' : 'union_territory')) {
+      return false;
+    }
+    if (stateSearch.trim()) {
+      const q = stateSearch.toLowerCase().trim();
+      return (
+        state.name.toLowerCase().includes(q) ||
+        state.code.toLowerCase().includes(q) ||
+        state.capital.toLowerCase().includes(q) ||
+        (state.localizedName.hi || '').toLowerCase().includes(q) ||
+        (state.localizedName.mr || '').toLowerCase().includes(q) ||
+        state.regionalLanguages.some((l) => l.toLowerCase().includes(q)) ||
+        state.portal.name.toLowerCase().includes(q)
+      );
+    }
+    return true;
+  });
+
+  const currentState = STATES_AND_UTS_DATA.find((s) => s.id === selectedStateId) || STATES_AND_UTS_DATA[0];
 
   const filteredPortals = OFFICIAL_PORTALS.filter((portal) => {
     const nameMatch =
@@ -147,8 +184,8 @@ export const RegistryBrowser: React.FC<RegistryBrowserProps> = ({
         </p>
       </div>
 
-      {/* Main Tab Toggle: Schemes vs Official Portals */}
-      <div className="flex border-b border-stone-200 dark:border-stone-800 mb-8">
+      {/* Main Tab Toggle: Schemes vs State Directory vs Apex Portals */}
+      <div className="flex flex-wrap border-b border-stone-200 dark:border-stone-800 mb-8">
         <button
           onClick={() => setActiveTab('schemes')}
           className={`flex items-center gap-2 px-6 py-3.5 font-bold text-sm border-b-2 transition-all cursor-pointer ${
@@ -162,6 +199,21 @@ export const RegistryBrowser: React.FC<RegistryBrowserProps> = ({
         </button>
 
         <button
+          onClick={() => setActiveTab('states')}
+          className={`flex items-center gap-2 px-6 py-3.5 font-bold text-sm border-b-2 transition-all cursor-pointer ${
+            activeTab === 'states'
+              ? 'border-emerald-600 text-emerald-700 dark:text-emerald-400 dark:border-emerald-400 bg-emerald-50/50 dark:bg-emerald-950/20 rounded-t-xl'
+              : 'border-transparent text-stone-500 hover:text-stone-900 dark:hover:text-white'
+          }`}
+        >
+          <MapPin className="w-4 h-4 text-emerald-600" />
+          <span>All States & UTs ({STATES_AND_UTS_DATA.length})</span>
+          <span className="ml-1 px-2 py-0.5 text-[10px] uppercase font-bold rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300">
+            28 States + 8 UTs
+          </span>
+        </button>
+
+        <button
           onClick={() => setActiveTab('portals')}
           className={`flex items-center gap-2 px-6 py-3.5 font-bold text-sm border-b-2 transition-all cursor-pointer ${
             activeTab === 'portals'
@@ -170,7 +222,7 @@ export const RegistryBrowser: React.FC<RegistryBrowserProps> = ({
           }`}
         >
           <Globe className="w-4 h-4" />
-          <span>Official Portals & Gateways ({OFFICIAL_PORTALS.length})</span>
+          <span>Apex Portals & Tenders ({OFFICIAL_PORTALS.length})</span>
           <span className="ml-1 px-2 py-0.5 text-[10px] uppercase font-bold rounded-full bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300">
             Official .gov.in
           </span>
@@ -194,8 +246,8 @@ export const RegistryBrowser: React.FC<RegistryBrowserProps> = ({
               />
             </div>
 
-            {/* Category Filter */}
-            <div className="flex gap-2">
+            {/* Category & State Filters */}
+            <div className="flex flex-wrap gap-2">
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
@@ -217,6 +269,22 @@ export const RegistryBrowser: React.FC<RegistryBrowserProps> = ({
                 <option value="all">All Levels</option>
                 <option value="central">Central Sector</option>
                 <option value="state">State Sponsored</option>
+              </select>
+
+              <select
+                value={selectedStateFilter}
+                onChange={(e) => setSelectedStateFilter(e.target.value)}
+                className="px-3 py-2.5 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-xs sm:text-sm font-medium focus:outline-hidden min-h-[44px]"
+              >
+                <option value="all">All Jurisdictions</option>
+                <option value="central">Central Sector Only</option>
+                <optgroup label="States & Union Territories (36)">
+                  {STATES_AND_UTS_DATA.map((st) => (
+                    <option key={st.id} value={st.name}>
+                      {st.name} ({st.type === 'union_territory' ? 'UT' : 'State'})
+                    </option>
+                  ))}
+                </optgroup>
               </select>
             </div>
           </div>
@@ -362,7 +430,342 @@ export const RegistryBrowser: React.FC<RegistryBrowserProps> = ({
         </div>
       )}
 
-      {/* VIEW 2: OFFICIAL GOVERNMENT PORTALS & GATEWAYS */}
+      {/* VIEW 2: ALL 28 STATES & 8 UNION TERRITORIES DIRECTORY */}
+      {activeTab === 'states' && (
+        <div className="space-y-6">
+          {/* Informational Guidance Banner */}
+          <div className="p-4 sm:p-5 rounded-2xl bg-emerald-50/80 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/60 flex items-start gap-3.5">
+            <Landmark className="w-5 h-5 text-emerald-700 dark:text-emerald-400 shrink-0 mt-0.5" />
+            <div className="text-xs sm:text-sm text-stone-700 dark:text-stone-300">
+              <p className="font-bold text-stone-900 dark:text-white mb-0.5">
+                Official Single-Window Gateways Across All 28 States & 8 Union Territories
+              </p>
+              <p className="leading-relaxed">
+                Every state and UT in India operates authorized single-window e-District and Direct Benefit Transfer (DBT) portals. Explore official .gov.in single-window portals, required civil and revenue documents (e.g., 7/12, Khatauni, Patta/Chitta, RoR, Domicile), key citizen services, and flagship state welfare schemes below.
+              </p>
+            </div>
+          </div>
+
+          {/* Search and Category Filter */}
+          <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between bg-white dark:bg-stone-900 p-4 rounded-2xl border border-stone-200 dark:border-stone-800 shadow-2xs">
+            <div className="relative flex-1">
+              <Search className="w-4 h-4 absolute left-3.5 top-3.5 text-stone-400" />
+              <input
+                type="text"
+                value={stateSearch}
+                onChange={(e) => setStateSearch(e.target.value)}
+                placeholder="Search state, capital, portal, or regional language (e.g. Karnataka, Delhi, Telugu, UP)..."
+                className="w-full pl-10 pr-4 py-2 bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-emerald-500 min-h-[42px]"
+              />
+            </div>
+            <div className="flex items-center gap-1.5 shrink-0">
+              <button
+                type="button"
+                onClick={() => setStateTypeFilter('all')}
+                className={`px-3 py-2 rounded-xl text-xs font-bold transition-all min-h-[42px] cursor-pointer ${
+                  stateTypeFilter === 'all'
+                    ? 'bg-stone-900 dark:bg-white text-white dark:text-stone-900 shadow-xs'
+                    : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
+                }`}
+              >
+                All (36)
+              </button>
+              <button
+                type="button"
+                onClick={() => setStateTypeFilter('state')}
+                className={`px-3 py-2 rounded-xl text-xs font-bold transition-all min-h-[42px] cursor-pointer ${
+                  stateTypeFilter === 'state'
+                    ? 'bg-stone-900 dark:bg-white text-white dark:text-stone-900 shadow-xs'
+                    : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
+                }`}
+              >
+                States (28)
+              </button>
+              <button
+                type="button"
+                onClick={() => setStateTypeFilter('ut')}
+                className={`px-3 py-2 rounded-xl text-xs font-bold transition-all min-h-[42px] cursor-pointer ${
+                  stateTypeFilter === 'ut'
+                    ? 'bg-stone-900 dark:bg-white text-white dark:text-stone-900 shadow-xs'
+                    : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
+                }`}
+              >
+                Union Territories (8)
+              </button>
+            </div>
+          </div>
+
+          {/* Master-Detail Explorer */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            {/* Left Column: Quick State Selector List */}
+            <div className="lg:col-span-4 bg-white dark:bg-stone-900 rounded-3xl p-4 border border-stone-200 dark:border-stone-800 shadow-xs max-h-[760px] overflow-y-auto space-y-2">
+              <div className="text-xs font-bold uppercase tracking-wider text-stone-500 px-2 py-1">
+                Select State or UT ({filteredStates.length})
+              </div>
+              {filteredStates.map((st) => {
+                const isSelected = selectedStateId === st.id;
+                return (
+                  <button
+                    key={st.id}
+                    onClick={() => setSelectedStateId(st.id)}
+                    className={`w-full text-left p-3 rounded-2xl border transition-all flex items-center justify-between gap-3 cursor-pointer ${
+                      isSelected
+                        ? 'border-emerald-600 bg-emerald-50/70 dark:bg-emerald-950/40 dark:border-emerald-500 shadow-2xs'
+                        : 'border-stone-100 dark:border-stone-800/80 hover:border-stone-300 dark:hover:border-stone-700 hover:bg-stone-50 dark:hover:bg-stone-800/40'
+                    }`}
+                  >
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-sm text-stone-900 dark:text-white truncate">
+                          {st.name}
+                        </span>
+                        <span
+                          className={`text-[10px] font-bold px-1.5 py-0.5 rounded-md ${
+                            st.type === 'union_territory'
+                              ? 'bg-purple-100 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300'
+                              : 'bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300'
+                          }`}
+                        >
+                          {st.code}
+                        </span>
+                      </div>
+                      <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5 truncate">
+                        {st.localizedName[lang] || st.localizedName.hi || st.name} · {st.capital}
+                      </div>
+                    </div>
+                    <ChevronRight
+                      className={`w-4 h-4 shrink-0 transition-transform ${
+                        isSelected ? 'text-emerald-600 translate-x-0.5' : 'text-stone-400'
+                      }`}
+                    />
+                  </button>
+                );
+              })}
+              {filteredStates.length === 0 && (
+                <div className="p-6 text-center text-xs text-stone-500">
+                  No states found matching "{stateSearch}".
+                </div>
+              )}
+            </div>
+
+            {/* Right Column: Active State Comprehensive Profile */}
+            <div className="lg:col-span-8">
+              {currentState && (
+                <div className="bg-white dark:bg-stone-900 rounded-3xl p-6 sm:p-8 border border-stone-200 dark:border-stone-800 shadow-xs space-y-6">
+                  {/* State Header Banner */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-stone-200 dark:border-stone-800">
+                    <div>
+                      <div className="flex items-center gap-2.5 mb-1.5">
+                        <span className="px-2.5 py-1 text-xs font-extrabold rounded-lg uppercase tracking-wider bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300">
+                          {currentState.type === 'union_territory' ? 'Union Territory' : 'State of India'}
+                        </span>
+                        <span className="px-2 py-0.5 text-xs font-mono font-bold rounded-md bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300">
+                          ISO: {currentState.code}
+                        </span>
+                      </div>
+                      <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 dark:text-white">
+                        {currentState.name}
+                      </h2>
+                      <p className="text-sm text-stone-500 dark:text-stone-400 mt-0.5">
+                        {currentState.localizedName[lang] || currentState.localizedName.hi} · Capital:{' '}
+                        <span className="font-semibold text-stone-700 dark:text-stone-300">
+                          {currentState.capital}
+                        </span>{' '}
+                        · Languages: {currentState.regionalLanguages.join(', ')}
+                      </p>
+                    </div>
+
+                    {currentState.helpline && (
+                      <div className="flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200/80 dark:border-amber-800/60 text-xs font-bold text-amber-900 dark:text-amber-200 shrink-0">
+                        <Phone className="w-4 h-4 text-amber-600 shrink-0" />
+                        <span>Citizen Helpline: {currentState.helpline}</span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Section 1: Official State Single-Window Portal */}
+                  <div className="p-5 rounded-2xl bg-stone-50 dark:bg-stone-800/60 border border-stone-200/80 dark:border-stone-700/60 space-y-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                      <div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300">
+                            {currentState.portal.badge}
+                          </span>
+                          <span className="text-xs font-mono text-stone-500">Official .gov.in</span>
+                        </div>
+                        <h3 className="text-lg font-bold text-stone-900 dark:text-white">
+                          {currentState.portal.name}
+                        </h3>
+                        <p className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">
+                          {currentState.portal.department}
+                        </p>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => {
+                            navigator.clipboard.writeText(currentState.portal.url);
+                            setCopiedPortalId(currentState.id);
+                            setTimeout(() => setCopiedPortalId(null), 2500);
+                          }}
+                          className="px-3 py-2 bg-white dark:bg-stone-800 hover:bg-stone-100 dark:hover:bg-stone-700 border border-stone-200 dark:border-stone-700 text-stone-700 dark:text-stone-300 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors min-h-[38px] cursor-pointer"
+                        >
+                          {copiedPortalId === currentState.id ? (
+                            <Check className="w-3.5 h-3.5 text-emerald-600" />
+                          ) : (
+                            <Copy className="w-3.5 h-3.5" />
+                          )}
+                          <span>{copiedPortalId === currentState.id ? 'Copied' : 'Copy'}</span>
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            setExitUrl(currentState.portal.url);
+                            setExitName(currentState.portal.name);
+                          }}
+                          className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-2xs transition-colors min-h-[38px] cursor-pointer"
+                        >
+                          <span>Open State Portal</span>
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+
+                    <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
+                      {currentState.portal.description[lang] || currentState.portal.description.en}
+                    </p>
+
+                    {/* Key Services Offered */}
+                    <div>
+                      <div className="text-[11px] font-bold uppercase tracking-wider text-stone-700 dark:text-stone-300 mb-2">
+                        Key Digital Services on this Portal:
+                      </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        {currentState.portal.keyServices.map((srv, sIdx) => (
+                          <span
+                            key={sIdx}
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-xs font-medium text-stone-800 dark:text-stone-200"
+                          >
+                            <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                            <span>{srv[lang] || srv.en}</span>
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Section 2: Required State Civil & Revenue Documents */}
+                  <div>
+                    <h3 className="text-sm font-bold text-stone-900 dark:text-white uppercase tracking-wider mb-3 flex items-center gap-2">
+                      <FileText className="w-4 h-4 text-emerald-600" />
+                      <span>Required State Revenue & Civil Documents ({currentState.keyDocuments.length})</span>
+                    </h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {currentState.keyDocuments.map((doc, dIdx) => (
+                        <div
+                          key={dIdx}
+                          className="p-3.5 rounded-2xl bg-stone-50/80 dark:bg-stone-800/40 border border-stone-200 dark:border-stone-800 flex flex-col justify-between"
+                        >
+                          <div>
+                            <div className="flex items-center justify-between gap-2 mb-1">
+                              <span className="font-bold text-xs text-stone-900 dark:text-white">
+                                {doc.name[lang] || doc.name.en}
+                              </span>
+                              <span
+                                className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                                  doc.mandatory
+                                    ? 'bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300'
+                                    : 'bg-stone-200 dark:bg-stone-700 text-stone-700 dark:text-stone-300'
+                                }`}
+                              >
+                                {doc.mandatory ? 'Mandatory' : 'Conditional'}
+                              </span>
+                            </div>
+                            <p className="text-xs text-stone-500 dark:text-stone-400 leading-normal">
+                              {doc.purpose[lang] || doc.purpose.en}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Section 3: Flagship Welfare Schemes */}
+                  <div>
+                    <div className="flex items-center justify-between gap-3 mb-3">
+                      <h3 className="text-sm font-bold text-stone-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-amber-500" />
+                        <span>Flagship State Welfare Schemes ({currentState.flagshipSchemes.length})</span>
+                      </h3>
+
+                      <button
+                        onClick={() => {
+                          setSelectedStateFilter(currentState.name);
+                          setActiveTab('schemes');
+                        }}
+                        className="text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1 cursor-pointer"
+                      >
+                        <span>Filter Schemes by {currentState.name}</span>
+                        <ChevronRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+
+                    <div className="space-y-3">
+                      {currentState.flagshipSchemes.map((sch) => (
+                        <div
+                          key={sch.id}
+                          className="p-4 rounded-2xl bg-white dark:bg-stone-800/70 border border-stone-200 dark:border-stone-700/80 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-emerald-500/50 transition-colors"
+                        >
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-2">
+                              <span className="font-mono text-xs font-bold text-stone-500">
+                                {sch.code}
+                              </span>
+                              <span className="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wide bg-stone-100 dark:bg-stone-700 text-stone-700 dark:text-stone-300">
+                                {sch.category}
+                              </span>
+                            </div>
+                            <h4 className="font-bold text-sm text-stone-900 dark:text-white">
+                              {sch.name[lang] || sch.name.en}
+                            </h4>
+                            <p className="text-xs text-stone-500 dark:text-stone-400">
+                              {sch.summary[lang] || sch.summary.en}
+                            </p>
+                            <div className="text-xs font-semibold text-stone-700 dark:text-stone-300 pt-1">
+                              Target:{' '}
+                              <span className="text-stone-500">
+                                {sch.targetGroup[lang] || sch.targetGroup.en}
+                              </span>
+                            </div>
+                          </div>
+
+                          <div className="flex sm:flex-col items-center sm:items-end justify-between gap-2 shrink-0">
+                            <span className="px-3 py-1.5 rounded-xl text-xs font-extrabold bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 whitespace-nowrap">
+                              {sch.benefit}
+                            </span>
+                            <button
+                              onClick={() => {
+                                setExitUrl(sch.officialUrl);
+                                setExitName(sch.name.en);
+                              }}
+                              className="px-3 py-1.5 rounded-lg text-xs font-bold text-stone-700 dark:text-stone-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-stone-100 dark:hover:bg-stone-700/60 transition-colors flex items-center gap-1 cursor-pointer"
+                            >
+                              <span>Apply</span>
+                              <ExternalLink className="w-3 h-3" />
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* VIEW 3: OFFICIAL GOVERNMENT PORTALS & GATEWAYS */}
       {activeTab === 'portals' && (
         <div>
           {/* Informational Guidance Banner */}

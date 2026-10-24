@@ -8,6 +8,7 @@ import dotenv from 'dotenv';
 import { GoogleGenAI } from '@google/genai';
 import { SCHEMES } from './data/schemes.ts';
 import { OFFICIAL_PORTALS } from './data/officialPortals.ts';
+import { STATES_AND_UTS_DATA } from './data/statesData.ts';
 
 dotenv.config();
 
@@ -74,6 +75,60 @@ export function createServerApp() {
         disclaimer: 'Authoritative Official Government Portals directory (.gov.in).',
       },
       data: results,
+    });
+  });
+
+  // 1c. GET /states - All 28 States and 8 Union Territories Directory API
+  api.get('/states', (req: Request, res: Response) => {
+    const { type, search } = req.query;
+    let results = STATES_AND_UTS_DATA;
+
+    if (typeof type === 'string' && type) {
+      results = results.filter((s) => s.type === type);
+    }
+
+    if (typeof search === 'string' && search) {
+      const q = search.toLowerCase();
+      results = results.filter((s) =>
+        s.name.toLowerCase().includes(q) ||
+        s.code.toLowerCase().includes(q) ||
+        s.capital.toLowerCase().includes(q)
+      );
+    }
+
+    res.json({
+      meta: {
+        total: results.length,
+        disclaimer: 'Authoritative State & Union Territory Portal Directory (.gov.in)',
+        standards: 'Interoperable State Welfare Data v1.0',
+      },
+      data: results,
+    });
+  });
+
+  // 1d. GET /states/:id - Single State/UT endpoint
+  api.get('/states/:id', (req: Request, res: Response) => {
+    const state = STATES_AND_UTS_DATA.find(
+      (s) =>
+        s.id.toLowerCase() === req.params.id.toLowerCase() ||
+        s.code.toLowerCase() === req.params.id.toLowerCase() ||
+        s.name.toLowerCase() === req.params.id.toLowerCase()
+    );
+
+    if (!state) {
+      res.status(404).json({
+        error: 'State or UT not found',
+        message: `No State or Union Territory found for identifier: ${req.params.id}`,
+      });
+      return;
+    }
+
+    res.json({
+      meta: {
+        disclaimer: 'Official State/UT single-window portal and citizen services info',
+        official_url: state.portal.url,
+      },
+      data: state,
     });
   });
 

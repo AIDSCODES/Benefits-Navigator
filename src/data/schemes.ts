@@ -2761,6 +2761,1323 @@ export const SCHEMES: Scheme[] = [
       },
     ],
   },
+
+  // ==========================================
+  // STATE FLAGSHIP WELFARE SCHEMES (PAN-INDIA)
+  // ==========================================
+
+  // 1. Karnataka: Gruha Lakshmi Scheme
+  {
+    id: 'ka-gruha-lakshmi',
+    code: 'KA-GLS',
+    name: {
+      en: 'Gruha Lakshmi Scheme (Karnataka)',
+      hi: 'गृह लक्ष्मी योजना (कर्नाटक)',
+      mr: 'गृह लक्ष्मी योजना (कर्नाटक)',
+    },
+    short_summary: {
+      en: 'Direct monthly financial assistance of ₹2,000 to woman head of family.',
+      hi: 'परिवार की महिला मुखिया को ₹2,000 प्रतिमाह प्रत्यक्ष वित्तीय सहायता।',
+      mr: 'कुटुंबातील महिला प्रमुखाला दरमहा ₹२,००० थेट बँक खात्यात आर्थिक मदत.',
+    },
+    description: {
+      en: 'A flagship Karnataka guarantee providing monthly cash support of ₹2,000 via Aadhaar-enabled DBT to female heads of household possessing an Antyodaya, BPL, or APL ration card.',
+      hi: 'कर्नाटक सरकार द्वारा बीपीएल/अंत्योदय राशन कार्ड धारक परिवारों की महिला मुखिया को ₹2,000 प्रति माह की आर्थिक सहायता।',
+      mr: 'कर्नाटक शासनाची अंत्योदय व बीपीएल शिधापत्रिकाधारक कुटुंबातील महिला प्रमुखांना ₹२,००० प्रतिमहिना डीबीटी सहाय्य देणारी योजना.',
+    },
+    level: 'state',
+    state: 'Karnataka',
+    category: 'women_child',
+    official_url: 'https://sevasindhu.karnataka.gov.in',
+    application_mode: 'both',
+    source_citation: 'Department of Women & Child Development, Government of Karnataka (sevasindhu.karnataka.gov.in)',
+    last_verified: '2026-09-15',
+    version: '2026.1',
+    is_verified_fact: true,
+    benefit_type: {
+      en: '₹2,000 / month DBT cash transfer',
+      hi: '₹2,000 / माह डीबीटी नकद अंतरण',
+      mr: '₹२,००० / महिना डीबीटी बँक खात्यात',
+    },
+    criteria: [
+      {
+        id: 'kagl_gen',
+        field: 'gender',
+        operator: 'eq',
+        value: 'female',
+        required: true,
+        verified: true,
+        explanation: {
+          en: 'Beneficiary must be a female head of family recognized on the ration card',
+          hi: 'राशन कार्ड पर दर्ज परिवार की महिला मुखिया पात्र हैं',
+          mr: 'शिधापत्रिकेवर महिला कुटुंबप्रमुख असणे आवश्यक आहे',
+        },
+      },
+      {
+        id: 'kagl_inc',
+        field: 'incomeBand',
+        operator: 'in',
+        value: ['below_1lakh', '1lakh_2_5lakh'],
+        required: true,
+        verified: true,
+        explanation: {
+          en: 'Beneficiary or spouse must not be income tax or GST payers',
+          hi: 'आवेदक अथवा पति आयकरदाता या जीएसटी पंजीकृत नहीं होने चाहिए',
+          mr: 'अर्जदार महिला किंवा पती आयकरदाता अथवा जीएसटी करदाता नसावेत',
+        },
+      },
+    ],
+    documents: [
+      {
+        id: 'kagl_doc_rc',
+        name: {
+          en: 'Karnataka Ration Card (BPL / Antyodaya / APL with woman as head)',
+          hi: 'कर्नाटक राशन कार्ड (महिला मुखिया के नाम दर्ज)',
+          mr: 'कर्नाटक रेशन कार्ड (महिला प्रमुख नोंद असलेले)',
+        },
+        mandatory: true,
+      },
+      {
+        id: 'kagl_doc_aadhaar',
+        name: {
+          en: 'Aadhaar Card linked to Bank Account (NPCI Active)',
+          hi: 'आधार कार्ड (बैंक खाते व एनपीसीआई से जुड़ा हुआ)',
+          mr: 'आधार कार्ड (बँक खात्याशी संलग्न व एनपीसीआय मॅपिंगसह)',
+        },
+        mandatory: true,
+      },
+    ],
+    steps: [
+      {
+        step_number: 1,
+        title: {
+          en: 'Visit Seva Sindhu or Grama One / Karnataka One Center',
+          hi: 'सेवा सिंधु पोर्टल या ग्राम वन / कर्नाटक वन केंद्र पर जाएं',
+          mr: 'सेवा सिंधू पोर्टल किंवा ग्राम वन केंद्रावर जा',
+        },
+        instruction: {
+          en: 'Apply online through Seva Sindhu portal or visit nearest Grama One/Bapuji Seva Kendra with Ration card and Aadhaar.',
+          hi: 'राशन कार्ड और आधार कार्ड लेकर नजदीकी ग्राम वन केंद्र पर जाएं या ऑनलाइन आवेदन करें।',
+          mr: 'राशन कार्ड व आधार कार्ड घेऊन जवळच्या ग्राम वन केंद्रावर जाऊन अर्ज सादर करा.',
+        },
+        location_type: 'online',
+      },
+      {
+        step_number: 2,
+        title: {
+          en: 'Verify Aadhaar Biometric / OTP & Bank Linkage',
+          hi: 'आधार बायोमेट्रिक/ओटीपी सत्यापन और बैंक लिंकेज करें',
+          mr: 'आधार बायोमेट्रिक/ओटीपी पडताळणी व बँक खाते जोडणी करा',
+        },
+        instruction: {
+          en: 'Complete e-KYC and ensure active Aadhaar seeding with the bank account for smooth direct benefit transfer.',
+          hi: 'ई-केवाईसी पूर्ण करें और खाते में आधार डीबीटी सक्रिय होना सुनिश्चित करें।',
+          mr: 'ई-केवायसी पूर्ण करा आणि थेट खात्यात रक्कम येण्यासाठी आधार सीडिंग खात्री करा.',
+        },
+        location_type: 'csc_kendra',
+      },
+    ],
+  },
+
+  // 2. Karnataka: Yuva Nidhi Scheme
+  {
+    id: 'ka-yuva-nidhi',
+    code: 'KA-YNS',
+    name: {
+      en: 'Yuva Nidhi Scheme (Karnataka)',
+      hi: 'युवा निधि योजना (कर्नाटक)',
+      mr: 'युवा निधी योजना (कर्नाटक)',
+    },
+    short_summary: {
+      en: 'Monthly unemployment allowance of ₹3,000 for graduates and ₹1,500 for diploma holders for up to 2 years.',
+      hi: 'बेरोजगार स्नातकों को ₹3,000 और डिप्लोमा धारकों को ₹1,500 प्रति माह बेरोजगारी भत्ता।',
+      mr: 'बेरोजगार पदवीधरांना दरमहा ₹३,००० व पदविका धारकांना ₹१,५०० भत्ता (२ वर्षांसाठी).',
+    },
+    description: {
+      en: 'Unemployment financial cushion by Karnataka Government for youth who completed their degree/diploma and remain unemployed after 6 months of course completion.',
+      hi: 'कर्नाटक के डिग्री एवं डिप्लोमा उत्तीर्ण युवाओं के लिए बेरोजगारी सहायता योजना।',
+      mr: 'कर्नाटकातील पदवीधर व डिप्लोमा उत्तीर्ण बेरोजगार तरुणांसाठी आर्थिक सहाय्य योजना.',
+    },
+    level: 'state',
+    state: 'Karnataka',
+    category: 'livelihood',
+    official_url: 'https://sevasindhuservices.karnataka.gov.in',
+    application_mode: 'online',
+    source_citation: 'Department of Skill Development & Livelihood, Karnataka (sevasindhu.karnataka.gov.in)',
+    last_verified: '2026-09-15',
+    version: '2026.1',
+    is_verified_fact: true,
+    benefit_type: {
+      en: '₹3,000/mo (Degree) / ₹1,500/mo (Diploma)',
+      hi: '₹3,000/माह (डिग्री) / ₹1,500/माह (डिप्लोमा)',
+      mr: '₹३,०००/महिना (पदवी) / ₹१,५००/महिना (डिप्लोमा)',
+    },
+    criteria: [
+      {
+        id: 'kayn_age',
+        field: 'ageBand',
+        operator: 'in',
+        value: ['18_35'],
+        required: true,
+        verified: true,
+        explanation: {
+          en: 'Applicable to youth aged 18 to 35 who passed out within eligible academic years',
+          hi: '18 से 35 वर्ष के डिग्री/डिप्लोमा उत्तीर्ण युवा पात्र हैं',
+          mr: '१८ ते ३५ वर्षे वयोगटातील पदवीधर किंवा डिप्लोमाधारक तरुण पात्र आहेत',
+        },
+      },
+      {
+        id: 'kayn_occ',
+        field: 'occupation',
+        operator: 'in',
+        value: ['unemployed', 'student'],
+        required: true,
+        verified: true,
+        explanation: {
+          en: 'Applicant must not be employed in government or formal private sector',
+          hi: 'आवेदक सरकारी या औपचारिक निजी नौकरी में कार्यरत नहीं होना चाहिए',
+          mr: 'अर्जदार शासकीय अथवा औपचारिक खाजगी सेवेत नोकरीवर नसावा',
+        },
+      },
+    ],
+    documents: [
+      {
+        id: 'kayn_doc_degree',
+        name: {
+          en: 'Degree or Diploma Marks Card / Convocation Certificate',
+          hi: 'डिग्री या डिप्लोमा अंकपत्र / उपाधि प्रमाण पत्र',
+          mr: 'पदवी किंवा डिप्लोमा गुणपत्रिका / प्रमाणपत्र',
+        },
+        mandatory: true,
+      },
+      {
+        id: 'kayn_doc_domicile',
+        name: {
+          en: 'Karnataka Domicile Certificate / Resident proof (studied 6+ years in KA)',
+          hi: 'कर्नाटक निवास प्रमाण पत्र',
+          mr: 'कर्नाटक अधिवास दाखला (किमान ६ वर्षे शिक्षण)',
+        },
+        mandatory: true,
+      },
+    ],
+    steps: [
+      {
+        step_number: 1,
+        title: {
+          en: 'Register on Seva Sindhu Yuva Nidhi Portal',
+          hi: 'सेवा सिंधु युवा निधि पोर्टल पर पंजीकरण करें',
+          mr: 'सेवा सिंधू युवा निधी पोर्टलवर नोंदणी करा',
+        },
+        instruction: {
+          en: 'Authenticate with Aadhaar and enter university degree registration number to fetch credentials from National Academic Depository (NAD).',
+          hi: 'आधार प्रमाणीकरण करें और एनएडी डेटाबेस से सत्यापन हेतु डिग्री रोल नंबर दर्ज करें।',
+          mr: 'आधार ऑथेंटिकेशन करून पदवी नोंदणी क्रमांक टाका आणि ई-पडताळणी करा.',
+        },
+        location_type: 'online',
+      },
+    ],
+  },
+
+  // 3. West Bengal: Lakshmir Bhandar Scheme
+  {
+    id: 'wb-lakshmir-bhandar',
+    code: 'WB-LBS',
+    name: {
+      en: "Lakshmir Bhandar Scheme (West Bengal)",
+      hi: 'लक्ष्मी भंडार योजना (पश्चिम बंगाल)',
+      mr: 'लक्ष्मी भंडार योजना (पश्चिम बंगाल)',
+    },
+    short_summary: {
+      en: 'Direct monthly financial support of ₹1,000 for general and ₹1,200 for SC/ST women aged 25-60.',
+      hi: '25-60 वर्ष की सामान्य वर्ग की महिलाओं को ₹1,000 एवं अनुसूचित जाति/जनजाति को ₹1,200 प्रतिमाह।',
+      mr: '२५-६० वयोगटातील सामान्य महिलांना दरमहा ₹१,००० व एससी/एसटी महिलांना ₹१,२०० थेट मदत.',
+    },
+    description: {
+      en: "West Bengal government's landmark universal basic income guarantee providing regular monthly DBT cash support into bank accounts of female heads of household across the state.",
+      hi: 'पश्चिम बंगाल सरकार द्वारा महिलाओं के आर्थिक सशक्तिकरण हेतु मासिक आर्थिक सहायता योजना।',
+      mr: 'पश्चिम बंगाल शासनाची महिलांना दरमहा बँक खात्यात थेट अनुदान देणारी कल्याणकारी योजना.',
+    },
+    level: 'state',
+    state: 'West Bengal',
+    category: 'women_child',
+    official_url: 'https://socialsecurity.wb.gov.in',
+    application_mode: 'both',
+    source_citation: 'Department of Women & Child Development and Social Welfare, West Bengal (socialsecurity.wb.gov.in)',
+    last_verified: '2026-09-15',
+    version: '2026.1',
+    is_verified_fact: true,
+    benefit_type: {
+      en: '₹1,000 - ₹1,200 / month DBT cash',
+      hi: '₹1,000 - ₹1,200 / माह डीबीटी नकद',
+      mr: '₹१,००० - ₹१,२०० / महिना बँक खात्यात',
+    },
+    criteria: [
+      {
+        id: 'wblb_gen',
+        field: 'gender',
+        operator: 'eq',
+        value: 'female',
+        required: true,
+        verified: true,
+        explanation: {
+          en: 'Beneficiary must be a female resident of West Bengal',
+          hi: 'आवेदक पश्चिम बंगाल की महिला निवासी होनी चाहिए',
+          mr: 'अर्जदार पश्चिम बंगालमधील महिला रहिवासी असणे आवश्यक आहे',
+        },
+      },
+      {
+        id: 'wblb_age',
+        field: 'ageBand',
+        operator: 'in',
+        value: ['18_35', '36_50', '51_59'],
+        required: true,
+        verified: true,
+        explanation: {
+          en: 'Women between 25 and 60 years of age qualify for the scheme',
+          hi: '25 से 60 वर्ष की आयु की महिलाएं इस योजना के लिए पात्र हैं',
+          mr: '२५ ते ६० वर्षे वयोगटातील महिला या योजनेसाठी पात्र आहेत',
+        },
+      },
+    ],
+    documents: [
+      {
+        id: 'wblb_doc_swasthya',
+        name: {
+          en: 'Swasthya Sathi Card / Health Card',
+          hi: 'स्वास्थ्य साथी कार्ड',
+          mr: 'स्वास्थ्य साथी आरोग्य कार्ड',
+        },
+        mandatory: true,
+      },
+      {
+        id: 'wblb_doc_bank',
+        name: {
+          en: 'Aadhaar-seeded Single Bank Account Passbook',
+          hi: 'आधार-लिंक्ड बैंक खाता पासबुक',
+          mr: 'आधार जोडलेले वैयक्तिक बँक पासबुक',
+        },
+        mandatory: true,
+      },
+    ],
+    steps: [
+      {
+        step_number: 1,
+        title: {
+          en: 'Apply at Duare Sarkar Camp or BDO / Municipality Office',
+          hi: 'दुआरे सरकार कैंप या बीडीओ/नगरपालिका कार्यालय में आवेदन करें',
+          mr: 'द्वारे सरकार शिबिर किंवा बीडीओ कार्यालयात अर्ज करा',
+        },
+        instruction: {
+          en: 'Collect and submit free Lakshmir Bhandar application form at Duare Sarkar camp along with Swasthya Sathi and Aadhaar copies.',
+          hi: 'दुआरे सरकार शिविर में निःशुल्क फॉर्म भरकर स्वास्थ्य साथी और आधार की प्रति संलग्न करें।',
+          mr: 'द्वारे सरकार शिबिरात मोफत फॉर्म भरून स्वास्थ्य साथी व आधार कार्डासह सादर करा.',
+        },
+        location_type: 'tehsil_office',
+      },
+    ],
+  },
+
+  // 4. West Bengal: Krishak Bandhu Scheme
+  {
+    id: 'wb-krishak-bandhu',
+    code: 'WB-KBS',
+    name: {
+      en: 'Krishak Bandhu Scheme (West Bengal)',
+      hi: 'कृषक बंधु योजना (पश्चिम बंगाल)',
+      mr: 'कृषक बंधू योजना (पश्चिम बंगाल)',
+    },
+    short_summary: {
+      en: 'Up to ₹10,000 per year financial grant for farmers + ₹2 Lakh death insurance for farmer families.',
+      hi: 'किसानों को प्रति वर्ष ₹10,000 तक वित्तीय सहायता एवं ₹2 लाख का किसान मृत्यु बीमा।',
+      mr: 'शेतकऱ्यांना दरवर्षी ₹१०,००० पर्यंत अनुदान व ₹२ लाख शेतकरी मृत्यू विमा.',
+    },
+    description: {
+      en: 'Flagship agriculture welfare scheme by West Bengal providing ₹10,000/year (minimum ₹4,000/year) in two crop seasons (Kharif and Rabi) along with ₹2,00,000 death compensation for farmers aged 18-60.',
+      hi: 'पश्चिम बंगाल के किसानों को खरीफ और रबी फसलों के लिए प्रति वर्ष दो किस्तों में आर्थिक अनुदान।',
+      mr: 'पश्चिम बंगाल शासनाची खरीप व रब्बी हंगामात शेतकऱ्यांना आर्थिक सहाय्य व जीवन विमा देणारी योजना.',
+    },
+    level: 'state',
+    state: 'West Bengal',
+    category: 'agriculture',
+    official_url: 'https://krishakbandhu.wb.gov.in',
+    application_mode: 'both',
+    source_citation: 'Department of Agriculture, Government of West Bengal (krishakbandhu.wb.gov.in)',
+    last_verified: '2026-09-15',
+    version: '2026.1',
+    is_verified_fact: true,
+    benefit_type: {
+      en: '₹10,000 / year + ₹2 Lakh insurance',
+      hi: '₹10,000 / वर्ष + ₹2 लाख बीमा',
+      mr: '₹१०,००० / वर्ष + ₹२ लाख विमा',
+    },
+    criteria: [
+      {
+        id: 'wbkb_occ',
+        field: 'occupation',
+        operator: 'eq',
+        value: 'farmer',
+        required: true,
+        verified: true,
+        explanation: {
+          en: 'Beneficiary must be a farmer owning agricultural land or recorded bhagchasi (sharecropper)',
+          hi: 'आवेदक के पास पश्चिम बंगाल में कृषि भूमि या दर्ज बटाईदार (भागचाषी) होना चाहिए',
+          mr: 'अर्जदाराकडे पश्चिम बंगालमध्ये शेतजमीन किंवा नोंदणीकृत कूळ (बटाईदार) असणे आवश्यक आहे',
+        },
+      },
+    ],
+    documents: [
+      {
+        id: 'wbkb_doc_ror',
+        name: {
+          en: 'RoR (Record of Rights / Porcha / Khatian) of Cultivable Land',
+          hi: 'खतियान / पर्चा (भूमि अधिकार अभिलेख)',
+          mr: 'शेतजमिनीचा अधिकार अभिलेख (खतियान / पर्चा)',
+        },
+        mandatory: true,
+      },
+      {
+        id: 'wbkb_doc_bank',
+        name: {
+          en: 'Aadhaar Card and Bank Passbook with IFSC',
+          hi: 'आधार कार्ड एवं बैंक पासबुक',
+          mr: 'आधार कार्ड व बँक पासबुक',
+        },
+        mandatory: true,
+      },
+    ],
+    steps: [
+      {
+        step_number: 1,
+        title: {
+          en: 'Submit Application at Assistant Director of Agriculture (ADA) Office',
+          hi: 'सहायक कृषि निदेशक (ADA) कार्यालय में आवेदन जमा करें',
+          mr: 'सहायक कृषी संचालक कार्यालयात अर्ज सादर करा',
+        },
+        instruction: {
+          en: 'Submit hardcopy application with self-attested land Porcha and Aadhaar to the block ADA office or at Duare Sarkar camp.',
+          hi: 'जमीन के पर्चा और आधार के साथ ब्लॉक कृषि कार्यालय में आवेदन जमा करें।',
+          mr: 'जमिनीच्या पर्चासह गट कृषी कार्यालयात किंवा द्वारे सरकार शिबिरात अर्ज द्या.',
+        },
+        location_type: 'tehsil_office',
+      },
+    ],
+  },
+
+  // 5. Uttar Pradesh: Mukhyamantri Kanya Sumangala Yojana
+  {
+    id: 'up-kanya-sumangala',
+    code: 'UP-MKSY',
+    name: {
+      en: 'Mukhyamantri Kanya Sumangala Yojana (Uttar Pradesh)',
+      hi: 'मुख्यमंत्री कन्या सुमंगला योजना (उत्तर प्रदेश)',
+      mr: 'मुख्यमंत्री कन्या सुमंगला योजना (उत्तर प्रदेश)',
+    },
+    short_summary: {
+      en: 'Financial grant of ₹25,000 in 6 stages from birth to college graduation for girl children.',
+      hi: 'बालिकाओं के जन्म से स्नातक प्रवेश तक 6 चरणों में ₹25,000 की वित्तीय सहायता।',
+      mr: 'मुलींच्या जन्मापासून ते पदवी प्रवेशापर्यंत ६ टप्प्यांत ₹२५,००० ची आर्थिक मदत.',
+    },
+    description: {
+      en: 'Flagship UP initiative providing conditional cash transfers totaling ₹25,000 across key milestones (birth, complete vaccination, class 1, class 6, class 9, and degree/diploma entry) to eliminate female foeticide and promote girls education.',
+      hi: 'उत्तर प्रदेश सरकार द्वारा बालिकाओं के स्वास्थ्य, शिक्षा और स्वावलंबन हेतु 6 चरणों में दी जाने वाली वित्तीय सहायता।',
+      mr: 'उत्तर प्रदेश शासनाची मुलींच्या शिक्षण व आरोग्यासाठी ६ टप्प्यांत ₹२५,००० अनुदान देणारी योजना.',
+    },
+    level: 'state',
+    state: 'Uttar Pradesh',
+    category: 'education',
+    official_url: 'https://mksy.up.gov.in',
+    application_mode: 'online',
+    source_citation: 'Department of Women & Child Development, Uttar Pradesh (mksy.up.gov.in)',
+    last_verified: '2026-09-15',
+    version: '2026.1',
+    is_verified_fact: true,
+    benefit_type: {
+      en: '₹25,000 total staged grant',
+      hi: '₹25,000 कुल चरणबद्ध अनुदान',
+      mr: '₹२५,००० एकूण टप्प्याटप्प्याने अनुदान',
+    },
+    criteria: [
+      {
+        id: 'upks_inc',
+        field: 'incomeBand',
+        operator: 'in',
+        value: ['below_1lakh', '1lakh_2_5lakh'],
+        required: true,
+        verified: true,
+        explanation: {
+          en: 'Family annual income must not exceed ₹3 Lakh',
+          hi: 'परिवार की वार्षिक आय ₹3 लाख से कम होनी चाहिए',
+          mr: 'कुटुंबाचे वार्षिक उत्पन्न ₹३ लाखांपेक्षा कमी असणे आवश्यक आहे',
+        },
+      },
+    ],
+    documents: [
+      {
+        id: 'upks_doc_birth',
+        name: {
+          en: 'Birth Certificate of Girl Child & School Enrollment Certificate',
+          hi: 'बालिका का जन्म प्रमाण पत्र एवं विद्यालय प्रवेश प्रमाण',
+          mr: 'मुलीचा जन्म दाखला व शाळेचे प्रवेश प्रमाणपत्र',
+        },
+        mandatory: true,
+      },
+      {
+        id: 'upks_doc_domicile',
+        name: {
+          en: 'Uttar Pradesh Domicile / Residence Certificate (Niwas Praman Patra)',
+          hi: 'उत्तर प्रदेश निवास प्रमाण पत्र',
+          mr: 'उत्तर प्रदेश रहिवासी प्रमाणपत्र',
+        },
+        mandatory: true,
+      },
+    ],
+    steps: [
+      {
+        step_number: 1,
+        title: {
+          en: 'Apply Online on MKSY UP Portal',
+          hi: 'एमकेएसवाई यूपी पोर्टल पर ऑनलाइन आवेदन करें',
+          mr: 'एमकेएसवाय यूपी पोर्टलवर ऑनलाईन अर्ज करा',
+        },
+        instruction: {
+          en: 'Register citizen login on mksy.up.gov.in, select the applicable stage, upload certificates and submit.',
+          hi: 'mksy.up.gov.in पर नागरिक खाता बनाएं, उपयुक्त चरण चुनें और दस्तावेज अपलोड करें।',
+          mr: 'mksy.up.gov.in वर खाते तयार करून योग्य टप्पा निवडा व अर्ज पूर्ण करा.',
+        },
+        location_type: 'online',
+      },
+    ],
+  },
+
+  // 6. Tamil Nadu: Kalaignar Magalir Urimai Thittam
+  {
+    id: 'tn-magalir-urimai',
+    code: 'TN-KMUT',
+    name: {
+      en: 'Kalaignar Magalir Urimai Thittam (Tamil Nadu)',
+      hi: 'कलैग्नार मगलिर उरिमई थित्तम (तमिलनाडु)',
+      mr: 'कलैगनार मगलिर उरिमई योजना (तामिळनाडू)',
+    },
+    short_summary: {
+      en: 'Universal basic income of ₹1,000 per month for women heads of families in Tamil Nadu.',
+      hi: 'तमिलनाडु में परिवार की पात्र महिला मुखिया को ₹1,000 प्रति माह अधिकार सहायता राशि।',
+      mr: 'तामिळनाडूमधील पात्र महिला कुटुंबप्रमुखांना दरमहा ₹१,००० ची थेट आर्थिक मदत.',
+    },
+    description: {
+      en: 'Historic social justice entitlement by Government of Tamil Nadu providing monthly ₹1,000 direct bank transfer to recognized female household heads with annual income below ₹2.5 Lakh.',
+      hi: 'तमिलनाडु सरकार की प्रमुख योजना जिसके तहत गरीब व मध्यम वर्ग की महिला मुखियाओं को मासिक ₹1,000 बैंक खाते में दिए जाते हैं।',
+      mr: 'तामिळनाडू शासनाची महिला सबलीकरणासाठी दरमहा ₹१,००० थेट बँक खात्यात देणारी ऐतिहासिक योजना.',
+    },
+    level: 'state',
+    state: 'Tamil Nadu',
+    category: 'women_child',
+    official_url: 'https://kmut.tn.gov.in',
+    application_mode: 'both',
+    source_citation: 'Special Programme Implementation Department, Tamil Nadu (kmut.tn.gov.in)',
+    last_verified: '2026-09-15',
+    version: '2026.1',
+    is_verified_fact: true,
+    benefit_type: {
+      en: '₹1,000 / month direct transfer',
+      hi: '₹1,000 / माह प्रत्यक्ष अंतरण',
+      mr: '₹१,००० / महिना बँक खात्यात',
+    },
+    criteria: [
+      {
+        id: 'tnmu_gen',
+        field: 'gender',
+        operator: 'eq',
+        value: 'female',
+        required: true,
+        verified: true,
+        explanation: {
+          en: 'Beneficiary must be a female head of family listed in smart ration card',
+          hi: 'आवेदक स्मार्ट राशन कार्ड में दर्ज महिला मुखिया होनी चाहिए',
+          mr: 'स्मार्ट रेशन कार्डवर महिला कुटुंबप्रमुख नोंद असणे आवश्यक आहे',
+        },
+      },
+      {
+        id: 'tnmu_inc',
+        field: 'incomeBand',
+        operator: 'in',
+        value: ['below_1lakh', '1lakh_2_5lakh'],
+        required: true,
+        verified: true,
+        explanation: {
+          en: 'Family annual income must be below ₹2.5 Lakh with domestic electricity consumption under 3,600 units/year',
+          hi: 'पारिवारिक वार्षिक आय ₹2.5 लाख से कम होनी चाहिए',
+          mr: 'कुटुंबाचे वार्षिक उत्पन्न ₹२.५ लाखांपेक्षा कमी असणे आवश्यक आहे',
+        },
+      },
+    ],
+    documents: [
+      {
+        id: 'tnmu_doc_rc',
+        name: {
+          en: 'Tamil Nadu Smart Family Card (Ration Card)',
+          hi: 'तमिलनाडु स्मार्ट परिवार राशन कार्ड',
+          mr: 'तामिळनाडू स्मार्ट रेशन कार्ड',
+        },
+        mandatory: true,
+      },
+      {
+        id: 'tnmu_doc_aadhaar',
+        name: {
+          en: 'Aadhaar Card and Bank Account seeded with Aadhaar',
+          hi: 'आधार कार्ड एवं आधार-सीडेड बैंक खाता',
+          mr: 'आधार कार्ड व आधार संलग्न बँक खाते',
+        },
+        mandatory: true,
+      },
+    ],
+    steps: [
+      {
+        step_number: 1,
+        title: {
+          en: 'Biometric Verification at Ration Shop / Special Camp',
+          hi: 'उचित मूल्य की दुकान या विशेष शिविर में बायोमेट्रिक सत्यापन',
+          mr: 'रेशन दुकानातील किंवा विशेष शिबिरातील बायोमेट्रिक पडताळणी',
+        },
+        instruction: {
+          en: 'Carry smart ration card, Aadhaar card, and bank passbook to the designated e-Seva camp for digital registration.',
+          hi: 'स्मार्ट कार्ड और आधार के साथ नजदीकी ई-सेवा शिविर में जाकर डिजिटल पंजीकरण करवाएं।',
+          mr: 'स्मार्ट कार्ड व आधार कार्ड घेऊन जवळच्या ई-सेवा शिबिरात नोंदणी पूर्ण करा.',
+        },
+        location_type: 'tehsil_office',
+      },
+    ],
+  },
+
+  // 7. Telangana: Rythu Bharosa Scheme
+  {
+    id: 'tg-rythu-bharosa',
+    code: 'TG-RBS',
+    name: {
+      en: 'Rythu Bharosa Scheme (Telangana)',
+      hi: 'रायथु भरोसा योजना (तेलंगाना)',
+      mr: 'रयतु भरोसा योजना (तेलंगणा)',
+    },
+    short_summary: {
+      en: 'Investment financial support of ₹15,000 per acre per year for farmers and tenant farmers in Telangana.',
+      hi: 'किसानों एवं काश्तकारों को ₹15,000 प्रति एकड़ प्रति वर्ष कृषि निवेश सहायता।',
+      mr: 'शेतकरी व कुळांना दरवर्षी प्रति एकर ₹१५,००० शेती गुंतवणूक सहाय्य.',
+    },
+    description: {
+      en: 'Agricultural investment support scheme by Government of Telangana providing ₹15,000 per acre annually in two installments to support seed, fertilizer, and input costs for cultivable lands.',
+      hi: 'तेलंगाना सरकार द्वारा किसानों को खेती की लागत में सहायता हेतु प्रति वर्ष प्रति एकड़ ₹15,000 की वित्तीय सहायता।',
+      mr: 'तेलंगणा शासनाची बियाणे व खत खरेदीसाठी शेतकऱ्यांना दरवर्षी एकरी ₹१५,००० अनुदान देणारी योजना.',
+    },
+    level: 'state',
+    state: 'Telangana',
+    category: 'agriculture',
+    official_url: 'https://rythubandhu.telangana.gov.in',
+    application_mode: 'both',
+    source_citation: 'Department of Agriculture, Government of Telangana (rythubandhu.telangana.gov.in)',
+    last_verified: '2026-09-15',
+    version: '2026.1',
+    is_verified_fact: true,
+    benefit_type: {
+      en: '₹15,000 / acre per year DBT',
+      hi: '₹15,000 / एकड़ / वर्ष डीबीटी',
+      mr: '₹१५,००० / एकर / वर्ष बँक खात्यात',
+    },
+    criteria: [
+      {
+        id: 'tgrb_occ',
+        field: 'occupation',
+        operator: 'eq',
+        value: 'farmer',
+        required: true,
+        verified: true,
+        explanation: {
+          en: 'Beneficiary must be a farmer possessing Dharani Pattadar Passbook in Telangana',
+          hi: 'आवेदक धरणी पोर्टल पर पंजीकृत पट्टादार किसान होना चाहिए',
+          mr: 'अर्जदार धरणी पोर्टलवर नोंद असलेला शेतकरी पट्टादार असणे आवश्यक आहे',
+        },
+      },
+    ],
+    documents: [
+      {
+        id: 'tgrb_doc_passbook',
+        name: {
+          en: 'Dharani Pattadar Passbook / Land Ownership Title Deed',
+          hi: 'धरणी पट्टादार पासबुक / भूमि स्वामित्व अभिलेख',
+          mr: 'धरणी पट्टादार पासबुक / जमीन मालकी हक्क दाखला',
+        },
+        mandatory: true,
+      },
+      {
+        id: 'tgrb_doc_bank',
+        name: {
+          en: 'Bank Account Passbook seeded with Aadhaar',
+          hi: 'आधार से जुड़ा बैंक पासबुक',
+          mr: 'आधार संलग्न बँक पासबुक',
+        },
+        mandatory: true,
+      },
+    ],
+    steps: [
+      {
+        step_number: 1,
+        title: {
+          en: 'Register Land Details via Agriculture Extension Officer (AEO)',
+          hi: 'कृषि विस्तार अधिकारी (AEO) के माध्यम से भूमि विवरण दर्ज करें',
+          mr: 'कृषी विस्तार अधिकाऱ्याकडे (AEO) जमीन नोंदणी तपासा',
+        },
+        instruction: {
+          en: 'Verify land ownership records on Dharani portal and submit bank IFSC to village AEO for automated DBT release.',
+          hi: 'धरणी पोर्टल पर रिकॉर्ड की पुष्टि करें और ग्राम कृषि विस्तार अधिकारी को खाता विवरण दें।',
+          mr: 'धरणी पोर्टलवर नोंदी तपासून ग्राम कृषी विस्तार अधिकाऱ्याकडे बँक तपशील जमा करा.',
+        },
+        location_type: 'tehsil_office',
+      },
+    ],
+  },
+
+  // 8. Madhya Pradesh: Mukhyamantri Ladli Behna Yojana
+  {
+    id: 'mp-ladli-behna',
+    code: 'MP-MLBY',
+    name: {
+      en: 'Mukhyamantri Ladli Behna Yojana (Madhya Pradesh)',
+      hi: 'मुख्यमंत्री लाड़ली बहना योजना (मध्य प्रदेश)',
+      mr: 'मुख्यमंत्री लाडली बहना योजना (मध्य प्रदेश)',
+    },
+    short_summary: {
+      en: 'Direct financial assistance of ₹1,250 per month into bank accounts of women aged 21-60.',
+      hi: '21 से 60 वर्ष की पात्र महिलाओं को ₹1,250 प्रतिमाह सीधे बैंक खाते में आर्थिक सहायता।',
+      mr: '२१ ते ६० वयोगटातील पात्र महिलांना दरमहा ₹१,२५० थेट बँक खात्यात आर्थिक सहाय्य.',
+    },
+    description: {
+      en: 'Empowerment initiative by Madhya Pradesh government giving ₹1,250 every month via DBT to married, widowed, divorced, or abandoned women from families having annual income under ₹2.5 Lakh and land below 5 acres.',
+      hi: 'मध्य प्रदेश की गरीब एवं मध्यम वर्गीय महिलाओं को आर्थिक रूप से स्वावलंबी बनाने हेतु मासिक ₹1,250 का अनुदान।',
+      mr: 'मध्य प्रदेश शासनाची महिलांच्या आर्थिक स्वावलंबनासाठी दरमहा ₹१,२५० देणारी प्रमुख योजना.',
+    },
+    level: 'state',
+    state: 'Madhya Pradesh',
+    category: 'women_child',
+    official_url: 'https://cmladlibahna.mp.gov.in',
+    application_mode: 'both',
+    source_citation: 'Women and Child Development Department, Madhya Pradesh (cmladlibahna.mp.gov.in)',
+    last_verified: '2026-09-15',
+    version: '2026.1',
+    is_verified_fact: true,
+    benefit_type: {
+      en: '₹1,250 / month DBT cash',
+      hi: '₹1,250 / माह डीबीटी नकद',
+      mr: '₹१,२५० / महिना बँक खात्यात',
+    },
+    criteria: [
+      {
+        id: 'mplb_gen',
+        field: 'gender',
+        operator: 'eq',
+        value: 'female',
+        required: true,
+        verified: true,
+        explanation: {
+          en: 'Beneficiary must be a female resident of MP aged 21 to 60',
+          hi: 'आवेदक मध्य प्रदेश की 21 से 60 वर्ष की महिला होनी चाहिए',
+          mr: 'अर्जदार मध्य प्रदेशातील २१ ते ६० वर्षे वयोगटातील महिला असणे आवश्यक आहे',
+        },
+      },
+      {
+        id: 'mplb_inc',
+        field: 'incomeBand',
+        operator: 'in',
+        value: ['below_1lakh', '1lakh_2_5lakh'],
+        required: true,
+        verified: true,
+        explanation: {
+          en: 'Family annual income must be below ₹2.5 Lakh with no family member in government job or paying income tax',
+          hi: 'परिवार की वार्षिक आय ₹2.5 लाख से कम होनी चाहिए',
+          mr: 'कुटुंबाचे वार्षिक उत्पन्न ₹२.५ लाखांपेक्षा कमी असणे आवश्यक आहे',
+        },
+      },
+    ],
+    documents: [
+      {
+        id: 'mplb_doc_samagra',
+        name: {
+          en: 'Samagra Family ID & Member ID (e-KYC Completed)',
+          hi: 'समग्र परिवार आईडी एवं सदस्य आईडी (ई-केवाईसी पूर्ण)',
+          mr: 'समग्र कुटुंब आयडी व सदस्य आयडी (ई-केवायसी पूर्ण)',
+        },
+        mandatory: true,
+      },
+      {
+        id: 'mplb_doc_bank',
+        name: {
+          en: 'Individual Bank Account (Aadhaar linked and DBT active)',
+          hi: 'व्यक्तिगत बैंक खाता (आधार लिंक्ड एवं डीबीटी सक्रिय)',
+          mr: 'वैयक्तिक बँक खाते (आधार संलग्न व डीबीटी सुरू असलेले)',
+        },
+        mandatory: true,
+      },
+    ],
+    steps: [
+      {
+        step_number: 1,
+        title: {
+          en: 'Complete Samagra e-KYC and Visit Gram Panchayat / Ward Camp',
+          hi: 'समग्र ई-केवाईसी पूर्ण करें और ग्राम पंचायत शिविर में जाएं',
+          mr: 'समग्र ई-केवायसी पूर्ण करून ग्रामपंचायत शिबिरात जा',
+        },
+        instruction: {
+          en: 'Ensure Aadhaar is linked to Samagra ID and attend the ward/panchayat camp for photographic and biometric registration.',
+          hi: 'समग्र पोर्टल पर आधार लिंक कराएं और शिविर में जाकर बायोमेट्रिक आवेदन दर्ज कराएं।',
+          mr: 'समग्र आयडीला आधार जोडून पंचायत शिबिरात प्रत्यक्ष हजर राहून अर्ज भरा.',
+        },
+        location_type: 'tehsil_office',
+      },
+    ],
+  },
+
+  // 9. Rajasthan: Mukhyamantri Ayushman / Chiranjeevi Swasthya Bima
+  {
+    id: 'rj-chiranjeevi',
+    code: 'RJ-MASBY',
+    name: {
+      en: 'Mukhyamantri Ayushman Swasthya Bima (Rajasthan)',
+      hi: 'मुख्यमंत्री आयुष्मान / चिरंजीवी स्वास्थ्य बीमा योजना (राजस्थान)',
+      mr: 'मुख्यमंत्री आयुष्मान आरोग्य विमा योजना (राजस्थान)',
+    },
+    short_summary: {
+      en: 'Universal cashless medical treatment coverage up to ₹25 Lakh per family per year in empanelled hospitals.',
+      hi: 'संबद्ध अस्पतालों में प्रति परिवार प्रति वर्ष ₹25 लाख तक का निःशुल्क कैशलेस इलाज।',
+      mr: 'नोंदणीकृत रुग्णालयांमध्ये प्रति कुटुंब दरवर्षी ₹२५ लाखांपर्यंत मोफत कॅशलेस उपचार.',
+    },
+    description: {
+      en: "Comprehensive health insurance program of Rajasthan covering secondary and tertiary care hospitalization up to ₹25 Lakhs per family, free for NFSA, SECC, small farmers and contractual workers.",
+      hi: 'राजस्थान सरकार की सार्वभौमिक कैशलेस स्वास्थ्य सुरक्षा योजना जिसके तहत ₹25 लाख तक का इलाज मिलता है।',
+      mr: 'राजस्थान शासनाची कुटुंबाला दरवर्षी ₹२५ लाखांपर्यंत कॅशलेस आरोग्य संरक्षण देणारी महत्त्वाकांक्षी योजना.',
+    },
+    level: 'state',
+    state: 'Rajasthan',
+    category: 'health',
+    official_url: 'https://chiranjeevi.rajasthan.gov.in',
+    application_mode: 'both',
+    source_citation: 'State Health Assurance Agency, Rajasthan (chiranjeevi.rajasthan.gov.in)',
+    last_verified: '2026-09-15',
+    version: '2026.1',
+    is_verified_fact: true,
+    benefit_type: {
+      en: '₹25 Lakh cashless hospital cover',
+      hi: '₹25 लाख कैशलेस अस्पताल इलाज',
+      mr: '₹२५ लाख कॅशलेस रुग्णालय उपचार',
+    },
+    criteria: [
+      {
+        id: 'rjch_state',
+        field: 'state',
+        operator: 'eq',
+        value: 'Rajasthan',
+        required: true,
+        verified: true,
+        explanation: {
+          en: 'Must be a resident of Rajasthan holding Jan Aadhaar Card',
+          hi: 'आवेदक राजस्थान का निवासी और जन आधार कार्ड धारक होना चाहिए',
+          mr: 'अर्जदार राजस्थानचा रहिवासी आणि जन आधार कार्डधारक असणे आवश्यक आहे',
+        },
+      },
+    ],
+    documents: [
+      {
+        id: 'rjch_doc_janaadhaar',
+        name: {
+          en: 'Jan Aadhaar Card / Jan Aadhaar Acknowledgment Receipt',
+          hi: 'जन आधार कार्ड / जन आधार रसीद',
+          mr: 'जन आधार कार्ड / नोंदणी पावती',
+        },
+        mandatory: true,
+      },
+    ],
+    steps: [
+      {
+        step_number: 1,
+        title: {
+          en: 'Check Enrollment or Register on Jan Aadhaar / SSO Portal',
+          hi: 'जन आधार या एसएसओ पोर्टल पर पंजीयन की जांच करें',
+          mr: 'जन आधार किंवा एसएसओ पोर्टलवर नोंदणी तपासा',
+        },
+        instruction: {
+          en: 'NFSA beneficiaries are auto-enrolled. Others can pay subsidized premium of ₹850/year on SSO Rajasthan or e-Mitra.',
+          hi: 'एनएफएसए परिवार स्वतः पंजीकृत हैं, अन्य परिवार ई-मित्र से ₹850/वर्ष प्रीमियम देकर जुड़ सकते हैं।',
+          mr: 'एनएफएसए लाभार्थी आपोआप पात्र आहेत, इतर कुटुंबे ई-मित्र केंद्रावरून नोंदणी करू शकतात.',
+        },
+        location_type: 'online',
+      },
+    ],
+  },
+
+  // 10. Bihar: Mukhyamantri Kanya Utthan Yojana
+  {
+    id: 'br-kanya-utthan',
+    code: 'BR-MKUY',
+    name: {
+      en: 'Mukhyamantri Kanya Utthan Yojana (Bihar)',
+      hi: 'मुख्यमंत्री कन्या उत्थान योजना (बिहार)',
+      mr: 'मुख्यमंत्री कन्या उत्थान योजना (बिहार)',
+    },
+    short_summary: {
+      en: 'Cumulative financial grant of up to ₹50,000 for girl students upon passing graduation in Bihar.',
+      hi: 'बिहार में स्नातक (ग्रेजुएशन) उत्तीर्ण छात्राओं को ₹50,000 की एकमुश्त प्रोत्साहन राशि।',
+      mr: 'बिहारमधील पदवीधर (ग्रेजुएट) उत्तीर्ण विद्यार्थिनींना ₹५०,००० चे एकरकमी अनुदान.',
+    },
+    description: {
+      en: 'Flagship Bihar education incentive providing ₹50,000 directly into the bank account of every girl student who graduates from recognized universities in Bihar, encouraging women higher education.',
+      hi: 'बिहार की मान्यता प्राप्त यूनिवर्सिटी से ग्रेजुएशन पास करने वाली प्रत्येक अविवाहित/विवाहित छात्रा को ₹50,000 की सहायता।',
+      mr: 'बिहारमधील पदवी पूर्ण करणाऱ्या विद्यार्थिनींना पुढील शिक्षण व स्वावलंबनासाठी ₹५०,००० ची थेट मदत.',
+    },
+    level: 'state',
+    state: 'Bihar',
+    category: 'education',
+    official_url: 'https://medhasoft.bih.nic.in',
+    application_mode: 'online',
+    source_citation: 'Education Department, Government of Bihar (medhasoft.bih.nic.in)',
+    last_verified: '2026-09-15',
+    version: '2026.1',
+    is_verified_fact: true,
+    benefit_type: {
+      en: '₹50,000 graduation incentive',
+      hi: '₹50,000 स्नातक प्रोत्साहन राशि',
+      mr: '₹५०,००० पदवी प्रोत्साहन अनुदान',
+    },
+    criteria: [
+      {
+        id: 'brku_gen',
+        field: 'gender',
+        operator: 'eq',
+        value: 'female',
+        required: true,
+        verified: true,
+        explanation: {
+          en: 'Beneficiary must be a female student graduating from a recognized university in Bihar',
+          hi: 'छात्रा बिहार के मान्यता प्राप्त विश्वविद्यालय से स्नातक उत्तीर्ण होनी चाहिए',
+          mr: 'विद्यार्थिनी बिहारमधील विद्यापीठातून पदवीधर उत्तीर्ण असणे आवश्यक आहे',
+        },
+      },
+    ],
+    documents: [
+      {
+        id: 'brku_doc_marksheet',
+        name: {
+          en: 'Graduation Final Year Marksheet & Registration Number',
+          hi: 'स्नातक अंतिम वर्ष की अंकसूची एवं रोल नंबर',
+          mr: 'पदवी अंतिम वर्ष गुणपत्रिका व नोंदणी क्रमांक',
+        },
+        mandatory: true,
+      },
+      {
+        id: 'brku_doc_domicile',
+        name: {
+          en: 'Bihar Residential / Domicile Certificate',
+          hi: 'बिहार निवास प्रमाण पत्र',
+          mr: 'बिहार रहिवासी दाखला',
+        },
+        mandatory: true,
+      },
+    ],
+    steps: [
+      {
+        step_number: 1,
+        title: {
+          en: 'Apply Online on Medhasoft Bihar Portal',
+          hi: 'मेधासॉफ्ट बिहार पोर्टल पर ऑनलाइन आवेदन करें',
+          mr: 'मेधासॉफ्ट बिहार पोर्टलवर ऑनलाईन अर्ज करा',
+        },
+        instruction: {
+          en: 'Visit medhasoft.bih.nic.in, select Mukhyamantri Kanya Utthan (Snatak), verify roll number and Aadhaar, and submit bank details.',
+          hi: 'medhasoft.bih.nic.in पर जाकर रोल नंबर और आधार का सत्यापन करें व बैंक खाता सबमिट करें।',
+          mr: 'medhasoft.bih.nic.in वर जाऊन रोल नंबर व आधार पडताळणी करा आणि बँक तपशील भरा.',
+        },
+        location_type: 'online',
+      },
+    ],
+  },
+
+  // 11. Odisha: Subhadra Yojana
+  {
+    id: 'od-subhadra',
+    code: 'OD-SUBHADRA',
+    name: {
+      en: 'Subhadra Yojana (Odisha)',
+      hi: 'सुभद्रा योजना (ओडिशा)',
+      mr: 'सुभद्रा योजना (ओडिशा)',
+    },
+    short_summary: {
+      en: 'Financial assistance of ₹10,000 per year (₹50,000 total over 5 years) for women aged 21-60 in Odisha.',
+      hi: 'ओडिशा में 21 से 60 वर्ष की महिलाओं को प्रति वर्ष ₹10,000 (5 वर्षों में ₹50,000) की वित्तीय सहायता।',
+      mr: 'ओडिशामधील २१ ते ६० वयोगटातील महिलांना दरवर्षी ₹१०,००० (५ वर्षांत एकूण ₹५०,०००) सहाय्य.',
+    },
+    description: {
+      en: 'Flagship women welfare initiative launched by Government of Odisha transferring ₹10,000 per year directly to eligible female beneficiaries in two equal installments on Raksha Bandhan and International Women Day.',
+      hi: 'ओडिशा सरकार द्वारा महिलाओं के सामाजिक-आर्थिक उत्थान हेतु प्रति वर्ष दो किस्तों में ₹10,000 की सीधी सहायता।',
+      mr: 'ओडिशा शासनाची महिलांना दरवर्षी ₹१०,००० चे दोन हप्त्यांत थेट बँक अनुदान देणारी योजना.',
+    },
+    level: 'state',
+    state: 'Odisha',
+    category: 'women_child',
+    official_url: 'https://subhadra.odisha.gov.in',
+    application_mode: 'both',
+    source_citation: 'Department of Women & Child Development, Odisha (subhadra.odisha.gov.in)',
+    last_verified: '2026-09-15',
+    version: '2026.1',
+    is_verified_fact: true,
+    benefit_type: {
+      en: '₹10,000 / year (₹50,000 over 5 yrs)',
+      hi: '₹10,000 / वर्ष (5 वर्षों में ₹50,000)',
+      mr: '₹१०,००० / वर्ष (५ वर्षांत ₹५०,०००)',
+    },
+    criteria: [
+      {
+        id: 'odsu_gen',
+        field: 'gender',
+        operator: 'eq',
+        value: 'female',
+        required: true,
+        verified: true,
+        explanation: {
+          en: 'Beneficiary must be a female resident of Odisha aged 21 to 60',
+          hi: 'आवेदक ओडिशा की 21 से 60 वर्ष आयु वर्ग की महिला होनी चाहिए',
+          mr: 'अर्जदार ओडिशामधील २१ ते ६० वयोगटातील महिला असणे आवश्यक आहे',
+        },
+      },
+    ],
+    documents: [
+      {
+        id: 'odsu_doc_aadhaar',
+        name: {
+          en: 'Aadhaar Card linked to Mobile and Aadhaar-seeded Bank Account',
+          hi: 'आधार कार्ड एवं मोबाइल व आधार-सीडेड बैंक खाता',
+          mr: 'आधार कार्ड व आधार संलग्न बँक खाते',
+        },
+        mandatory: true,
+      },
+      {
+        id: 'odsu_doc_ration',
+        name: {
+          en: 'National Food Security Act (NFSA) / State Food Security Card',
+          hi: 'राशन कार्ड (एनएफएसए / एसएफएसएस)',
+          mr: 'रेशन कार्ड (एनएफएसए / राज्य अन्न सुरक्षा)',
+        },
+        mandatory: true,
+      },
+    ],
+    steps: [
+      {
+        step_number: 1,
+        title: {
+          en: 'Apply Online via Subhadra Portal or at Mo Seva Kendra',
+          hi: 'सुभद्रा पोर्टल या मो सेवा केंद्र पर आवेदन करें',
+          mr: 'सुभद्रा पोर्टल किंवा मो सेवा केंद्रावर अर्ज सादर करा',
+        },
+        instruction: {
+          en: 'Submit online application with Aadhaar e-KYC on subhadra.odisha.gov.in or free of charge at nearest Mo Seva Kendra / Anganwadi centre.',
+          hi: 'subhadra.odisha.gov.in पर या आंगनवाड़ी/मो सेवा केंद्र पर जाकर निःशुल्क फॉर्म भरें।',
+          mr: 'subhadra.odisha.gov.in वर किंवा जवळच्या मो सेवा केंद्रात मोफत अर्ज भरा.',
+        },
+        location_type: 'online',
+      },
+    ],
+  },
+
+  // 12. Haryana: Old Age Samman Allowance
+  {
+    id: 'hr-old-age-pension',
+    code: 'HR-OASA',
+    name: {
+      en: 'Old Age Samman Allowance (Haryana)',
+      hi: 'वृद्धावस्था सम्मान भत्ता (हरियाणा)',
+      mr: 'वृद्धापकाळ सन्मान भत्ता (हरियाणा)',
+    },
+    short_summary: {
+      en: 'Monthly social security pension of ₹3,000 for senior citizens aged 60+ in Haryana.',
+      hi: 'हरियाणा में 60 वर्ष या उससे अधिक आयु के वरिष्ठ नागरिकों को ₹3,000 प्रतिमाह वृद्धावस्था पेंशन।',
+      mr: 'हरियाणामधील ६० वर्षे व त्यावरील ज्येष्ठ नागरिकांना दरमहा ₹३,००० वृद्धापकाळ पेन्शन.',
+    },
+    description: {
+      en: 'Social security allowance scheme by Haryana government providing monthly ₹3,000 cash allowance to senior citizens residing in Haryana having family income under ₹3 Lakh per year.',
+      hi: 'हरियाणा सरकार द्वारा वृद्ध नागरिकों के सम्मानपूर्वक जीवन यापन हेतु मासिक ₹3,000 की पेंशन।',
+      mr: 'हरियाणा शासनाची ज्येष्ठ नागरिकांसाठी दरमहा ₹३,००० पेन्शन देणारी सामाजिक सुरक्षा योजना.',
+    },
+    level: 'state',
+    state: 'Haryana',
+    category: 'pension',
+    official_url: 'https://socialjusticehry.gov.in',
+    application_mode: 'both',
+    source_citation: 'Department of Social Justice and Empowerment, Haryana (socialjusticehry.gov.in)',
+    last_verified: '2026-09-15',
+    version: '2026.1',
+    is_verified_fact: true,
+    benefit_type: {
+      en: '₹3,000 / month pension',
+      hi: '₹3,000 / माह पेंशन',
+      mr: '₹३,००० / महिना पेन्शन',
+    },
+    criteria: [
+      {
+        id: 'hroa_age',
+        field: 'ageBand',
+        operator: 'in',
+        value: ['60_plus'],
+        required: true,
+        verified: true,
+        explanation: {
+          en: 'Applicant must be 60 years of age or older verified via Parivar Pehchan Patra (PPP)',
+          hi: 'परिवार पहचान पत्र (PPP) में आवेदक की आयु 60 वर्ष या अधिक होनी चाहिए',
+          mr: 'कुटुंब ओळखपत्रात (पीपीपी) वय ६० वर्षे किंवा अधिक असणे आवश्यक आहे',
+        },
+      },
+      {
+        id: 'hroa_inc',
+        field: 'incomeBand',
+        operator: 'in',
+        value: ['below_1lakh', '1lakh_2_5lakh'],
+        required: true,
+        verified: true,
+        explanation: {
+          en: 'Total annual household income must not exceed ₹3 Lakh',
+          hi: 'परिवार की वार्षिक आय ₹3 लाख से अधिक नहीं होनी चाहिए',
+          mr: 'कुटुंबाचे वार्षिक उत्पन्न ₹३ लाखांपेक्षा जास्त नसावे',
+        },
+      },
+    ],
+    documents: [
+      {
+        id: 'hroa_doc_ppp',
+        name: {
+          en: 'Parivar Pehchan Patra (Family ID / PPP)',
+          hi: 'परिवार पहचान पत्र (फैमिली आईडी / PPP)',
+          mr: 'कुटुंब ओळखपत्र (फॅमिली आयडी / PPP)',
+        },
+        mandatory: true,
+      },
+      {
+        id: 'hroa_doc_bank',
+        name: {
+          en: 'Aadhaar-seeded Bank Account Passbook',
+          hi: 'आधार-लिंक्ड बैंक खाता',
+          mr: 'आधार जोडलेले बँक खाते',
+        },
+        mandatory: true,
+      },
+    ],
+    steps: [
+      {
+        step_number: 1,
+        title: {
+          en: 'Proactive Pension Creation via Parivar Pehchan Patra (PPP)',
+          hi: 'परिवार पहचान पत्र (PPP) द्वारा स्वतः पेंशन निर्माण',
+          mr: 'परिवार ओळखपत्राद्वारे स्वयंचलित पेन्शन मंजुरी',
+        },
+        instruction: {
+          en: 'Haryana automatically initiates pension verification upon reaching 60 in PPP; verify consent with local CSC / Saral Kendra.',
+          hi: 'पीपीपी में 60 वर्ष पूरे होने पर विभाग स्वतः सत्यापन करता है, सरल केंद्र से सहमति दें।',
+          mr: 'पीपीपीमध्ये ६० वर्षे पूर्ण झाल्यावर विभाग पडताळणी करतो, सरल केंद्रात संमती द्या.',
+        },
+        location_type: 'csc_kendra',
+      },
+    ],
+  },
+
+  // 13. Delhi: Financial Assistance to Senior Citizens
+  {
+    id: 'dl-senior-pension',
+    code: 'DL-FASC',
+    name: {
+      en: 'Delhi Senior Citizen Pension Scheme',
+      hi: 'दिल्ली वरिष्ठ नागरिक पेंशन योजना',
+      mr: 'दिल्ली ज्येष्ठ नागरिक पेन्शन योजना',
+    },
+    short_summary: {
+      en: 'Monthly financial assistance of ₹2,000 to ₹2,500 for senior citizens residing in Delhi.',
+      hi: 'दिल्ली के वरिष्ठ नागरिकों को ₹2,000 से ₹2,500 प्रतिमाह वित्तीय पेंशन।',
+      mr: 'दिल्लीतील ज्येष्ठ नागरिकांना दरमहा ₹२,००० ते ₹२,५०० मासिक पेन्शन.',
+    },
+    description: {
+      en: 'Social security assistance by Government of NCT of Delhi giving ₹2,000/month (age 60-69) and ₹2,500/month (age 70+) to needy elderly citizens who have resided in Delhi for at least 5 years.',
+      hi: 'दिल्ली सरकार द्वारा बुजुर्ग नागरिकों को सम्मानजनक आजीविका हेतु मासिक पेंशन योजना।',
+      mr: 'दिल्ली शासनाची गरजू ज्येष्ठ नागरिकांना दरमहा ₹२,००० ते ₹२,५०० सहाय्य देणारी योजना.',
+    },
+    level: 'state',
+    state: 'Delhi',
+    category: 'pension',
+    official_url: 'https://edistrict.delhigovt.nic.in',
+    application_mode: 'online',
+    source_citation: 'Department of Social Welfare, Government of NCT of Delhi (edistrict.delhigovt.nic.in)',
+    last_verified: '2026-09-15',
+    version: '2026.1',
+    is_verified_fact: true,
+    benefit_type: {
+      en: '₹2,000 - ₹2,500 / month pension',
+      hi: '₹2,000 - ₹2,500 / माह पेंशन',
+      mr: '₹२,००० - ₹२,५०० / महिना पेन्शन',
+    },
+    criteria: [
+      {
+        id: 'dlsc_age',
+        field: 'ageBand',
+        operator: 'in',
+        value: ['60_plus'],
+        required: true,
+        verified: true,
+        explanation: {
+          en: 'Beneficiary must be 60 years or older',
+          hi: 'लाभार्थी की आयु 60 वर्ष या उससे अधिक होनी चाहिए',
+          mr: 'लाभार्थ्याचे वय ६० वर्षे किंवा अधिक असणे आवश्यक आहे',
+        },
+      },
+      {
+        id: 'dlsc_inc',
+        field: 'incomeBand',
+        operator: 'in',
+        value: ['below_1lakh'],
+        required: true,
+        verified: true,
+        explanation: {
+          en: 'Annual family income must not exceed ₹1 Lakh',
+          hi: 'पारिवारिक वार्षिक आय ₹1 लाख से अधिक नहीं होनी चाहिए',
+          mr: 'कुटुंबाचे वार्षिक उत्पन्न ₹१ लाखांपेक्षा जास्त नसावे',
+        },
+      },
+    ],
+    documents: [
+      {
+        id: 'dlsc_doc_residence',
+        name: {
+          en: 'Proof of 5 Years Residence in Delhi (Voter ID / Ration Card / Electricity Bill)',
+          hi: 'दिल्ली में 5 वर्ष का निवास प्रमाण (वोटर आईडी / बिजली बिल)',
+          mr: 'दिल्लीतील ५ वर्षे वास्तव्याचा पुरावा (मतदार ओळखपत्र / वीज बिल)',
+        },
+        mandatory: true,
+      },
+      {
+        id: 'dlsc_doc_bank',
+        name: {
+          en: 'Bank Account in Delhi linked with Aadhaar',
+          hi: 'दिल्ली में स्थित बैंक शाखा का आधार लिंक्ड खाता',
+          mr: 'दिल्लीतील बँकेचे आधार संलग्न खाते',
+        },
+        mandatory: true,
+      },
+    ],
+    steps: [
+      {
+        step_number: 1,
+        title: {
+          en: 'Apply Online via e-District Delhi Portal',
+          hi: 'ई-डिस्ट्रिक्ट दिल्ली पोर्टल पर ऑनलाइन आवेदन करें',
+          mr: 'ई-डिस्ट्रिक्ट दिल्ली पोर्टलवर ऑनलाईन अर्ज करा',
+        },
+        instruction: {
+          en: 'Register on edistrict.delhigovt.nic.in, select Financial Assistance to Senior Citizens, upload age and residence proofs.',
+          hi: 'edistrict.delhigovt.nic.in पर नागरिक आईडी बनाकर वरिष्ठ नागरिक पेंशन विकल्प चुनकर आवेदन करें।',
+          mr: 'edistrict.delhigovt.nic.in वर नोंदणी करून आवश्यक कागदपत्रांसह अर्ज सादर करा.',
+        },
+        location_type: 'online',
+      },
+    ],
+  },
+
+  // 14. Assam: Orunodoi Scheme
+  {
+    id: 'as-orunodoi',
+    code: 'AS-ORUNODOI',
+    name: {
+      en: 'Orunodoi 3.0 Scheme (Assam)',
+      hi: 'ओरुनोदोई 3.0 योजना (असम)',
+      mr: 'ओरुनोदोई ३.० योजना (आसाम)',
+    },
+    short_summary: {
+      en: 'Monthly DBT transfer of ₹1,250 directly to the nominated female head of underprivileged households.',
+      hi: 'वंचित परिवारों की नामित महिला मुखिया को ₹1,250 प्रतिमाह प्रत्यक्ष डीबीटी सहायता।',
+      mr: 'वंचित कुटुंबांतील महिला प्रमुखाला दरमहा ₹१,२५० थेट बँक खात्यात आर्थिक सहाय्य.',
+    },
+    description: {
+      en: 'Major direct benefit transfer welfare scheme by Government of Assam providing monthly assistance of ₹1,250 for nutritional and healthcare needs to over 27 lakh low-income families through female nomination.',
+      hi: 'असम सरकार द्वारा 27 लाख से अधिक गरीब परिवारों की महिलाओं को पोषण एवं दवाइयों हेतु मासिक ₹1,250 की सहायता।',
+      mr: 'आसाम शासनाची गरीब कुटुंबांतील महिलांना औषधोपचार व पोषणासाठी दरमहा ₹१,२५० देणारी प्रमुख योजना.',
+    },
+    level: 'state',
+    state: 'Assam',
+    category: 'women_child',
+    official_url: 'https://orunodoi.assam.gov.in',
+    application_mode: 'both',
+    source_citation: 'Finance Department, Government of Assam (orunodoi.assam.gov.in)',
+    last_verified: '2026-09-15',
+    version: '2026.1',
+    is_verified_fact: true,
+    benefit_type: {
+      en: '₹1,250 / month DBT cash',
+      hi: '₹1,250 / माह डीबीटी नकद',
+      mr: '₹१,२५० / महिना बँक खात्यात',
+    },
+    criteria: [
+      {
+        id: 'asor_gen',
+        field: 'gender',
+        operator: 'eq',
+        value: 'female',
+        required: true,
+        verified: true,
+        explanation: {
+          en: 'Beneficiary must be a nominated female member of the household residing in Assam',
+          hi: 'आवेदक असम में रहने वाले परिवार की नामित महिला सदस्य होनी चाहिए',
+          mr: 'अर्जदार आसाममधील कुटुंबाची नामनिर्देशित महिला सदस्य असणे आवश्यक आहे',
+        },
+      },
+      {
+        id: 'asor_inc',
+        field: 'incomeBand',
+        operator: 'in',
+        value: ['below_1lakh', '1lakh_2_5lakh'],
+        required: true,
+        verified: true,
+        explanation: {
+          en: 'Annual household income must be below ₹2 Lakh with preference to widow, divorced, or PwD households',
+          hi: 'पारिवारिक वार्षिक आय ₹2 लाख से कम होनी चाहिए (विधवा, दिव्यांग परिवारों को प्राथमिकता)',
+          mr: 'कुटुंबाचे वार्षिक उत्पन्न ₹२ लाखांपेक्षा कमी असणे आवश्यक आहे',
+        },
+      },
+    ],
+    documents: [
+      {
+        id: 'asor_doc_ration',
+        name: {
+          en: 'Assam NFSA Ration Card',
+          hi: 'असम एनएफएसए राशन कार्ड',
+          mr: 'आसाम एनएफएसए रेशन कार्ड',
+        },
+        mandatory: true,
+      },
+      {
+        id: 'asor_doc_bank',
+        name: {
+          en: 'Aadhaar Card and Single Account Bank Passbook',
+          hi: 'आधार कार्ड एवं महिला का एकल बैंक खाता पासबुक',
+          mr: 'आधार कार्ड व महिलेचे वैयक्तिक बँक पासबुक',
+        },
+        mandatory: true,
+      },
+    ],
+    steps: [
+      {
+        step_number: 1,
+        title: {
+          en: 'Application and Verification via Gaon Panchayat / VCDC',
+          hi: 'गांव पंचायत / वीसीडीसी के माध्यम से आवेदन व सत्यापन',
+          mr: 'गाव पंचायत / व्हीसीडीसी द्वारे अर्ज व पडताळणी',
+        },
+        instruction: {
+          en: 'Submit Orunodoi application form at the Gaon Panchayat or VCDC office; verified digitally on orunodoi.assam.gov.in.',
+          hi: 'गांव पंचायत कार्यालय में फॉर्म जमा करें, जिसकी डिजिटल जांच के बाद खाते में राशि अंतरित होती है।',
+          mr: 'गाव पंचायत कार्यालयात फॉर्म जमा करा, पडताळणीनंतर थेट बँक खात्यात रक्कम वर्ग केली जाते.',
+        },
+        location_type: 'tehsil_office',
+      },
+    ],
+  },
 ];
 
 // Validate all schemes using Zod at load time
