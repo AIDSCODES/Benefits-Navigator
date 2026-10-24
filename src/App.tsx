@@ -24,7 +24,7 @@ import { AiTutorVideoModal } from './components/AiTutorVideoModal.tsx';
 import { AiAssistantChatbot } from './components/AiAssistantChatbot.tsx';
 import { NewSchemeAlertModal } from './components/NewSchemeAlertModal.tsx';
 import { CitizenUser, getStoredCitizen } from './lib/citizenAuth.ts';
-import { ShieldAlert, Check, Bell, LogIn } from 'lucide-react';
+import { ShieldAlert, Check, Bell, LogIn, HardDrive, Mail } from 'lucide-react';
 
 
 const STORAGE_KEY = 'benefits_navigator_answers_session_only';
@@ -441,46 +441,63 @@ export default function App() {
         }}
       />
 
-      {/* Floating Citizen Account / Sign In Button (Fixed at Bottom Left Corner) */}
-      <button
-        onClick={() => setCurrentTab('login')}
-        className={`fixed bottom-5 left-4 sm:left-6 z-40 group flex items-center gap-2.5 px-3.5 sm:px-4 py-2.5 rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer border no-print min-h-[46px] ${
-          citizenUser
-            ? currentTab === 'login'
-              ? 'bg-emerald-600 text-white border-emerald-300 font-extrabold shadow-emerald-950/30 ring-2 ring-emerald-400/50'
-              : 'bg-emerald-700/95 hover:bg-emerald-600 text-white border-emerald-400/70 shadow-emerald-950/25'
-            : currentTab === 'login'
-            ? 'bg-amber-500 hover:bg-amber-400 text-stone-950 border-amber-300 font-extrabold shadow-amber-900/25 ring-2 ring-amber-400/50'
-            : 'bg-stone-900/95 hover:bg-stone-900 text-white dark:bg-white/95 dark:hover:bg-white dark:text-stone-950 border-stone-700/80 dark:border-stone-300 shadow-stone-950/30'
-        }`}
-        title={citizenUser ? `Signed in as ${citizenUser.name} — View Citizen Account` : 'Sign In to Yojana360'}
-        aria-label={citizenUser ? `My Account (${citizenUser.name})` : 'Sign In'}
-      >
-        {citizenUser ? (
-          <>
-            <div className="relative w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-sm shadow-xs shrink-0 overflow-hidden">
-              <span className="relative z-10">{citizenUser.avatarUrl || '👤'}</span>
-              <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-emerald-300 ring-1 ring-emerald-700" />
-            </div>
-            <div className="flex flex-col text-left pr-0.5 max-w-[120px]">
-              <span className="text-xs font-bold leading-tight truncate">My Account</span>
-              <span className="text-[10px] text-emerald-100 font-medium leading-tight truncate">
-                {citizenUser.name.split(' ')[0]}
-              </span>
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="w-7 h-7 rounded-full bg-white/10 dark:bg-stone-900/10 flex items-center justify-center shrink-0">
-              <LogIn className="w-4 h-4" />
-            </div>
-            <div className="flex flex-col text-left pr-0.5">
-              <span className="text-xs font-bold leading-tight">Sign In</span>
-              <span className="text-[10px] opacity-75 font-medium leading-tight">Citizen Portal</span>
-            </div>
-          </>
-        )}
-      </button>
+      {/* Floating Bottom-Left Utility Stack: Google Drive & Citizen Account/Sign In */}
+      <div className="fixed bottom-5 left-4 sm:left-6 z-40 flex flex-col items-start gap-2.5 no-print">
+        {/* Google Workspace Drive & Gmail Trigger (Positioned Directly Above Sign In) */}
+        <button
+          onClick={() => setShowGlobalWorkspace(true)}
+          className="group flex items-center gap-2 px-3.5 py-2.5 rounded-2xl bg-white/95 dark:bg-stone-900/95 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-800 dark:text-stone-200 text-xs font-semibold shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-200 border border-stone-200/90 dark:border-stone-700/80 cursor-pointer min-h-[42px]"
+          title="Connect Google Drive & Gmail"
+          aria-label="Connect Google Drive and Gmail"
+        >
+          <div className="flex items-center -space-x-1 shrink-0">
+            <HardDrive className="w-4 h-4 text-amber-500" />
+            <Mail className="w-4 h-4 text-rose-500" />
+          </div>
+          <span className="font-bold">Drive & Gmail</span>
+        </button>
+
+        {/* Floating Citizen Account / Sign In Button */}
+        <button
+          onClick={() => setCurrentTab('login')}
+          className={`group flex items-center gap-2.5 px-3.5 sm:px-4 py-2.5 rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer border min-h-[46px] ${
+            citizenUser
+              ? currentTab === 'login'
+                ? 'bg-emerald-600 text-white border-emerald-300 font-extrabold shadow-emerald-950/30 ring-2 ring-emerald-400/50'
+                : 'bg-emerald-700/95 hover:bg-emerald-600 text-white border-emerald-400/70 shadow-emerald-950/25'
+              : currentTab === 'login'
+              ? 'bg-amber-500 hover:bg-amber-400 text-stone-950 border-amber-300 font-extrabold shadow-amber-900/25 ring-2 ring-amber-400/50'
+              : 'bg-stone-900/95 hover:bg-stone-900 text-white dark:bg-white/95 dark:hover:bg-white dark:text-stone-950 border-stone-700/80 dark:border-stone-300 shadow-stone-950/30'
+          }`}
+          title={citizenUser ? `Signed in as ${citizenUser.name} — View Citizen Account` : 'Sign In to Yojana360'}
+          aria-label={citizenUser ? `My Account (${citizenUser.name})` : 'Sign In'}
+        >
+          {citizenUser ? (
+            <>
+              <div className="relative w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-sm shadow-xs shrink-0 overflow-hidden">
+                <span className="relative z-10">{citizenUser.avatarUrl || '👤'}</span>
+                <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-emerald-300 ring-1 ring-emerald-700" />
+              </div>
+              <div className="flex flex-col text-left pr-0.5 max-w-[120px]">
+                <span className="text-xs font-bold leading-tight truncate">My Account</span>
+                <span className="text-[10px] text-emerald-100 font-medium leading-tight truncate">
+                  {citizenUser.name.split(' ')[0]}
+                </span>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="w-7 h-7 rounded-full bg-white/10 dark:bg-stone-900/10 flex items-center justify-center shrink-0">
+                <LogIn className="w-4 h-4" />
+              </div>
+              <div className="flex flex-col text-left pr-0.5">
+                <span className="text-xs font-bold leading-tight">Sign In</span>
+                <span className="text-[10px] opacity-75 font-medium leading-tight">Citizen Portal</span>
+              </div>
+            </>
+          )}
+        </button>
+      </div>
 
       {/* New Scheme Arrival & Citizen Message Dispatch Modal */}
       <NewSchemeAlertModal

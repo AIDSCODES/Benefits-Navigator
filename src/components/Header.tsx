@@ -243,21 +243,7 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
           )}
 
-          {/* Google Workspace Trigger */}
-          {onOpenWorkspace && (
-            <button
-              onClick={onOpenWorkspace}
-              className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-800 dark:text-stone-200 rounded-xl text-xs font-semibold transition-colors min-h-[34px]"
-              title="Connect Google Drive & Gmail"
-            >
-              <div className="flex items-center -space-x-1 shrink-0">
-                <HardDrive className="w-3.5 h-3.5 text-amber-500" />
-                <Mail className="w-3.5 h-3.5 text-rose-500" />
-              </div>
-              <span className="hidden 2xl:inline">Drive & Gmail</span>
-              <span className="2xl:hidden hidden xl:inline">Drive</span>
-            </button>
-          )}
+
 
           {/* Clear My Answers Button */}
           {hasAnswers && (
