@@ -14,7 +14,6 @@ import {
   Mail,
   Video,
   Sparkles,
-  MessageSquare,
   Bell,
   LogIn,
   TrendingUp,
@@ -227,19 +226,6 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
           )}
 
-          {/* AI Assistant Chatbot Trigger */}
-          {onOpenChatbot && (
-            <button
-              onClick={onOpenChatbot}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 bg-teal-500/10 hover:bg-teal-500/20 text-teal-800 dark:text-teal-300 border border-teal-500/30 rounded-xl text-xs font-semibold transition-colors min-h-[34px]"
-              title="AI Assistant / Chatbot"
-            >
-              <MessageSquare className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400 shrink-0" />
-              <span className="hidden xl:inline">AI Chatbot</span>
-              <span className="xl:hidden hidden sm:inline">AI</span>
-            </button>
-          )}
-
           {/* New Scheme Arrival Notification Bell */}
           {onOpenNotifications && (
             <button
@@ -270,26 +256,6 @@ export const Header: React.FC<HeaderProps> = ({
               </div>
               <span className="hidden 2xl:inline">Drive & Gmail</span>
               <span className="2xl:hidden hidden xl:inline">Drive</span>
-            </button>
-          )}
-
-          {/* Citizen Account / Sign In Action Button */}
-          {citizenUser ? (
-            <button
-              onClick={() => onTabChange('login')}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-800 dark:text-emerald-300 border border-emerald-500/40 rounded-xl text-xs font-bold transition-all shadow-2xs min-h-[34px] cursor-pointer"
-              title={`Signed in as ${citizenUser.name}`}
-            >
-              <span className="text-sm">{citizenUser.avatarUrl || '👤'}</span>
-              <span className="hidden sm:inline max-w-[90px] truncate">{citizenUser.name.split(' ')[0]}</span>
-            </button>
-          ) : (
-            <button
-              onClick={() => onTabChange('login')}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-stone-900 hover:bg-stone-800 text-white dark:bg-white dark:text-stone-900 dark:hover:bg-stone-100 rounded-xl text-xs font-bold transition-all shadow-xs min-h-[34px] cursor-pointer whitespace-nowrap"
-            >
-              <LogIn className="w-3.5 h-3.5" />
-              <span>Sign In</span>
             </button>
           )}
 
@@ -409,18 +375,7 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
           )}
 
-          {onOpenChatbot && (
-            <button
-              onClick={() => {
-                onOpenChatbot();
-                setMobileMenuOpen(false);
-              }}
-              className="w-full text-left px-3 py-3 rounded-xl font-medium text-sm min-h-[44px] flex items-center gap-2 bg-teal-500/15 text-teal-900 dark:text-teal-300 border border-teal-500/30"
-            >
-              <MessageSquare className="w-4 h-4 text-teal-600 dark:text-teal-400" />
-              <span>AI Assistant / Chatbot</span>
-            </button>
-          )}
+
 
           {onOpenNotifications && (
             <button
