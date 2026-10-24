@@ -9,6 +9,13 @@ import { Volume2, Mic, MicOff, ArrowRight, ArrowLeft, SkipForward, Search } from
 import { UserProfile, SupportedLanguage } from '../lib/engine/types.ts';
 import { QUESTIONS, QuestionOption } from '../data/questions.ts';
 import { TRANSLATIONS } from '../lib/i18n/translations.ts';
+import { STATES_AND_UTS_DATA } from '../data/statesData.ts';
+import {
+  getRationCardOptionsForState,
+  getRationCardHelpTextForState,
+  hasCustomStateRationCards,
+} from '../data/rationCardsData.ts';
+
 
 interface QuestionFlowProps {
   userProfile: UserProfile;
@@ -37,6 +44,17 @@ export const QuestionFlow: React.FC<QuestionFlowProps> = ({
   const currentQuestion = QUESTIONS[currentIndex];
   const currentValue = (userProfile as Record<string, any>)[currentQuestion.field];
 
+  // Dynamically resolve options and help text tailored to the user's selected state
+  const activeOptions =
+    currentQuestion.field === 'rationCardStatus'
+      ? getRationCardOptionsForState(userProfile.state)
+      : currentQuestion.options;
+
+  const activeHelpText =
+    currentQuestion.field === 'rationCardStatus'
+      ? getRationCardHelpTextForState(userProfile.state)
+      : currentQuestion.helpText;
+
   // Check speech synthesis & recognition availability
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -53,7 +71,7 @@ export const QuestionFlow: React.FC<QuestionFlowProps> = ({
     window.speechSynthesis.cancel();
 
     const titleText = currentQuestion.title[lang] || currentQuestion.title.en;
-    const optionsText = currentQuestion.options
+    const optionsText = activeOptions
       .map((opt, i) => `${i + 1}: ${opt.label[lang] || opt.label.en}`)
       .join('. ');
 
@@ -117,9 +135,9 @@ export const QuestionFlow: React.FC<QuestionFlowProps> = ({
         const transcript = event.results[0][0].transcript.toLowerCase().trim();
         setVoiceFeedback(`"${transcript}"`);
 
-        // Fuzzy match against option keywords
+        // Fuzzy match against active state-tailored option keywords
         let matchedOption: QuestionOption | null = null;
-        for (const opt of currentQuestion.options) {
+        for (const opt of activeOptions) {
           const keywords = [
             ...(opt.voiceKeywords[lang] || []),
             ...(opt.voiceKeywords.en || []),
@@ -131,6 +149,7 @@ export const QuestionFlow: React.FC<QuestionFlowProps> = ({
             break;
           }
         }
+
 
         if (matchedOption) {
           onUpdateProfile(currentQuestion.field, matchedOption.value);
@@ -201,7 +220,7 @@ export const QuestionFlow: React.FC<QuestionFlowProps> = ({
   const progressPercent = Math.round(((currentIndex + 1) / QUESTIONS.length) * 100);
 
   // Filter options for state question or return full set
-  const displayedOptions = currentQuestion.options.filter((option) => {
+  const displayedOptions = activeOptions.filter((option) => {
     if (currentQuestion.field !== 'state') return true;
 
     // Filter by type: State vs UT
@@ -288,9 +307,9 @@ export const QuestionFlow: React.FC<QuestionFlowProps> = ({
             </div>
           </div>
 
-          {currentQuestion.helpText && (
+          {activeHelpText && (
             <p className="text-xs sm:text-sm text-stone-500 dark:text-stone-400 mt-2 leading-relaxed">
-              {currentQuestion.helpText[lang] || currentQuestion.helpText.en}
+              {activeHelpText[lang] || activeHelpText.en}
             </p>
           )}
 
@@ -301,6 +320,55 @@ export const QuestionFlow: React.FC<QuestionFlowProps> = ({
             </div>
           )}
         </div>
+
+        {/* Ration Card State Customization Notice & Quick State Switcher */}
+        {currentQuestion.field === 'rationCardStatus' && (
+          <div className="mb-5 p-3.5 bg-stone-50/90 dark:bg-stone-800/60 rounded-2xl border border-stone-200 dark:border-stone-700/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5">
+              <span className="inline-flex items-center justify-center w-8 h-8 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 font-bold text-sm shrink-0">
+                {userProfile.state && userProfile.state !== 'Other State' ? '✓' : 'ℹ'}
+              </span>
+              <div>
+                <div className="text-xs sm:text-sm font-semibold text-stone-900 dark:text-stone-100 flex items-center gap-2">
+                  <span>
+                    {userProfile.state && userProfile.state !== 'Other State'
+                      ? `Options tailored for: ${userProfile.state}`
+                      : 'All-India NFSA standard options'}
+                  </span>
+                  {hasCustomStateRationCards(userProfile.state) && (
+                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-700 dark:text-emerald-300">
+                      State PDS Rules
+                    </span>
+                  )}
+                </div>
+                <div className="text-[11px] text-stone-500 dark:text-stone-400">
+                  {userProfile.state && userProfile.state !== 'Other State'
+                    ? `Showing local card colors, vernacular terms, and quotas in ${userProfile.state}.`
+                    : 'Choose your state to see local card colors and department rules.'}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 shrink-0">
+              <label htmlFor="ration-state-select" className="text-xs font-medium text-stone-500">
+                State:
+              </label>
+              <select
+                id="ration-state-select"
+                value={userProfile.state || ''}
+                onChange={(e) => onUpdateProfile('state', e.target.value)}
+                className="text-xs py-1.5 px-3 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl text-stone-800 dark:text-stone-200 focus:outline-hidden focus:ring-2 focus:ring-stone-900 min-h-[36px]"
+              >
+                <option value="">All-India (Standard NFSA)</option>
+                {STATES_AND_UTS_DATA.map((s) => (
+                  <option key={s.id} value={s.name}>
+                    {s.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        )}
 
         {/* State Selection Search & Category Filter Pills */}
         {currentQuestion.field === 'state' && (
@@ -361,7 +429,7 @@ export const QuestionFlow: React.FC<QuestionFlowProps> = ({
           className={`grid gap-2.5 ${
             currentQuestion.field === 'state'
               ? 'grid-cols-1 sm:grid-cols-2 max-h-[440px] overflow-y-auto pr-1.5'
-              : isLowLiteracy || currentQuestion.options.length <= 4
+              : isLowLiteracy || activeOptions.length <= 4
               ? 'grid-cols-1 sm:grid-cols-2'
               : 'grid-cols-1'
           }`}

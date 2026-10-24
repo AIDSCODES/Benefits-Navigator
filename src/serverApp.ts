@@ -9,6 +9,14 @@ import { GoogleGenAI } from '@google/genai';
 import { SCHEMES } from './data/schemes.ts';
 import { OFFICIAL_PORTALS } from './data/officialPortals.ts';
 import { STATES_AND_UTS_DATA } from './data/statesData.ts';
+import {
+  DEFAULT_NFSA_RATION_OPTIONS,
+  STATE_RATION_CARD_MAP,
+  getRationCardOptionsForState,
+  getRationCardHelpTextForState,
+  hasCustomStateRationCards,
+} from './data/rationCardsData.ts';
+
 
 dotenv.config();
 
@@ -123,12 +131,48 @@ export function createServerApp() {
       return;
     }
 
+    const rationCards = getRationCardOptionsForState(state.name);
+    const rationHelp = getRationCardHelpTextForState(state.name);
+
     res.json({
       meta: {
         disclaimer: 'Official State/UT single-window portal and citizen services info',
         official_url: state.portal.url,
       },
-      data: state,
+      data: {
+        ...state,
+        rationCards: {
+          hasCustomRules: hasCustomStateRationCards(state.name),
+          helpText: rationHelp,
+          options: rationCards,
+        },
+      },
+    });
+  });
+
+  // GET /ration-cards - All-India & state-specific food security card options
+  api.get('/ration-cards', (_req: Request, res: Response) => {
+    res.json({
+      meta: {
+        disclaimer: 'NFSA & State PDS food security card options mapped according to State/UT systems across India.',
+      },
+      data: {
+        defaultOptions: DEFAULT_NFSA_RATION_OPTIONS,
+        states: STATE_RATION_CARD_MAP,
+      },
+    });
+  });
+
+  // GET /ration-cards/:state - Food security card options for a specific state
+  api.get('/ration-cards/:state', (req: Request, res: Response) => {
+    const stateName = req.params.state;
+    const options = getRationCardOptionsForState(stateName);
+    const helpText = getRationCardHelpTextForState(stateName);
+    res.json({
+      state: stateName,
+      hasCustomRules: hasCustomStateRationCards(stateName),
+      helpText,
+      options,
     });
   });
 
