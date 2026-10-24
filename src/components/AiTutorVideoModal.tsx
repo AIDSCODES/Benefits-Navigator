@@ -50,7 +50,15 @@ interface AiTutorVideoModalProps {
   onResetFirstVisitDemo?: () => void;
 }
 
-export type AiCharacterType = 'asha' | 'mitra';
+export type AiCharacterType = 'asha' | 'mitra' | 'divya_isl';
+
+export interface IslSignGloss {
+  stepNumber: number;
+  glossEn: string;
+  glossHi: string;
+  keySigns: string[];
+  visualDescription: Record<SupportedLanguage, string>;
+}
 
 interface Chapter {
   id: number;
@@ -744,6 +752,481 @@ const CHAPTERS: Chapter[] = [
 ];
 
 // ─────────────────────────────────────────────────────────────
+// Indian Sign Language (ISL) Gloss Database (ISLRTC Standards)
+// ─────────────────────────────────────────────────────────────
+export const ISL_CHAPTER_GLOSS: Record<number, IslSignGloss> = {
+  1: {
+    stepNumber: 1,
+    glossEn: '[GREET: NAMASTE] ➔ [LANGUAGE CHOOSE 11] ➔ [PICTURE MODE ON] ➔ [VOICE READ-ALOUD]',
+    glossHi: '[नमस्ते] ➔ [भाषा चयन ११] ➔ [सचित्र कार्ड मोड] ➔ [ध्वनि वाचन]',
+    keySigns: [
+      '🙏 Namaste (Greeting)',
+      '🗣️ Language Select (भाषा संकेत)',
+      '🖼️ Picture Mode (चित्र मोड)',
+      '🔊 Voice Read-Aloud (ध्वनि वाचन)',
+    ],
+    visualDescription: {
+      en: 'Interpreter signs Namaste with joined palms, points to mouth and eyes to indicate language selection across 11 regional languages, then creates a rectangular frame for visual Picture Mode.',
+      hi: 'दुभाषिया दोनों हाथ जोड़कर नमस्ते करता है, 11 क्षेत्रीय भाषाओं के चयन का संकेत देता है, और सचित्र कार्डों के लिए आयताकार फ्रेम का इशारा करता है।',
+      mr: 'दुभाषी हात जोडून नमस्कार करतो, 11 भाषांच्या निवडीचा संकेत देतो आणि चित्र मोडसाठी हात हलवून स्पष्ट करतो.',
+      bn: 'দোভাষী হাত জোড় করে নমস্কার জানিয়ে ১১টি ভাষার নির্বাচন ও পিকচার মোডের সংকেত দেন।',
+      te: 'వ్యాఖ్యాత నమస్కారం చేస్తూ 11 భాషల ఎంపిక మరియు పిక్చర్ మోడ్ సంకేతాలను చూపుతారు.',
+      ta: 'மொழிபெயர்ப்பாளர் வணக்கம் கூறி 11 மொழிகள் மற்றும் படப் பயன்முறையை சைகை மூலம் விளக்குகிறார்.',
+      gu: 'દુભાષિયા નમસ્તે કરી 11 ભાષાઓ અને ચિત્ર મોડના સંકેત દર્શાવે છે.',
+      kn: 'ದ್ವಿಭಾಷಿ ನಮಸ್ಕಾರ ಮಾಡಿ 11 ಭಾಷೆಗಳು ಮತ್ತು ಪಿಕ್ಚರ್ ಮೋಡ್ ಸಂಕೇತಗಳನ್ನು ತೋರಿಸುತ್ತಾರೆ.',
+      ml: 'പരിഭാഷകൻ നമസ്കാരം പറഞ്ഞ് 11 ഭാഷകളും പിക്ചർ മോഡും ആംഗ്യങ്ങളിലൂടെ വിശദീകരിക്കുന്നു.',
+      pa: 'ਦੁਭਾਸ਼ੀਆ ਹੱਥ ਜੋੜ ਕੇ ਨਮਸਤੇ ਕਰਦਾ ਹੈ ਅਤੇ 11 ਭਾਸ਼ਾਵਾਂ ਦੇ ਚੋਣ ਸੰਕੇਤ ਦਰਸਾਉਂਦਾ ਹੈ।',
+      or: 'ଦ୍ୱିଭାଷୀ ନମସ୍କାର ଜଣାଇ ୧୧ଟି ଭାଷା ଓ ଚିତ୍ର ମୋଡ୍‌ର ସଙ୍କେତ ଦର୍ଶାନ୍ତି।',
+    },
+  },
+  2: {
+    stepNumber: 2,
+    glossEn: '[CITIZEN: YOU] ➔ [STATE + JOB] ➔ [6 QUESTIONS FAST] ➔ [ZERO AADHAAR: 100% PRIVATE]',
+    glossHi: '[आप नागरिक] ➔ [राज्य व कार्य] ➔ [६ आसान प्रश्न] ➔ [बिना आधार: पूर्ण गोपनीयता]',
+    keySigns: [
+      '👤 Citizen You (आप नागरिक)',
+      '🌾 Occupation State (कार्य राज्य)',
+      '🛡️ Privacy Shield (गोपनीयता)',
+      '🚫 No Aadhaar/Phone (कोई आधार नहीं)',
+    ],
+    visualDescription: {
+      en: 'Interpreter gestures towards the viewer, fingers counts 1-2-3 for simple questions, then crosses arms across chest to demonstrate complete confidentiality with zero Aadhaar or phone numbers.',
+      hi: 'दुभाषिया दर्शक की ओर इशारा करता है, 1-2-3 आसान सवालों का संकेत देता है, और सीने पर हाथ रखकर बिना आधार व फोन के 100% गोपनीयता दर्शाता है।',
+      mr: 'दुभाषी सोप्या प्रश्नांची खूण करतो आणि छातीवर हात ठेवून आधार अथवा फोन न मागता पूर्ण गोपनीयतेची हमी देतो.',
+      bn: 'দোভাষী সহজ প্রশ্নের সংকেত দিয়ে আধার বা ফোন ছাড়া সম্পূর্ণ গোপনীয়তার নিশ্চয়তা দেন।',
+      te: 'ఆధార్ లేదా ఫోన్ నంబర్ లేకుండా పూర్తి గోప్యతను ఆంగ్య భాష ద్వారా వ్యాఖ్యాత స్పష్టం చేస్తారు.',
+      ta: 'ஆதார் அல்லது தொலைபேசி எண் இன்றி முழு தனியுரிமை பாதுகாக்கப்படுவதை சைகை மூலம் விளக்குகிறார்.',
+      gu: 'દુભાષિયા આધાર કે ફોન વિના સંપૂર્ણ ગોપનીયતાના સંકેત દર્શાવે છે.',
+      kn: 'ಆಧಾರ್ ಅಥವಾ ಫೋನ್ ಇಲ್ಲದೆ ಸಂಪೂರ್ಣ ಗೌಪ್ಯತೆಯ ಸಂಕೇತಗಳನ್ನು ಪ್ರದರ್ಶಿಸುತ್ತಾರೆ.',
+      ml: 'ആധാർ ആവശ്യമില്ലാത്ത പൂർണ്ണ സ്വകാര്യത ആംഗ്യത്തിലൂടെ വ്യക്തമാക്കുന്നു.',
+      pa: 'ਕੋਈ ਆਧਾਰ ਜਾਂ ਫ਼ੋਨ ਤੋਂ ਬਿਨਾਂ ਪੂਰੀ ਗੁਪਤਤਾ ਦਾ ਸੰਕੇਤ ਦਿੰਦਾ ਹੈ।',
+      or: 'କୌଣସି ଆଧାର ବା ଫୋନ୍ ନମ୍ବର ବିନା ସମ୍ପୂର୍ଣ୍ଣ ଗୋପନୀୟତା ସଙ୍କେତ ଦର୍ଶାନ୍ତି।',
+    },
+  },
+  3: {
+    stepNumber: 3,
+    glossEn: '[SCHEME MATCH: REAL-TIME] ➔ [GREEN: LIKELY QUALIFY] ➔ [YELLOW: MORE INFO] ➔ [BENEFIT GRANT]',
+    glossHi: '[योजना परिणाम] ➔ [🟢 हरा: संभावित पात्र] [🟡 पीला: अतिरिक्त शर्त] ➔ [सरकारी सहायता राशि]',
+    keySigns: [
+      '🟢 Green Likely Match (पात्रता)',
+      '💰 Cash Benefit Grant (वित्तीय सहायता)',
+      '🟡 Conditional Match (अतिरिक्त शर्त)',
+      '📋 Official Criteria (सरकारी नियम)',
+    ],
+    visualDescription: {
+      en: 'Interpreter cups hands receiving benefit grant, shows double thumbs up for green likely qualify status, and balances hands like a scale for verification criteria.',
+      hi: 'दुभाषिया दोनों हाथों से सहायता राशि प्राप्त करने की मुद्रा बनाता है, हरे रंग की पात्रता के लिए दोनों अंगूठे ऊपर करता है, और नियमों की जांच दर्शाता है।',
+      mr: 'दुभाषी लाभाची रक्कम मिळण्याचे संकेत दाखवतो, हिरव्या रंगाच्या पात्रतेसाठी अंगठा दाखवून खात्री देतो.',
+      bn: 'দোভাষী সুবিধা পাওয়ার ইঙ্গিত দেন এবং সবুজ কার্ডের জন্য যোগ্যতার সম্মতি জানান।',
+      te: 'ఆర్థిక సహాయం మరియు ఆకుపచ్చ కార్డుల అర్ಹతను సంకేతాల ద్వారా వ్యాఖ్యాత చూపిస్తారు.',
+      ta: 'நிதி உதவி மற்றும் தகுதி நிலைகளை சைகை மூலம் உறுதிப்படுத்துகிறார்.',
+      gu: 'દુભાષિયા સહાય રકમ અને લીલા કાર્ડની પાત્રતાના સંકેત આપે છે.',
+      kn: 'ಸಹಾಯಧನ ಮತ್ತು ಅರ್ಹತೆಯ ಹಸಿರು ಕಾರ್ಡ್ ಸಂಕೇತಗಳನ್ನು ಪ್ರದರ್ಶಿಸುತ್ತಾರೆ.',
+      ml: 'ആനുകൂല്യ ലഭ്യതയും യോഗ്യതയും ആംഗ്യങ്ങളിലൂടെ വ്യക്തമാക്കുന്നു.',
+      pa: 'ਸਹਾਇਤਾ ਰਾਸ਼ੀ ਅਤੇ ਯੋਗਤਾ ਦੇ ਸਪੱਸ਼ਟ ਸੰਕੇਤ ਦਰਸਾਉਂਦਾ ਹੈ।',
+      or: 'ସହାୟତା ରାଶି ଏବଂ ଯୋଗ୍ୟତା ସମ୍ପର୍କିତ ସଙ୍କେତ ପ୍ରଦାନ କରନ୍ତି।',
+    },
+  },
+  4: {
+    stepNumber: 4,
+    glossEn: '[ONE TRIP ONLY: CSC OFFICE] ➔ [DOCUMENTS COMBINED CHECKLIST] ➔ [AADHAAR + PASSBOOK READY]',
+    glossHi: '[एकल चक्कर: सेवा केंद्र] ➔ [संयुक्त दस्तावेज सूची] ➔ [आधार व बैंक पासबुक तैयार]',
+    keySigns: [
+      '1️⃣ Single Visit Only (एक ही चक्कर)',
+      '📄 Combined Checklist (संयुक्त सूची)',
+      '🏦 Bank Passbook (बैंक पासबुक)',
+      '✅ Home Checkmark (तैयारी)',
+    ],
+    visualDescription: {
+      en: 'Interpreter uses left palm as a checklist sheet and right finger ticking off items, then holds up index finger for "Single Visit Only" to avoid multiple CSC trips.',
+      hi: 'दुभाषिया बायीं हथेली पर सूची बनाकर दायीं उंगली से सही के निशान लगाता है, और एक ही चक्कर में काम पूरा होने का 1 का संकेत दिखाता है।',
+      mr: 'दुभाषी कागदपत्रांची यादी टिक करतो आणि एकाच फेरीत काम पूर्ण होण्याचे 1 चे चिन्ह दाखवतो.',
+      bn: 'দোভাষী কাগজপত্রের তালিকা মিলিয়ে দেখে এক সফরেই কাজ শেষ করার সংকেত দেন।',
+      te: 'ఒకే ఒక పర్యటనలో అన్ని పత్రాలు సిద్ధం చేసుకునే సంకేతాన్ని వ్యాఖ్యాత స్పష్టంగా చూపుతారు.',
+      ta: 'ஒரே முறையில் ஆவணங்களை சரிபார்த்து முடிக்கும் சைகை விளக்கத்தை அளிக்கிறார்.',
+      gu: 'દુભાષિયા કાગળોની યાદી ટીક કરી એક જ ફેરામાં કામ પૂર્ણ કરવાનો સંકેત આપે છે.',
+      kn: 'ಒಂದೇ ಭೇಟಿಯಲ್ಲಿ ದಾಖಲೆಗಳನ್ನು ಪೂರ್ಣಗೊಳಿಸುವ ಸಂಕೇತವನ್ನು ಪ್ರದರ್ಶಿಸುತ್ತಾರೆ.',
+      ml: 'ഒരൊറ്റ സന്ദർശനത്തിൽ രേഖകൾ തയ്യാറാക്കാനുള്ള ആംഗ്യം കാണിക്കുന്നു.',
+      pa: 'ਇੱਕੋ ਗੇੜੇ ਵਿੱਚ ਕਾਗਜ਼ ਪੂਰੇ ਕਰਨ ਦਾ ਸਪੱਸ਼ਟ ਸੰਕੇਤ ਦਿੰਦਾ ਹੈ।',
+      or: 'ଗୋଟିଏ ଥରରେ ଦଲିଲ ପ୍ରସ୍ତୁତ କରିବାର ସଙ୍କେତ ଦର୍ଶାନ୍ତି।',
+    },
+  },
+  5: {
+    stepNumber: 5,
+    glossEn: '[GOVERNMENT PORTAL: .GOV.IN] ➔ [17 APEX GATEWAYS] ➔ [DIRECT LINK APPLY] ➔ [SUCCESS CELEBRATE]',
+    glossHi: '[सरकारी पोर्टल: .GOV.IN] ➔ [१७ मुख्य प्रवेशद्वार] ➔ [सीधा आधिकारिक लिंक] ➔ [सफल आवेदन]',
+    keySigns: [
+      '🏛️ Apex Portals (17 आधिकारिक पोर्टल)',
+      '🔗 Direct .gov.in Link (आधिकारिक लिंक)',
+      '🚀 Safe Online Apply (सुरक्षित आवेदन)',
+      '🎉 Deaf Applause / Success (सफलता)',
+    ],
+    visualDescription: {
+      en: 'Interpreter gestures an official portal gateway arch, points forward to verified .gov.in links, and performs the universal Deaf applause (wrist wave) to celebrate successful application.',
+      hi: 'दुभाषिया आधिकारिक पोर्टल का तोरण द्वार बनाता है, सीधे .gov.in लिंक का इशारा करता है, और दोनों हाथ हवा में हिलाकर सांकेतिक ताली (सफलता) बजाता है।',
+      mr: 'दुभाषी शासकीय पोर्टलचे प्रवेशद्वार दाखवून थेट अधिकृत लिंकवर जाण्याचा आणि यशस्वी अर्जाचा संकेत देतो.',
+      bn: 'দোভাষী সরকারি পোর্টালের পথ দেখিয়ে সফল আবেদনের প্রতীকী হাততালি দেন।',
+      te: 'అధికారిక పోర్టల్ ద్వారా విజయవంతంగా దరఖాస్తు చేసుకునే ఆనంద సంకేతాలను చూపుతారు.',
+      ta: 'அதிகாரப்பூர்வ தளம் வழியாக வெற்றிகரமாக விண்ணப்பிக்கும் சைகை விளக்கத்தை அளிக்கிறார்.',
+      gu: 'દુભાષિયા સત્તાવાર પોર્ટલ પર સફળ અરજીનો સાંકેતિક આનંદ દર્શાવે છે.',
+      kn: 'ಅಧಿಕೃತ ಪೋರ್ಟಲ್ ಮೂಲಕ ಯಶಸ್ವಿ ಅರ್ಜಿಯ ಸಂಕೇತಗಳನ್ನು ಪ್ರದರ್ಶಿಸುತ್ತಾರೆ.',
+      ml: 'ഔദ്യോഗിക പോർട്ടലിലെ വിജയകരമായ അപേക്ഷയുടെ ആംഗ്യം കാണിക്കുന്നു.',
+      pa: 'ਸਰਕਾਰੀ ਪੋਰਟਲ ਤੇ ਸਫਲ ਅਰਜ਼ੀ ਦਾ ਸਪੱਸ਼ਟ ਸੰਕੇਤ ਦਿੰਦਾ ਹੈ।',
+      or: 'ସରକାରୀ ପୋର୍ଟାଲ୍‌ରେ ସଫଳ ଆବେଦନର ସଙ୍କେତ ଦର୍ଶାନ୍ତି।',
+    },
+  },
+};
+
+// ─────────────────────────────────────────────────────────────
+// Indian Sign Language (ISL) Animated Interpreter Avatar (Divya)
+// ─────────────────────────────────────────────────────────────
+interface IslInterpreterAvatarProps {
+  isSigning: boolean;
+  stepNumber: number;
+  compact?: boolean;
+}
+
+export const IslInterpreterAvatar: React.FC<IslInterpreterAvatarProps> = ({
+  isSigning,
+  stepNumber,
+  compact = false,
+}) => {
+  // Cycle signing gestures smoothly every 2.4s while video is active
+  const [gesturePhase, setGesturePhase] = useState(0);
+
+  useEffect(() => {
+    if (!isSigning) {
+      setGesturePhase(0);
+      return;
+    }
+    const interval = setInterval(() => {
+      setGesturePhase((prev) => (prev + 1) % 3);
+    }, 2400);
+    return () => clearInterval(interval);
+  }, [isSigning]);
+
+  const currentGloss = ISL_CHAPTER_GLOSS[stepNumber] || ISL_CHAPTER_GLOSS[1];
+  const activeSignLabel = currentGloss.keySigns[gesturePhase % currentGloss.keySigns.length];
+
+  return (
+    <div className="relative flex flex-col items-center">
+      {/* Dynamic Accessible Cyan Aura Glow */}
+      <div
+        className={`absolute -inset-4 rounded-full blur-xl opacity-70 transition-all duration-500 pointer-events-none ${
+          isSigning ? 'bg-cyan-500/35 scale-110' : 'bg-cyan-500/15'
+        }`}
+      />
+
+      {/* SVG Character Graphic for Divya (Certified ISL Guide) */}
+      <div
+        className={`relative select-none filter drop-shadow-xl transition-all duration-300 ${
+          compact ? 'w-28 h-36 sm:w-32 sm:h-40' : 'w-36 h-44 sm:w-44 sm:h-52'
+        }`}
+      >
+        <svg
+          viewBox="0 0 200 240"
+          className="w-full h-full"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <linearGradient id="divyaSkin" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#e0a98b" />
+              <stop offset="100%" stopColor="#c58c6b" />
+            </linearGradient>
+            <linearGradient id="divyaSuit" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#1e293b" />
+              <stop offset="100%" stopColor="#0f172a" />
+            </linearGradient>
+            <linearGradient id="haloCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.4" />
+              <stop offset="100%" stopColor="#0284c7" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+
+          {/* Background Accessibility Halo Ring */}
+          <circle cx="100" cy="110" r="88" fill="url(#haloCyan)" />
+
+          {/* High-Contrast Professional Navy Blazer for clear hand contrast */}
+          <g className="transition-all duration-300">
+            <path
+              d="M 42 190 Q 100 162 158 190 L 168 240 L 32 240 Z"
+              fill="url(#divyaSuit)"
+            />
+            {/* Crisp High-Contrast White Inner Collar & Lapels */}
+            <path
+              d="M 82 170 L 100 200 L 118 170 L 110 168 L 100 188 L 90 168 Z"
+              fill="#ffffff"
+            />
+            {/* Blazer Lapel Edges */}
+            <path
+              d="M 74 190 L 98 220 L 100 240 L 94 240 L 68 195 Z"
+              fill="#334155"
+            />
+            <path
+              d="M 126 190 L 102 220 L 100 240 L 106 240 L 132 195 Z"
+              fill="#334155"
+            />
+            {/* Official ISL Accessibility Accreditation Badge */}
+            <rect x="130" y="196" width="18" height="15" rx="3" fill="#0891b2" stroke="#67e8f9" strokeWidth="1" />
+            <text x="133" y="207" fontSize="8" fontWeight="bold" fill="#ffffff">ISL</text>
+          </g>
+
+          {/* Neck */}
+          <rect
+            x="88"
+            y="142"
+            width="24"
+            height="30"
+            rx="5"
+            fill="url(#divyaSkin)"
+          />
+
+          {/* Face Base */}
+          <ellipse
+            cx="100"
+            cy="114"
+            rx="39"
+            ry="45"
+            fill="url(#divyaSkin)"
+          />
+
+          {/* Hair - Neat Professional Low Bun with Saffron Accent */}
+          <g>
+            <path
+              d="M 60 112 C 58 60 142 60 140 112 C 134 72 66 72 60 112 Z"
+              fill="#18181b"
+            />
+            <circle cx="100" cy="60" r="13" fill="#18181b" />
+            <circle cx="100" cy="60" r="4" fill="#f59e0b" />
+            {/* Hair Side Sweep */}
+            <path
+              d="M 61 98 C 72 82 92 78 100 78 C 108 78 128 82 139 98 C 128 86 108 82 100 82 C 92 82 72 86 61 98 Z"
+              fill="#27272a"
+            />
+          </g>
+
+          {/* Eyebrows with Sign Language Expressive Lift */}
+          <path
+            d="M 76 96 Q 87 91 93 94"
+            stroke="#18181b"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            fill="none"
+          />
+          <path
+            d="M 107 94 Q 113 91 124 96"
+            stroke="#18181b"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            fill="none"
+          />
+
+          {/* Expressive Eyes */}
+          <g>
+            <ellipse cx="85" cy="107" rx="6" ry="4.5" fill="#ffffff" />
+            <circle cx="85" cy="107" r="3" fill="#18181b" />
+            <circle cx="84" cy="105.5" r="1.2" fill="#ffffff" />
+
+            <ellipse cx="115" cy="107" rx="6" ry="4.5" fill="#ffffff" />
+            <circle cx="115" cy="107" r="3" fill="#18181b" />
+            <circle cx="114" cy="105.5" r="1.2" fill="#ffffff" />
+          </g>
+
+          {/* Nose */}
+          <path
+            d="M 100 107 L 98 121 Q 100 123 102 121 Z"
+            fill="#b07455"
+          />
+
+          {/* Cheerful Blush */}
+          <circle cx="75" cy="121" r="5" fill="#f43f5e" opacity="0.2" />
+          <circle cx="125" cy="121" r="5" fill="#f43f5e" opacity="0.2" />
+
+          {/* Expressive Mouth (In ISL, facial grammar is essential!) */}
+          {isSigning ? (
+            <g className="transition-all duration-300">
+              <path
+                d="M 91 133 Q 100 144 109 133 Q 100 138 91 133 Z"
+                fill="#9f1239"
+              />
+              <path d="M 93 133 Q 100 136 107 133 Z" fill="#ffffff" />
+            </g>
+          ) : (
+            <path
+              d="M 92 134 Q 100 140 108 134"
+              stroke="#7c2d12"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              fill="none"
+            />
+          )}
+
+          {/* Dynamic ISL Signing Hands Rig (Positioned in Signing Space at Chest & Shoulders) */}
+          <g className={`transition-all duration-500 ${isSigning ? 'animate-pulse' : ''}`}>
+            {/* Step 1 Signing: Namaste 🙏 / Language Pointing / Picture Frame */}
+            {stepNumber === 1 && (
+              gesturePhase === 0 ? (
+                /* Namaste 🙏 / Both hands pressed together at chest */
+                <g className="transition-transform duration-300">
+                  <path d="M 96 156 L 96 182 Q 100 186 104 182 L 104 156 Z" fill="url(#divyaSkin)" stroke="#9a3412" strokeWidth="1" />
+                  <circle cx="100" cy="155" r="7" fill="url(#divyaSkin)" />
+                  <text x="94" y="160" fontSize="13">🙏</text>
+                </g>
+              ) : gesturePhase === 1 ? (
+                /* Language / Speech gesture (finger to lips and open palm) */
+                <g className="transition-transform duration-300">
+                  <circle cx="72" cy="158" r="8" fill="url(#divyaSkin)" />
+                  <text x="67" y="163" fontSize="13">🗣️</text>
+                  <circle cx="128" cy="162" r="8" fill="url(#divyaSkin)" />
+                  <text x="123" y="167" fontSize="13">👉</text>
+                </g>
+              ) : (
+                /* Picture Mode / Visual card rectangular framing */
+                <g className="transition-transform duration-300">
+                  <circle cx="68" cy="155" r="8" fill="url(#divyaSkin)" />
+                  <text x="63" y="160" fontSize="13">🖼️</text>
+                  <circle cx="132" cy="155" r="8" fill="url(#divyaSkin)" />
+                  <text x="127" y="160" fontSize="13">✨</text>
+                </g>
+              )
+            )}
+
+            {/* Step 2 Signing: Citizen Pointing / Privacy Shield 🛡️ / No Aadhaar */}
+            {stepNumber === 2 && (
+              gesturePhase === 0 ? (
+                /* Citizen / Pointing to You */
+                <g className="transition-transform duration-300">
+                  <circle cx="135" cy="158" r="8" fill="url(#divyaSkin)" />
+                  <text x="130" y="163" fontSize="14">👉</text>
+                  <circle cx="65" cy="164" r="8" fill="url(#divyaSkin)" />
+                  <text x="60" y="169" fontSize="13">👤</text>
+                </g>
+              ) : gesturePhase === 1 ? (
+                /* Privacy Protection Shield / Crossed hands */
+                <g className="transition-transform duration-300">
+                  <circle cx="100" cy="162" r="10" fill="#0369a1" />
+                  <text x="93" y="168" fontSize="14">🛡️</text>
+                </g>
+              ) : (
+                /* No Aadhaar / 100% Secure Lock */
+                <g className="transition-transform duration-300">
+                  <circle cx="70" cy="160" r="8" fill="url(#divyaSkin)" />
+                  <text x="65" y="165" fontSize="13">🔒</text>
+                  <circle cx="130" cy="160" r="8" fill="url(#divyaSkin)" />
+                  <text x="125" y="165" fontSize="13">✅</text>
+                </g>
+              )
+            )}
+
+            {/* Step 3 Signing: Welfare Grant Receiving 🤲 / Green Likely Match 👍 */}
+            {stepNumber === 3 && (
+              gesturePhase === 0 ? (
+                /* Cupped hands receiving welfare subsidy grant */
+                <g className="transition-transform duration-300">
+                  <circle cx="74" cy="164" r="8" fill="url(#divyaSkin)" />
+                  <text x="69" y="169" fontSize="14">🤲</text>
+                  <circle cx="126" cy="164" r="8" fill="url(#divyaSkin)" />
+                  <text x="121" y="169" fontSize="14">💰</text>
+                </g>
+              ) : gesturePhase === 1 ? (
+                /* Double Thumbs Up / Likely Match */
+                <g className="transition-transform duration-300">
+                  <circle cx="68" cy="156" r="9" fill="url(#divyaSkin)" />
+                  <text x="63" y="162" fontSize="14">👍</text>
+                  <circle cx="132" cy="156" r="9" fill="url(#divyaSkin)" />
+                  <text x="127" y="162" fontSize="14">🟢</text>
+                </g>
+              ) : (
+                /* Scheme criteria checklist */
+                <g className="transition-transform duration-300">
+                  <circle cx="100" cy="160" r="10" fill="#047857" />
+                  <text x="93" y="166" fontSize="14">📋</text>
+                </g>
+              )
+            )}
+
+            {/* Step 4 Signing: Checklist Ticking ✍️ / Single Visit Only 1️⃣ */}
+            {stepNumber === 4 && (
+              gesturePhase === 0 ? (
+                /* Flat document palm + ticking off */
+                <g className="transition-transform duration-300">
+                  <circle cx="70" cy="162" r="8" fill="url(#divyaSkin)" />
+                  <text x="65" y="167" fontSize="14">📄</text>
+                  <circle cx="130" cy="156" r="8" fill="url(#divyaSkin)" />
+                  <text x="125" y="162" fontSize="14">✍️</text>
+                </g>
+              ) : gesturePhase === 1 ? (
+                /* Single Trip Only (Index finger held high) */
+                <g className="transition-transform duration-300">
+                  <circle cx="100" cy="152" r="9" fill="url(#divyaSkin)" />
+                  <text x="94" y="158" fontSize="15">☝️</text>
+                </g>
+              ) : (
+                /* Bank Passbook & Aadhaar combined */
+                <g className="transition-transform duration-300">
+                  <circle cx="72" cy="164" r="8" fill="url(#divyaSkin)" />
+                  <text x="67" y="169" fontSize="13">🏦</text>
+                  <circle cx="128" cy="164" r="8" fill="url(#divyaSkin)" />
+                  <text x="123" y="169" fontSize="13">✅</text>
+                </g>
+              )
+            )}
+
+            {/* Step 5 Signing: Government Portal Archway 🏛️ / Direct Apply 🚀 / Deaf Applause 🎉 */}
+            {stepNumber === 5 && (
+              gesturePhase === 0 ? (
+                /* Apex Portal Gateway Archway */
+                <g className="transition-transform duration-300">
+                  <circle cx="68" cy="155" r="8" fill="url(#divyaSkin)" />
+                  <text x="63" y="160" fontSize="14">🏛️</text>
+                  <circle cx="132" cy="155" r="8" fill="url(#divyaSkin)" />
+                  <text x="127" y="160" fontSize="14">🌐</text>
+                </g>
+              ) : gesturePhase === 1 ? (
+                /* Direct apply forward link */
+                <g className="transition-transform duration-300">
+                  <circle cx="100" cy="154" r="9" fill="#0284c7" />
+                  <text x="94" y="160" fontSize="14">🚀</text>
+                </g>
+              ) : (
+                /* Deaf Applause / Hands waving at wrists */
+                <g className="transition-transform duration-300">
+                  <circle cx="66" cy="148" r="8" fill="url(#divyaSkin)" />
+                  <text x="61" y="154" fontSize="14">🙌</text>
+                  <circle cx="134" cy="148" r="8" fill="url(#divyaSkin)" />
+                  <text x="129" y="154" fontSize="14">🎉</text>
+                </g>
+              )
+            )}
+          </g>
+        </svg>
+      </div>
+
+      {/* ISL Certified Interpreter Identity Pill */}
+      <div className="mt-1 flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-900/95 border border-cyan-500/40 shadow-lg">
+        <span
+          className={`w-2 h-2 rounded-full ${
+            isSigning ? 'bg-cyan-400 animate-ping' : 'bg-cyan-500'
+          }`}
+        />
+        <span className="text-xs font-bold text-white tracking-wide flex items-center gap-1">
+          <span>Divya (दिव्या)</span>
+          <span className="text-[10px] text-cyan-300">🤟</span>
+        </span>
+        <span className="text-[10px] text-cyan-300 uppercase font-semibold">
+          ISL Guide
+        </span>
+      </div>
+
+      {/* Active Sign Pill */}
+      <div className="mt-1 px-2.5 py-0.5 rounded-full bg-cyan-950/80 border border-cyan-500/30 text-[10px] font-semibold text-cyan-200">
+        Sign: {activeSignLabel}
+      </div>
+    </div>
+  );
+};
+
+// ─────────────────────────────────────────────────────────────
 // Animated AI Character Vector Component (Asha & Mitra)
 // ─────────────────────────────────────────────────────────────
 interface AiCharacterAvatarProps {
@@ -753,6 +1236,10 @@ interface AiCharacterAvatarProps {
 }
 
 const AiCharacterAvatar: React.FC<AiCharacterAvatarProps> = ({ character, isSpeaking, stepNumber }) => {
+  if (character === 'divya_isl') {
+    return <IslInterpreterAvatar isSigning={isSpeaking} stepNumber={stepNumber} />;
+  }
+
   const isAsha = character === 'asha';
 
   return (
@@ -1375,6 +1862,7 @@ export const AiTutorVideoModal: React.FC<AiTutorVideoModalProps> = ({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [hasCompletedAll, setHasCompletedAll] = useState(false);
   const [speechActive, setSpeechActive] = useState(false);
+  const [isIslPipActive, setIsIslPipActive] = useState<boolean>(false);
 
   const timerRef = useRef<any>(null);
   const speechUtteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
@@ -1561,9 +2049,13 @@ export const AiTutorVideoModal: React.FC<AiTutorVideoModalProps> = ({
     return `${m}:${s < 10 ? '0' : ''}${s}`;
   };
 
+  const currentChapterIsl = ISL_CHAPTER_GLOSS[currentChapter.stepNumber] || ISL_CHAPTER_GLOSS[1];
+
   const activeSpeechText =
-    currentChapter.characterSpeech[character][currentLang] ||
-    currentChapter.characterSpeech[character].en;
+    character === 'divya_isl'
+      ? `${currentChapterIsl.glossEn} — ${currentChapterIsl.visualDescription[currentLang] || currentChapterIsl.visualDescription.en}`
+      : currentChapter.characterSpeech[character][currentLang] ||
+        currentChapter.characterSpeech[character].en;
 
   return (
     <div
@@ -1632,7 +2124,37 @@ export const AiTutorVideoModal: React.FC<AiTutorVideoModalProps> = ({
                 <span>👨🏽</span>
                 <span className="hidden sm:inline">Mitra</span>
               </button>
+              <button
+                onClick={() => setCharacter('divya_isl')}
+                className={`px-2 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1 ${
+                  character === 'divya_isl'
+                    ? 'bg-cyan-500 text-stone-950 shadow-sm'
+                    : 'text-cyan-400 hover:text-cyan-200'
+                }`}
+                title="Indian Sign Language (ISL) Interpreter: Divya"
+              >
+                <span>🤟</span>
+                <span className="hidden sm:inline">Divya (ISL)</span>
+              </button>
             </div>
+
+            {/* ISL Picture-in-Picture Signer Toggle */}
+            <button
+              onClick={() => setIsIslPipActive((prev) => !prev)}
+              className={`px-2.5 py-1 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 border min-h-[38px] ${
+                isIslPipActive
+                  ? 'bg-cyan-500 text-stone-950 border-cyan-400 shadow-md shadow-cyan-500/20'
+                  : 'bg-stone-800 hover:bg-stone-700 text-cyan-300 border-cyan-500/40'
+              }`}
+              title="Toggle Indian Sign Language (ISL) Picture-in-Picture Interpreter"
+              aria-label="Toggle Indian Sign Language Picture-in-Picture Interpreter"
+            >
+              <span>🤟</span>
+              <span className="hidden md:inline">ISL Video</span>
+              {isIslPipActive && (
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+              )}
+            </button>
 
             {/* In-Video Multilingual Selector */}
             <div className="flex items-center bg-stone-800 rounded-xl px-2 py-1 border border-stone-700">
@@ -1730,16 +2252,36 @@ export const AiTutorVideoModal: React.FC<AiTutorVideoModalProps> = ({
               />
 
               {/* Character Dialogue Speech Bubble */}
-              <div className="relative mt-3 p-3 rounded-2xl bg-stone-900/95 border border-amber-500/30 text-left shadow-lg w-full max-w-xs">
+              <div
+                className={`relative mt-3 p-3 rounded-2xl bg-stone-900/95 text-left shadow-lg w-full max-w-xs border ${
+                  character === 'divya_isl'
+                    ? 'border-cyan-500/40 shadow-cyan-950/50'
+                    : 'border-amber-500/30'
+                }`}
+              >
                 {/* Bubble Tip Arrow */}
                 <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-0 h-0 border-x-8 border-x-transparent border-b-8 border-b-stone-900" />
 
-                <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-amber-400 mb-1">
-                  <span>{character === 'asha' ? 'Asha speaks:' : 'Mitra speaks:'}</span>
+                <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider mb-1">
+                  <span className={character === 'divya_isl' ? 'text-cyan-400' : 'text-amber-400'}>
+                    {character === 'divya_isl'
+                      ? 'Divya signs (ISL):'
+                      : character === 'asha'
+                      ? 'Asha speaks:'
+                      : 'Mitra speaks:'}
+                  </span>
                   {(speechActive || isPlaying) && (
                     <span className="flex h-1.5 w-1.5 relative">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                      <span
+                        className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
+                          character === 'divya_isl' ? 'bg-cyan-400' : 'bg-emerald-400'
+                        }`}
+                      ></span>
+                      <span
+                        className={`relative inline-flex rounded-full h-1.5 w-1.5 ${
+                          character === 'divya_isl' ? 'bg-cyan-500' : 'bg-emerald-500'
+                        }`}
+                      ></span>
                     </span>
                   )}
                 </div>
@@ -1772,6 +2314,56 @@ export const AiTutorVideoModal: React.FC<AiTutorVideoModalProps> = ({
               </div>
             </div>
           </div>
+
+          {/* Picture-in-Picture (PiP) Indian Sign Language Interpreter Floating Window */}
+          {isIslPipActive && character !== 'divya_isl' && (
+            <div className="absolute bottom-16 right-4 z-30 p-2 rounded-2xl bg-stone-950/95 border-2 border-cyan-500/70 shadow-2xl backdrop-blur-md flex flex-col items-center animate-in zoom-in-95 duration-200 max-w-[150px] sm:max-w-[170px]">
+              <div className="flex items-center justify-between w-full pb-1 mb-1 border-b border-stone-800 text-[10px] font-bold text-cyan-300">
+                <span className="flex items-center gap-1">
+                  <span>🤟</span>
+                  <span>ISL Interpreter</span>
+                </span>
+                <button
+                  onClick={() => setIsIslPipActive(false)}
+                  className="p-0.5 rounded-md hover:bg-stone-800 text-stone-400 hover:text-white"
+                  title="Close ISL PiP"
+                  aria-label="Close ISL Picture-in-Picture"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </div>
+              <IslInterpreterAvatar
+                isSigning={speechActive || isPlaying}
+                stepNumber={currentChapter.stepNumber}
+                compact={true}
+              />
+            </div>
+          )}
+
+          {/* Indian Sign Language (ISL) Gloss Captions Strip */}
+          {(character === 'divya_isl' || isIslPipActive) && (
+            <div className="relative z-10 mt-2 p-2.5 rounded-xl bg-cyan-950/80 backdrop-blur-sm border border-cyan-500/40 text-left max-w-2xl mx-auto w-full shadow-lg">
+              <div className="flex items-center justify-between gap-2 mb-1">
+                <div className="flex items-center gap-1.5 text-[11px] font-bold text-cyan-300">
+                  <span>🤟</span>
+                  <span>INDIAN SIGN LANGUAGE (ISL) GLOSS</span>
+                </div>
+                <span className="text-[10px] text-cyan-400/80 font-mono">
+                  ISLRTC Standards (islrtc.nic.in)
+                </span>
+              </div>
+              <div className="text-xs font-mono font-bold text-amber-300 tracking-wide bg-stone-950/80 p-2 rounded-lg border border-cyan-500/30">
+                {currentChapterIsl.glossEn}
+              </div>
+              <div className="mt-1 text-[11px] text-stone-300 flex items-center gap-2">
+                <span className="font-semibold text-cyan-300">हिन्दी संकेत:</span>
+                <span>{currentChapterIsl.glossHi}</span>
+              </div>
+              <div className="mt-1 text-[10px] text-stone-400 italic">
+                {currentChapterIsl.visualDescription[currentLang] || currentChapterIsl.visualDescription.en}
+              </div>
+            </div>
+          )}
 
           {/* Bottom Subtitle Bar */}
           <div

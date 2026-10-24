@@ -60,4 +60,33 @@ describe('AI Tutor Video Walkthrough & Orientation Policy', () => {
       expect(localStorage.getItem(TUTORIAL_KEY)).toBeNull();
     }
   });
+
+  it('4. Verifies that Indian Sign Language (ISL) gloss and key signs are defined for all 5 chapters', async () => {
+    const { ISL_CHAPTER_GLOSS } = await import('../components/AiTutorVideoModal.tsx');
+    expect(ISL_CHAPTER_GLOSS).toBeDefined();
+
+    for (let step = 1; step <= 5; step++) {
+      const gloss = ISL_CHAPTER_GLOSS[step];
+      expect(gloss).toBeDefined();
+      expect(gloss.stepNumber).toBe(step);
+      expect(gloss.glossEn.length).toBeGreaterThan(10);
+      expect(gloss.glossHi.length).toBeGreaterThan(5);
+      expect(gloss.keySigns.length).toBeGreaterThanOrEqual(3);
+
+      // Verify each chapter has multilingual descriptions
+      const languages = ['en', 'hi', 'mr', 'bn', 'te', 'ta', 'gu', 'kn', 'ml', 'pa', 'or'] as const;
+      for (const lang of languages) {
+        expect(gloss.visualDescription[lang]).toBeDefined();
+        expect(gloss.visualDescription[lang].length).toBeGreaterThan(10);
+      }
+    }
+  });
+
+  it('5. Verifies ISL translation toggle and badge keys exist in en and hi dictionaries', () => {
+    expect(TRANSLATIONS.en.tutorIslToggle).toBe('Indian Sign Language (ISL)');
+    expect(TRANSLATIONS.en.tutorIslBadge).toBe('ISL Interpreter Active');
+    expect(TRANSLATIONS.hi.tutorIslToggle).toBe('भारतीय सांकेतिक भाषा (ISL)');
+    expect(TRANSLATIONS.hi.tutorIslBadge).toBe('सांकेतिक भाषा दुभाषिया सक्रिय');
+  });
 });
+

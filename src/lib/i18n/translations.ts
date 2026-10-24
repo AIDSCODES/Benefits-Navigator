@@ -84,6 +84,10 @@ export interface Translations {
   tutorPaused: string;
   tutorChapterProgress: string;
   tutorResetFirstTime: string;
+  tutorIslToggle?: string;
+  tutorIslBadge?: string;
+  tutorIslGloss?: string;
+  tutorIslPipToggle?: string;
 }
 
 export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
@@ -169,6 +173,10 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     tutorPaused: 'Paused',
     tutorChapterProgress: 'Chapter {current} of {total}',
     tutorResetFirstTime: 'Re-enable First-Time Tour',
+    tutorIslToggle: 'Indian Sign Language (ISL)',
+    tutorIslBadge: 'ISL Interpreter Active',
+    tutorIslGloss: 'ISL Sign Gloss',
+    tutorIslPipToggle: 'ISL Signer PiP',
   },
   hi: {
     appTitle: 'हितलाभ मार्गदर्शक (Benefits Navigator)',
@@ -252,6 +260,10 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     tutorPaused: 'रुका हुआ',
     tutorChapterProgress: 'अध्याय {current} / {total}',
     tutorResetFirstTime: 'पहली बार का दौरा पुनः सक्षम करें',
+    tutorIslToggle: 'भारतीय सांकेतिक भाषा (ISL)',
+    tutorIslBadge: 'सांकेतिक भाषा दुभाषिया सक्रिय',
+    tutorIslGloss: 'सांकेतिक शब्द संकेत (ISL Gloss)',
+    tutorIslPipToggle: 'सांकेतिक विंडो (PiP)',
   },
   mr: {
     appTitle: 'योजना मार्गदर्शक (Benefits Navigator)',
