@@ -92,123 +92,113 @@ export const Header: React.FC<HeaderProps> = ({
         <span className="font-semibold">{t.bannerDisclaimer}</span>
       </div>
 
-      {/* Main Top Bar Contract: 3 Zones */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-8 h-16">
-        {/* Zone 1: Wordmark with Brand Logo */}
-        <div className="flex items-center gap-3 shrink-0">
+      {/* Main Top Bar: Left Group (Brand & Nav Buttons) and Right Group (Quick Action Utilities) */}
+      <div className="w-full max-w-[1600px] mx-auto px-3 sm:px-6 flex items-center justify-between gap-2 sm:gap-4 h-16">
+        {/* Left Side: Wordmark Brand Logo + Header Navigation Buttons */}
+        <div className="flex items-center gap-3 lg:gap-4 xl:gap-5 min-w-0 flex-1">
+          {/* Brand Wordmark Logo */}
           <button
             onClick={() => handleTabClick('navigator')}
-            className="text-left group cursor-pointer focus:outline-hidden focus-visible:ring-2 focus-visible:ring-stone-900 dark:focus-visible:ring-white rounded-md p-1"
+            className="text-left group cursor-pointer focus:outline-hidden focus-visible:ring-2 focus-visible:ring-stone-900 dark:focus-visible:ring-white rounded-md p-1 shrink-0"
           >
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-2 sm:gap-2.5">
               <img
                 src="/yojana360-logo.png"
                 alt="Yojana360 Logo"
-                className="w-9 h-9 object-contain rounded-lg shadow-xs"
+                className="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-lg shadow-xs"
               />
-              <span className="text-xl font-bold tracking-tight text-stone-900 dark:text-white whitespace-nowrap">
+              <span className="text-lg sm:text-xl font-bold tracking-tight text-stone-900 dark:text-white whitespace-nowrap">
                 Yojana360
               </span>
             </div>
           </button>
+
+          {/* Header Navigation Buttons moved to Left Side */}
+          <nav
+            className="hidden lg:flex items-center gap-1 xl:gap-1.5 text-xs xl:text-sm font-medium text-stone-600 dark:text-stone-300 min-w-0 overflow-x-auto no-scrollbar py-1"
+            aria-label="Main Navigation"
+          >
+            <button
+              onClick={() => handleTabClick('navigator')}
+              className={`whitespace-nowrap shrink-0 transition-colors px-2.5 py-1.5 rounded-lg ${
+                currentTab === 'navigator'
+                  ? 'bg-stone-100 dark:bg-stone-800 text-stone-950 dark:text-white font-semibold'
+                  : 'hover:bg-stone-50 dark:hover:bg-stone-800/60 hover:text-stone-950 dark:hover:text-white'
+              }`}
+            >
+              {t.navFind}
+            </button>
+
+            <button
+              onClick={() => handleTabClick('registry')}
+              className={`whitespace-nowrap shrink-0 transition-colors px-2.5 py-1.5 rounded-lg ${
+                currentTab === 'registry'
+                  ? 'bg-stone-100 dark:bg-stone-800 text-stone-950 dark:text-white font-semibold'
+                  : 'hover:bg-stone-50 dark:hover:bg-stone-800/60 hover:text-stone-950 dark:hover:text-white'
+              }`}
+            >
+              {t.navRegistry}
+            </button>
+
+            <button
+              onClick={() => handleTabClick('trending')}
+              className={`whitespace-nowrap shrink-0 transition-colors px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 ${
+                currentTab === 'trending'
+                  ? 'bg-stone-100 dark:bg-stone-800 text-stone-950 dark:text-white font-semibold'
+                  : 'hover:bg-stone-50 dark:hover:bg-stone-800/60 hover:text-stone-950 dark:hover:text-white'
+              }`}
+            >
+              <TrendingUp className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
+              <span>{t.navTrending || 'Trending'}</span>
+            </button>
+
+            <button
+              onClick={() => handleTabClick('calendar')}
+              className={`whitespace-nowrap shrink-0 transition-colors px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 ${
+                currentTab === 'calendar'
+                  ? 'bg-stone-100 dark:bg-stone-800 text-stone-950 dark:text-white font-semibold'
+                  : 'hover:bg-stone-50 dark:hover:bg-stone-800/60 hover:text-stone-950 dark:hover:text-white'
+              }`}
+            >
+              <Calendar className="w-3.5 h-3.5 text-rose-500 shrink-0" />
+              <span>{t.navCalendar || 'Calendar'}</span>
+            </button>
+
+            <button
+              onClick={() => handleTabClick('wallet')}
+              className={`whitespace-nowrap shrink-0 transition-colors px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 ${
+                currentTab === 'wallet'
+                  ? 'bg-stone-100 dark:bg-stone-800 text-stone-950 dark:text-white font-semibold'
+                  : 'hover:bg-stone-50 dark:hover:bg-stone-800/60 hover:text-stone-950 dark:hover:text-white'
+              }`}
+            >
+              <Wallet className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+              <span>{t.navWallet || 'Wallet'}</span>
+            </button>
+
+            <button
+              onClick={() => handleTabClick('about')}
+              className={`whitespace-nowrap shrink-0 transition-colors px-2.5 py-1.5 rounded-lg ${
+                currentTab === 'about'
+                  ? 'bg-stone-100 dark:bg-stone-800 text-stone-950 dark:text-white font-semibold'
+                  : 'hover:bg-stone-50 dark:hover:bg-stone-800/60 hover:text-stone-950 dark:hover:text-white'
+              }`}
+            >
+              {t.navAbout}
+            </button>
+          </nav>
         </div>
 
-        {/* Zone 2: Clean single-line text navigation links */}
-        <nav
-          className="hidden lg:flex items-center gap-6 text-sm font-medium text-stone-600 dark:text-stone-300"
-          aria-label="Main Navigation"
-        >
-          <button
-            onClick={() => handleTabClick('navigator')}
-            className={`whitespace-nowrap shrink-0 transition-colors py-1 ${
-              currentTab === 'navigator'
-                ? 'text-stone-950 dark:text-white font-semibold border-b-2 border-stone-900 dark:border-white'
-                : 'hover:text-stone-950 dark:hover:text-white'
-            }`}
-          >
-            {t.navFind}
-          </button>
-
-          <button
-            onClick={() => handleTabClick('registry')}
-            className={`whitespace-nowrap shrink-0 transition-colors py-1 ${
-              currentTab === 'registry'
-                ? 'text-stone-950 dark:text-white font-semibold border-b-2 border-stone-900 dark:border-white'
-                : 'hover:text-stone-950 dark:hover:text-white'
-            }`}
-          >
-            {t.navRegistry}
-          </button>
-
-          <button
-            onClick={() => handleTabClick('trending')}
-            className={`whitespace-nowrap shrink-0 transition-colors py-1 flex items-center gap-1.5 ${
-              currentTab === 'trending'
-                ? 'text-stone-950 dark:text-white font-semibold border-b-2 border-stone-900 dark:border-white'
-                : 'hover:text-stone-950 dark:hover:text-white'
-            }`}
-          >
-            <TrendingUp className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
-            <span>{t.navTrending || 'Trending Analytics'}</span>
-          </button>
-
-          <button
-            onClick={() => handleTabClick('calendar')}
-            className={`whitespace-nowrap shrink-0 transition-colors py-1 flex items-center gap-1.5 ${
-              currentTab === 'calendar'
-                ? 'text-stone-950 dark:text-white font-semibold border-b-2 border-stone-900 dark:border-white'
-                : 'hover:text-stone-950 dark:hover:text-white'
-            }`}
-          >
-            <Calendar className="w-3.5 h-3.5 text-rose-500" />
-            <span>{t.navCalendar || 'Deadlines & Calendar'}</span>
-          </button>
-
-          <button
-            onClick={() => handleTabClick('wallet')}
-            className={`whitespace-nowrap shrink-0 transition-colors py-1 flex items-center gap-1.5 ${
-              currentTab === 'wallet'
-                ? 'text-stone-950 dark:text-white font-semibold border-b-2 border-stone-900 dark:border-white'
-                : 'hover:text-stone-950 dark:hover:text-white'
-            }`}
-          >
-            <Wallet className="w-3.5 h-3.5 text-emerald-500" />
-            <span>{t.navWallet || 'Benefit Wallet'}</span>
-          </button>
-
-          <button
-            onClick={() => handleTabClick('about')}
-            className={`whitespace-nowrap shrink-0 transition-colors py-1 ${
-              currentTab === 'about'
-                ? 'text-stone-950 dark:text-white font-semibold border-b-2 border-stone-900 dark:border-white'
-                : 'hover:text-stone-950 dark:hover:text-white'
-            }`}
-          >
-            {t.navAbout}
-          </button>
-
-          <button
-            onClick={() => handleTabClick('login')}
-            className={`whitespace-nowrap shrink-0 transition-colors py-1 ${
-              currentTab === 'login'
-                ? 'text-stone-950 dark:text-white font-semibold border-b-2 border-stone-900 dark:border-white'
-                : 'hover:text-stone-950 dark:hover:text-white'
-            }`}
-          >
-            {citizenUser ? 'My Account' : 'Sign In'}
-          </button>
-        </nav>
-
-        {/* Zone 3: Language & Clear Answers */}
-        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+        {/* Right Side: Quick Action Utilities */}
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           {/* Language Selector */}
-          <div className="flex items-center bg-stone-100 dark:bg-stone-800 rounded-xl p-1">
-            <Globe className="w-4 h-4 ml-2 mr-1 text-stone-500 shrink-0" aria-hidden="true" />
+          <div className="flex items-center bg-stone-100 dark:bg-stone-800 rounded-xl p-0.5 sm:p-1">
+            <Globe className="w-3.5 h-3.5 ml-1.5 mr-0.5 text-stone-500 shrink-0" aria-hidden="true" />
             <select
               value={lang}
               onChange={(e) => onLanguageChange(e.target.value as SupportedLanguage)}
               aria-label="Select Language"
-              className="bg-transparent text-xs font-semibold text-stone-800 dark:text-stone-200 py-1.5 pr-2 pl-1 cursor-pointer focus:outline-hidden min-h-[36px]"
+              className="bg-transparent text-xs font-semibold text-stone-800 dark:text-stone-200 py-1 pr-1.5 pl-0.5 cursor-pointer focus:outline-hidden min-h-[34px]"
             >
               <option value="en" className="dark:bg-stone-900 text-stone-900 dark:text-stone-100">English</option>
               <option value="hi" className="dark:bg-stone-900 text-stone-900 dark:text-stone-100">हिन्दी</option>
@@ -228,12 +218,12 @@ export const Header: React.FC<HeaderProps> = ({
           {onOpenTutorVideo && (
             <button
               onClick={onOpenTutorVideo}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-400 border border-amber-500/30 rounded-xl text-xs font-semibold transition-colors min-h-[36px]"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-400 border border-amber-500/30 rounded-xl text-xs font-semibold transition-colors min-h-[34px]"
               title={t.tutorVideoBtn}
             >
-              <Video className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
-              <span className="hidden sm:inline">{t.tutorVideoBtn}</span>
-              <span className="sm:hidden">Video</span>
+              <Video className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
+              <span className="hidden xl:inline">{t.tutorVideoBtn}</span>
+              <span className="xl:hidden hidden sm:inline">Video</span>
             </button>
           )}
 
@@ -241,12 +231,12 @@ export const Header: React.FC<HeaderProps> = ({
           {onOpenChatbot && (
             <button
               onClick={onOpenChatbot}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-teal-500/10 hover:bg-teal-500/20 text-teal-800 dark:text-teal-300 border border-teal-500/30 rounded-xl text-xs font-semibold transition-colors min-h-[36px]"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 bg-teal-500/10 hover:bg-teal-500/20 text-teal-800 dark:text-teal-300 border border-teal-500/30 rounded-xl text-xs font-semibold transition-colors min-h-[34px]"
               title="AI Assistant / Chatbot"
             >
-              <MessageSquare className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
-              <span className="hidden sm:inline">AI Chatbot</span>
-              <span className="sm:hidden">AI</span>
+              <MessageSquare className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400 shrink-0" />
+              <span className="hidden xl:inline">AI Chatbot</span>
+              <span className="xl:hidden hidden sm:inline">AI</span>
             </button>
           )}
 
@@ -254,13 +244,13 @@ export const Header: React.FC<HeaderProps> = ({
           {onOpenNotifications && (
             <button
               onClick={onOpenNotifications}
-              className="relative p-2 text-stone-700 dark:text-stone-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 rounded-xl transition-colors min-h-[36px] min-w-[36px] flex items-center justify-center cursor-pointer"
+              className="relative p-2 text-stone-700 dark:text-stone-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 rounded-xl transition-colors min-h-[34px] min-w-[34px] flex items-center justify-center cursor-pointer"
               title="New Scheme Arrival Alerts"
               aria-label="New Scheme Arrival Alerts"
             >
               <Bell className="w-4 h-4" />
               {newSchemesCount > 0 && (
-                <span className="absolute -top-1 -right-1 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-emerald-500 text-[10px] font-black text-stone-950 shadow-xs ring-2 ring-white dark:ring-stone-900 animate-pulse">
+                <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500 text-[10px] font-black text-stone-950 shadow-xs ring-2 ring-white dark:ring-stone-900 animate-pulse">
                   {newSchemesCount}
                 </span>
               )}
@@ -271,14 +261,15 @@ export const Header: React.FC<HeaderProps> = ({
           {onOpenWorkspace && (
             <button
               onClick={onOpenWorkspace}
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-800 dark:text-stone-200 rounded-xl text-xs font-semibold transition-colors min-h-[36px]"
+              className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-800 dark:text-stone-200 rounded-xl text-xs font-semibold transition-colors min-h-[34px]"
               title="Connect Google Drive & Gmail"
             >
-              <div className="flex items-center -space-x-1">
+              <div className="flex items-center -space-x-1 shrink-0">
                 <HardDrive className="w-3.5 h-3.5 text-amber-500" />
                 <Mail className="w-3.5 h-3.5 text-rose-500" />
               </div>
-              <span>Drive & Gmail</span>
+              <span className="hidden 2xl:inline">Drive & Gmail</span>
+              <span className="2xl:hidden hidden xl:inline">Drive</span>
             </button>
           )}
 
@@ -286,16 +277,16 @@ export const Header: React.FC<HeaderProps> = ({
           {citizenUser ? (
             <button
               onClick={() => onTabChange('login')}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-800 dark:text-emerald-300 border border-emerald-500/40 rounded-xl text-xs font-bold transition-all shadow-2xs min-h-[36px] cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-800 dark:text-emerald-300 border border-emerald-500/40 rounded-xl text-xs font-bold transition-all shadow-2xs min-h-[34px] cursor-pointer"
               title={`Signed in as ${citizenUser.name}`}
             >
               <span className="text-sm">{citizenUser.avatarUrl || '👤'}</span>
-              <span className="hidden sm:inline max-w-[110px] truncate">{citizenUser.name.split(' ')[0]}</span>
+              <span className="hidden sm:inline max-w-[90px] truncate">{citizenUser.name.split(' ')[0]}</span>
             </button>
           ) : (
             <button
               onClick={() => onTabChange('login')}
-              className="flex items-center gap-1.5 px-3.5 py-1.5 bg-stone-900 hover:bg-stone-800 text-white dark:bg-white dark:text-stone-900 dark:hover:bg-stone-100 rounded-xl text-xs font-bold transition-all shadow-xs min-h-[36px] cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-stone-900 hover:bg-stone-800 text-white dark:bg-white dark:text-stone-900 dark:hover:bg-stone-100 rounded-xl text-xs font-bold transition-all shadow-xs min-h-[34px] cursor-pointer whitespace-nowrap"
             >
               <LogIn className="w-3.5 h-3.5" />
               <span>Sign In</span>
@@ -308,7 +299,7 @@ export const Header: React.FC<HeaderProps> = ({
               onClick={() => setShowClearConfirm(true)}
               title={t.clearAnswers}
               aria-label={t.clearAnswers}
-              className="p-2 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-xl transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+              className="p-1.5 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-xl transition-colors min-h-[34px] min-w-[34px] flex items-center justify-center"
             >
               <Trash2 className="w-4 h-4" />
             </button>
@@ -317,11 +308,11 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Mobile Menu Trigger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 text-stone-600 dark:text-stone-300 hover:text-stone-900 rounded-lg min-h-[44px] min-w-[44px] flex items-center justify-center"
+            className="lg:hidden p-2 text-stone-600 dark:text-stone-300 hover:text-stone-900 rounded-lg min-h-[36px] min-w-[36px] flex items-center justify-center"
             aria-label="Toggle mobile menu"
             aria-expanded={mobileMenuOpen}
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
