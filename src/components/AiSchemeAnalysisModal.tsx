@@ -169,7 +169,7 @@ export const AiSchemeAnalysisModal: React.FC<AiSchemeAnalysisModalProps> = ({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: `Regarding the scheme/portal "${code}: ${title}" (Official URL: ${officialUrl}): ${userMsg}`,
-          character: 'mitra',
+          character: 'vedu',
           lang,
         }),
       });

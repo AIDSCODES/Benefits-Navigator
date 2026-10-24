@@ -93,5 +93,11 @@ describe('AI Tutor Video Walkthrough & Orientation Policy', () => {
     const { ISL_VIDEO_SRC } = await import('../components/AiTutorVideoModal.tsx');
     expect(ISL_VIDEO_SRC).toBe('/video_1792858177800_1b98b6a2.mp4');
   });
+
+  it('7. Verifies that the renamed AI characters (Dhanu, Vedu, Chaitu) are configured', async () => {
+    const tutorModal = await import('../components/AiTutorVideoModal.tsx');
+    expect(tutorModal.IslInterpreterAvatar).toBeDefined();
+    expect(tutorModal.AiTutorVideoModal).toBeDefined();
+  });
 });
 

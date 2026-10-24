@@ -304,7 +304,7 @@ Keep the advice empowering, accurate, jargon-free, and remind citizens never to 
 
   // 5. POST /ai/chat - Interactive AI Assistant / Chatbot
   api.post('/ai/chat', async (req: Request, res: Response) => {
-    const { message, character = 'asha', lang = 'en' } = req.body;
+    const { message, character = 'dhanu', lang = 'en' } = req.body;
     if (!message || typeof message !== 'string') {
       res.status(400).json({ error: 'Message is required' });
       return;
@@ -316,7 +316,8 @@ Keep the advice empowering, accurate, jargon-free, and remind citizens never to 
     if (apiKey && apiKey !== 'MY_GEMINI_API_KEY') {
       try {
         const ai = new GoogleGenAI();
-        const characterName = character === 'mitra' ? 'Mitra (AI Smart Assistant)' : 'Asha (AI Welfare Guide)';
+        const isVedu = character === 'vedu' || character === 'mitra';
+        const characterName = isVedu ? 'Vedu (AI Smart Assistant)' : 'Dhanu (AI Welfare Guide)';
         const langInstruction = lang === 'hi' ? 'Respond in Hindi (हिंदी)' : lang === 'mr' ? 'Respond in Marathi (मराठी)' : `Respond in the user's language (${lang})`;
 
         const prompt = `You are ${characterName} for the Benefits Navigator open-source public welfare platform in India.

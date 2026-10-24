@@ -26,7 +26,7 @@ import {
 import { SupportedLanguage } from '../lib/engine/types.ts';
 import { TRANSLATIONS } from '../lib/i18n/translations.ts';
 
-export type AiGuideCharacter = 'asha' | 'mitra';
+export type AiGuideCharacter = 'dhanu' | 'vedu' | 'asha' | 'mitra';
 
 interface ChatMessage {
   id: string;
@@ -59,50 +59,72 @@ const VOICE_LANG_MAP: Record<SupportedLanguage, string> = {
   or: 'or-IN',
 };
 
-const INITIAL_GREETINGS: Record<SupportedLanguage, { asha: string; mitra: string }> = {
+const INITIAL_GREETINGS: Record<SupportedLanguage, Record<AiGuideCharacter, string>> = {
   en: {
-    asha: 'Namaste! I am Asha, your AI public welfare guide. Ask me anything about government schemes, documents, or how to use this website!',
-    mitra: 'Hello! I am Mitra, your smart welfare assistant. How can I help you find government benefits and checklists today?',
+    dhanu: 'Namaste! I am Dhanu, your AI public welfare guide. Ask me anything about government schemes, documents, or how to use this website!',
+    vedu: 'Hello! I am Vedu, your smart welfare assistant. How can I help you find government benefits and checklists today!',
+    asha: 'Namaste! I am Dhanu, your AI public welfare guide. Ask me anything about government schemes, documents, or how to use this website!',
+    mitra: 'Hello! I am Vedu, your smart welfare assistant. How can I help you find government benefits and checklists today!',
   },
   hi: {
-    asha: 'नमस्ते! मैं आशा हूं, आपकी एआई जन-कल्याण मार्गदर्शक। सरकारी योजनाओं, जरूरी दस्तावेजों या इस वेबसाइट के बारे में कुछ भी पूछें!',
-    mitra: 'नमस्कार! मैं मित्र हूं, आपका स्मार्ट सहायक। आज सरकारी लाभ खोजने में मैं आपकी क्या मदद कर सकता हूं?',
+    dhanu: 'नमस्ते! मैं धनू हूं, आपकी एआई जन-कल्याण मार्गदर्शक। सरकारी योजनाओं, जरूरी दस्तावेजों या इस वेबसाइट के बारे में कुछ भी पूछें!',
+    vedu: 'नमस्कार! मैं वेदू हूं, आपका स्मार्ट सहायक। आज सरकारी लाभ खोजने में मैं आपकी क्या मदद कर सकता हूं?',
+    asha: 'नमस्ते! मैं धनू हूं, आपकी एआई जन-कल्याण मार्गदर्शक। सरकारी योजनाओं, जरूरी दस्तावेजों या इस वेबसाइट के बारे में कुछ भी पूछें!',
+    mitra: 'नमस्कार! मैं वेदू हूं, आपका स्मार्ट सहायक। आज सरकारी लाभ खोजने में मैं आपकी क्या मदद कर सकता हूं?',
   },
   mr: {
-    asha: 'नमस्कार! मी आशा, तुमची एआई योजना मार्गदर्शक. शासकीय योजना, कागदपत्रे किंवा या संकेतस्थळाबद्दल काहीही विचारा!',
-    mitra: 'नमस्कार! मी मित्र, तुमचा स्मार्ट साहाय्यक. शासकीय योजना शोधण्यात मी कशी मदत करू?',
+    dhanu: 'नमस्कार! मी धनू, तुमची एआई योजना मार्गदर्शक. शासकीय योजना, कागदपत्रे किंवा या संकेतस्थळाबद्दल काहीही विचारा!',
+    vedu: 'नमस्कार! मी वेदू, तुमचा स्मार्ट साहाय्यक. शासकीय योजना शोधण्यात मी कशी मदत करू?',
+    asha: 'नमस्कार! मी धनू, तुमची एआई योजना मार्गदर्शक. शासकीय योजना, कागदपत्रे किंवा या संकेतस्थळाबद्दल काहीही विचारा!',
+    mitra: 'नमस्कार! मी वेदू, तुमचा स्मार्ट साहाय्यक. शासकीय योजना शोधण्यात मी कशी मदत करू?',
   },
   bn: {
-    asha: 'নমস্কার! আমি আশা, আপনার এআই কল্যাণ গাইড। সরকারি প্রকল্প বা ওয়েবসাইট সম্পর্কে যেকোনো প্রশ্ন করুন!',
-    mitra: 'হ্যালো! আমি মিত্র, আপনার সহকারী। সরকারি সুবিধা ও দরকারি কাগজ খুঁজতে আমি সাহায্য করছি!',
+    dhanu: 'নমস্কার! আমি ধনু, আপনার এআই কল্যাণ গাইড। সরকারি প্রকল্প বা ওয়েবসাইট সম্পর্কে যেকোনো প্রশ্ন করুন!',
+    vedu: 'হ্যালো! আমি বেদূ, আপনার সহকারী। সরকারি সুবিধা ও দরকারি কাগজ খুঁজতে আমি সাহায্য করছি!',
+    asha: 'নমস্কার! আমি ধনু, আপনার এআই কল্যাণ গাইড। সরকারি প্রকল্প বা ওয়েবসাইট সম্পর্কে যেকোনো প্রশ্ন করুন!',
+    mitra: 'হ্যালো! আমি বেদূ, আপনার সহকারী। সরকারি সুবিধা ও দরকারি কাগজ খুঁজতে আমি সাহায্য করছি!',
   },
   te: {
-    asha: 'నమస్కారం! నేను ఆశా, మీ AI సంక్షేమ గైడ్. ప్రభుత్వ పథకాలు లేదా ఈ వెబ్‌సైట్ గురించి ఏదైనా అడగండి!',
-    mitra: 'హలో! నేను మిత్ర. ప్రభుత్వ పథకాలు మరియు పత్రాల వివరాల కోసం నన్ను అడగండి!',
+    dhanu: 'నమస్కారం! నేను ధను, మీ AI సంక్షేమ గైడ్. ప్రభుత్వ పథకాలు లేదా ఈ వెబ్‌సైట్ గురించి ఏదైనా అడగండి!',
+    vedu: 'హలో! నేను వేదు. ప్రభుత్వ పథకాలు మరియు పత్రాల వివరాల కోసం నన్ను అడగండి!',
+    asha: 'నమస్కారం! నేను ధను, మీ AI సంక్షేమ గైడ్. ప్రభుత్వ పథకాలు లేదా ఈ వెబ్‌సైట్ గురించి ఏదైనా అడగండి!',
+    mitra: 'హలో! నేను వేదు. ప్రభుత్వ పథకాలు మరియు పత్రాల వివరాల కోసం నన్ను అడగండి!',
   },
   ta: {
-    asha: 'வணக்கம்! நான் ஆஷா, உங்கள் AI வழிகாட்டி. அரசு நலத்திட்டங்கள் அல்லது தளம் குறித்து எதையும் கேளுங்கள்!',
-    mitra: 'வணக்கம்! நான் மித்ரா, உங்கள் ஸ்மார்ட் உதவியாளர். நலத்திட்டங்களை கண்டறிய நான் உதவுகிறேன்!',
+    dhanu: 'வணக்கம்! நான் தனு, உங்கள் AI வழிகாட்டி. அரசு நலத்திட்டங்கள் அல்லது தளம் குறித்து எதையும் கேளுங்கள்!',
+    vedu: 'வணக்கம்! நான் வேது, உங்கள் ஸ்மார்ட் உதவியாளர். நலத்திட்டங்களை கண்டறிய நான் உதவுகிறேன்!',
+    asha: 'வணக்கம்! நான் தனு, உங்கள் AI வழிகாட்டி. அரசு நலத்திட்டங்கள் அல்லது தளம் குறித்து எதையும் கேளுங்கள்!',
+    mitra: 'வணக்கம்! நான் வேது, உங்கள் ஸ்மார்ட் உதவியாளர். நலத்திட்டங்களை கண்டறிய நான் உதவுகிறேன்!',
   },
   gu: {
-    asha: 'નમસ્તે! હું આશા છું, તમારી AI માર્ગદર્શક. સરકારી યોજનાઓ કે દસ્તાવેજો વિશે કંઈ પણ પૂછો!',
-    mitra: 'નમસ્તે! હું મિત્ર છું. સરકારી યોજનાઓ શોધવામાં હું તમને મદદ કરીશ!',
+    dhanu: 'નમસ્તે! હું ધનુ છું, તમારી AI માર્ગદર્શક. સરકારી યોજનાઓ કે દસ્તાવેજો વિશે કંઈ પણ પૂછો!',
+    vedu: 'નમસ્તે! હું વેદુ છું. સરકારી યોજનાઓ શોધવામાં હું તમને મદદ કરીશ!',
+    asha: 'નમસ્તે! હું ધનુ છું, તમારી AI માર્ગદર્શક. સરકારી યોજનાઓ કે દસ્તાવેજો વિશે કંઈ પણ પૂછો!',
+    mitra: 'નમસ્તે! હું વેદુ છું. સરકારી યોજનાઓ શોધવામાં હું તમને મદદ કરીશ!',
   },
   kn: {
-    asha: 'ನಮಸ್ಕಾರ! ನಾನು ಆಶಾ, ನಿಮ್ಮ AI ಮಾರ್ಗದರ್ಶಿ. ಸರ್ಕಾರಿ ಯೋಜನೆಗಳು ಅಥವಾ ದಾಖಲೆಗಳ ಬಗ್ಗೆ ಏನನ್ನಾದರೂ ಕೇಳಿ!',
-    mitra: 'ಹಲೋ! ನಾನು ಮಿತ್ರ. ಸರ್ಕಾರಿ ಸೌಲಭ್ಯಗಳನ್ನು ಹುಡುಕಲು ನಾನು ನಿಮಗೆ ಸಹಾಯ ಮಾಡುತ್ತೇನೆ!',
+    dhanu: 'ನಮಸ್ಕಾರ! ನಾನು ಧನು, ನಿಮ್ಮ AI ಮಾರ್ಗದರ್ಶಿ. ಸರ್ಕಾರಿ ಯೋಜನೆಗಳು ಅಥವಾ ದಾಖಲೆಗಳ ಬಗ್ಗೆ ಏನನ್ನಾದರೂ ಕೇಳಿ!',
+    vedu: 'ಹಲೋ! ನಾನು ವೇದು, ನಿಮ್ಮ ಸಹಾಯಕ. ಪ್ರಾರಂಭಿಸಲು 11 ಭಾಷೆಗಳಿಂದ ನಿಮ್ಮ ಭಾಷೆಯನ್ನು ಮತ್ತು ಧ್ವನಿ ವಾಚನವನ್ನು ಆಯ್ಕೆಮಾಡಿ!',
+    asha: 'ನಮಸ್ಕಾರ! ನಾನು ಧನು, ನಿಮ್ಮ AI ಮಾರ್ಗದರ್ಶಿ. ಸರ್ಕಾರಿ ಯೋಜನೆಗಳು ಅಥವಾ ದಾಖಲೆಗಳ ಬಗ್ಗೆ ಏನನ್ನಾದರೂ ಕೇಳಿ!',
+    mitra: 'ಹಲೋ! ನಾನು ವೇದು, ನಿಮ್ಮ ಸಹಾಯಕ. ಪ್ರಾರಂಭಿಸಲು 11 ಭಾಷೆಗಳಿಂದ ನಿಮ್ಮ ಭಾಷೆಯನ್ನು ಮತ್ತು ಧ್ವನಿ ವಾಚನವನ್ನು ಆಯ್ಕೆಮಾಡಿ!',
   },
   ml: {
-    asha: 'നമസ്കാരം! ഞാൻ ആശ, നിങ്ങളുടെ AI ഗൈഡ്. സർക്കാർ പദ്ധതികളെക്കുറിച്ചോ വെബ്സൈറ്റിനെക്കുറിച്ചോ എന്തും ചോദിക്കാം!',
-    mitra: 'ഹലോ! ഞാൻ മിത്ര. സർക്കാർ ആനുകൂല്യങ്ങളും രേഖകളും കണ്ടെത്താൻ ഞാൻ സഹായിക്കാം!',
+    dhanu: 'നമസ്കാരം! ഞാൻ ധനു, നിങ്ങളുടെ AI ഗൈഡ്. സർക്കാർ പദ്ധതികളെക്കുറിച്ചോ വെബ്സൈറ്റിനെക്കുറിച്ചോ എന്തും ചോദിക്കാം!',
+    vedu: 'ഹലോ! ഞാൻ വേദു. സർക്കാർ ആനുകൂല്യങ്ങളും രേഖകളും കണ്ടെത്താൻ ഞാൻ സഹായിക്കാം!',
+    asha: 'നമസ്കാരം! ഞാൻ ധനു, നിങ്ങളുടെ AI ഗൈഡ്. സർക്കാർ പദ്ധതികളെക്കുറിച്ചോ വെബ്സൈറ്റിനെക്കുറിച്ചോ എന്തും ചോദിക്കാം!',
+    mitra: 'ഹലോ! ഞാൻ വേദു. സർക്കാർ ആനുകൂല്യങ്ങളും രേഖകളും കണ്ടെത്താൻ ഞാൻ സഹായിക്കാം!',
   },
   pa: {
-    asha: 'ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ ਆਸ਼ਾ ਹਾਂ। ਸਰਕਾਰੀ ਸਕੀਮਾਂ, ਦਸਤਾਵੇਜ਼ਾਂ ਜਾਂ ਵੈੱਬਸਾਈਟ ਬਾਰੇ ਕੁਝ ਵੀ ਪੁੱਛੋ!',
-    mitra: 'ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ ਮਿੱਤਰਾ ਹਾਂ। ਸਰਕਾਰੀ ਲਾਭ ਲੱਭਣ ਵਿੱਚ ਮੈਂ ਤੁਹਾਡੀ ਮਦਦ ਕਰ ਸਕਦਾ ਹਾਂ!',
+    dhanu: 'ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ ਧਨੂੰ ਹਾਂ। ਸਰਕਾਰੀ ਸਕੀਮਾਂ, ਦਸਤਾਵੇਜ਼ਾਂ ਜਾਂ ਵੈੱਬਸਾਈਟ ਬਾਰੇ ਕੁਝ ਵੀ ਪੁੱਛੋ!',
+    vedu: 'ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ ਵੇਦੂ ਹਾਂ। ਸਰਕਾਰੀ ਲਾਭ ਲੱਭਣ ਵਿੱਚ ਮੈਂ ਤੁਹਾਡੀ ਮਦਦ ਕਰ ਸਕਦਾ ਹਾਂ!',
+    asha: 'ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ ਧਨੂੰ ਹਾਂ। ਸਰਕਾਰੀ ਸਕੀਮਾਂ, ਦਸਤਾਵੇਜ਼ਾਂ ਜਾਂ ਵੈੱਬਸਾਈਟ ਬਾਰੇ ਕੁਝ ਵੀ ਪੁੱਛੋ!',
+    mitra: 'ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ ਵੇਦੂ ਹਾਂ। ਸਰਕਾਰੀ ਲਾਭ ਲੱਭਣ ਵਿੱਚ ਮੈਂ ਤੁਹਾਡੀ ਮਦਦ ਕਰ ਸਕਦਾ ਹਾਂ!',
   },
   or: {
-    asha: 'ନମସ୍କାର! ମୁଁ ଆଶା, ଆପଣଙ୍କ AI ମାର୍ଗଦର୍ଶକ। ସରକାରୀ ଯୋଜନା ବା ଦଲିଲ ବିଷୟରେ କିଛି ବି ପଚାରନ୍ତୁ!',
-    mitra: 'ହେଲୋ! ମୁଁ ମିତ୍ର। ସରକାରୀ ସୁବିଧା ଖୋଜିବାରେ ମୁଁ ଆପଣଙ୍କୁ ସାହାଯ୍ୟ କରିବି!',
+    dhanu: 'ନମସ୍କାର! ମୁଁ ଧନୁ, ଆପଣଙ୍କ AI ମାର୍ଗଦର୍ଶକ। ସରକାରୀ ଯୋଜନା ବା ଦଲିଲ ବିଷୟରେ କିଛି ବି ପଚାରନ୍ତୁ!',
+    vedu: 'ହେଲୋ! ମୁଁ ବେଦୁ। ସରକାରୀ ସୁବିଧା ଖୋଜିବାରେ ମୁଁ ଆପଣଙ୍କୁ ସାହାଯ୍ୟ କରିବି!',
+    asha: 'ନମସ୍କାର! ମୁଁ ଧନୁ, ଆପଣଙ୍କ AI ମାର୍ଗଦର୍ଶକ। ସରକାରୀ ଯୋଜନା ବା ଦଲିଲ ବିଷୟରେ କିଛି ବି ପଚାରନ୍ତୁ!',
+    mitra: 'ହେଲୋ! ମୁଁ ବେଦୁ। ସରକାରୀ ସୁବିଧା ଖୋଜିବାରେ ମୁଁ ଆପଣଙ୍କୁ ସାହାଯ୍ୟ କରିବି!',
   },
 };
 
@@ -121,12 +143,12 @@ export const AiAssistantChatbot: React.FC<AiAssistantChatbotProps> = ({
   onOpenTutorVideo,
   onNavigateTab,
 }) => {
-  const [character, setCharacter] = useState<AiGuideCharacter>('asha');
+  const [character, setCharacter] = useState<AiGuideCharacter>('dhanu');
   const [messages, setMessages] = useState<ChatMessage[]>(() => [
     {
       id: 'welcome',
       sender: 'assistant',
-      text: INITIAL_GREETINGS[lang]?.asha || INITIAL_GREETINGS.en.asha,
+      text: INITIAL_GREETINGS[lang]?.dhanu || INITIAL_GREETINGS.en.dhanu,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       source: 'local-knowledge-engine',
     },
@@ -318,7 +340,8 @@ export const AiAssistantChatbot: React.FC<AiAssistantChatbotProps> = ({
     ]);
   };
 
-  const isAsha = character === 'asha';
+  const isDhanu = character === 'dhanu' || character === 'asha';
+  const isAsha = isDhanu;
 
   return (
     <>
@@ -332,7 +355,7 @@ export const AiAssistantChatbot: React.FC<AiAssistantChatbotProps> = ({
         >
           {/* Animated Avatar Thumbnail */}
           <div className="relative w-7 h-7 rounded-full bg-stone-900 border border-amber-300 flex items-center justify-center text-sm shadow-xs shrink-0 overflow-hidden">
-            <span className="relative z-10">{isAsha ? '👩🏽' : '👨🏽'}</span>
+            <span className="relative z-10">{isDhanu ? '👩🏽' : '👨🏽'}</span>
             <span className="absolute inset-0 rounded-full bg-emerald-400/20 animate-ping" />
           </div>
 
@@ -347,7 +370,7 @@ export const AiAssistantChatbot: React.FC<AiAssistantChatbotProps> = ({
               </span>
             </div>
             <span className="text-[10px] font-semibold text-stone-900/80 -mt-0.5">
-              {isAsha ? 'Asha (Welfare Guide)' : 'Mitra (Smart Assistant)'}
+              {isDhanu ? 'Dhanu (Welfare Guide)' : 'Vedu (Smart Assistant)'}
             </span>
           </div>
 
@@ -371,14 +394,14 @@ export const AiAssistantChatbot: React.FC<AiAssistantChatbotProps> = ({
             <div className="flex items-center gap-2.5 min-w-0">
               {/* Character Avatar Icon */}
               <div className="relative w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-base shrink-0">
-                <span>{isAsha ? '👩🏽' : '👨🏽'}</span>
+                <span>{isDhanu ? '👩🏽' : '👨🏽'}</span>
                 <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 border border-stone-900" />
               </div>
 
               <div className="min-w-0">
                 <div className="flex items-center gap-1.5">
                   <h3 className="text-xs sm:text-sm font-bold text-white truncate">
-                    {isAsha ? 'Asha — AI Welfare Guide' : 'Mitra — AI Smart Assistant'}
+                    {isDhanu ? 'Dhanu — AI Welfare Guide' : 'Vedu — AI Smart Assistant'}
                   </h3>
                 </div>
                 <div className="flex items-center gap-1.5 text-[10px] text-stone-400">
@@ -393,26 +416,26 @@ export const AiAssistantChatbot: React.FC<AiAssistantChatbotProps> = ({
               {/* Character Switcher Toggle */}
               <div className="flex items-center bg-stone-800 rounded-lg p-0.5 border border-stone-700 mr-1">
                 <button
-                  onClick={() => setCharacter('asha')}
+                  onClick={() => setCharacter('dhanu')}
                   className={`px-1.5 py-0.5 rounded text-[10px] font-bold transition-all ${
-                    isAsha
+                    isDhanu
                       ? 'bg-amber-500 text-stone-950 shadow-xs'
                       : 'text-stone-400 hover:text-white'
                   }`}
-                  title="Switch to Asha (Welfare Guide)"
+                  title="Switch to Dhanu (Welfare Guide)"
                 >
-                  👩🏽 Asha
+                  👩🏽 Dhanu
                 </button>
                 <button
-                  onClick={() => setCharacter('mitra')}
+                  onClick={() => setCharacter('vedu')}
                   className={`px-1.5 py-0.5 rounded text-[10px] font-bold transition-all ${
-                    !isAsha
+                    !isDhanu
                       ? 'bg-teal-500 text-stone-950 shadow-xs'
                       : 'text-stone-400 hover:text-white'
                   }`}
-                  title="Switch to Mitra (Smart Tech Assistant)"
+                  title="Switch to Vedu (Smart Tech Assistant)"
                 >
-                  👨🏽 Mitra
+                  👨🏽 Vedu
                 </button>
               </div>
 
@@ -562,7 +585,7 @@ export const AiAssistantChatbot: React.FC<AiAssistantChatbotProps> = ({
                   <span className="w-2 h-2 rounded-full bg-amber-500 animate-bounce" style={{ animationDelay: '150ms' }} />
                   <span className="w-2 h-2 rounded-full bg-amber-500 animate-bounce" style={{ animationDelay: '300ms' }} />
                   <span className="text-[11px] text-stone-500 ml-1">
-                    {isAsha ? 'Asha is finding verified schemes...' : 'Mitra is analyzing rules...'}
+                    {isDhanu ? 'Dhanu is finding verified schemes...' : 'Vedu is analyzing rules...'}
                   </span>
                 </div>
               </div>
@@ -620,7 +643,7 @@ export const AiAssistantChatbot: React.FC<AiAssistantChatbotProps> = ({
               onKeyDown={(e) => {
                 if (e.key === 'Enter') handleSendMessage();
               }}
-              placeholder={`Ask ${isAsha ? 'Asha' : 'Mitra'} about schemes, documents, or website...`}
+              placeholder={`Ask ${isDhanu ? 'Dhanu' : 'Vedu'} about schemes, documents, or website...`}
               disabled={isTyping}
               className="flex-1 bg-stone-100 dark:bg-stone-800 border border-stone-300 dark:border-stone-700 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-stone-900 dark:text-white placeholder-stone-400 focus:outline-hidden focus:ring-2 focus:ring-amber-500/50"
             />

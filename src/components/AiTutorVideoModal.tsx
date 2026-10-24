@@ -50,7 +50,7 @@ interface AiTutorVideoModalProps {
   onResetFirstVisitDemo?: () => void;
 }
 
-export type AiCharacterType = 'asha' | 'mitra' | 'divya_isl';
+export type AiCharacterType = 'dhanu' | 'vedu' | 'chaitu_isl' | 'asha' | 'mitra' | 'divya_isl';
 
 export interface IslSignGloss {
   stepNumber: number;
@@ -66,10 +66,7 @@ interface Chapter {
   duration: number; // in seconds
   title: Record<SupportedLanguage, string>;
   subtitle: Record<SupportedLanguage, string>;
-  characterSpeech: {
-    asha: Record<SupportedLanguage, string>;
-    mitra: Record<SupportedLanguage, string>;
-  };
+  characterSpeech: Record<string, Record<SupportedLanguage, string>>;
   narration: Record<SupportedLanguage, string>;
   keyTakeaways: Record<SupportedLanguage, string[]>;
 }
@@ -135,32 +132,34 @@ const CHAPTERS: Chapter[] = [
       or: '୧୧ଟି ଭାରତୀୟ ଭାଷାରୁ ବାଛନ୍ତୁ, ଚିତ୍ର ମୋଡ୍ କିମ୍ବା ସ୍ୱର ପଠନ ସୁବିଧା ଅନ୍ କରନ୍ତୁ',
     },
     characterSpeech: {
-      asha: {
-        en: "Namaste! I am Asha, your AI welfare guide. Let's make you comfortable: tap the language button at the top to choose your regional language, or turn on Picture Mode for easy visual cards!",
-        hi: 'नमस्ते! मैं आशा हूं, आपकी एआई मार्गदर्शक। सबसे पहले स्क्रीन पर ऊपर अपनी भाषा चुनें, या आसान चित्रों के लिए चित्र मोड चालू करें!',
-        mr: 'नमस्ते! मी आशा, तुमची एआय मार्गदर्शक. सर्वात आधी वरच्या बटणावरून आपली भाषा निवडा, किंवा सोप्या चित्रांसाठी चित्र मोड सुरू करा!',
-        bn: 'নমস্কার! আমি আশা, আপনার এআই গাইড। উপরে ভাষা বাটন থেকে নিজের ভাষা বেছে নিন, অথবা ছবির জন্য পিকচার মোড চালু করুন!',
-        te: 'నమస్కారం! నేను ఆశా, మీ AI గైడ్. పైభాగంలో మీ ప్రాంతీయ భాషను ఎంచుకోండి, లేదా సులభమైన చిత్రాల కోసం పిక్చర్ మోడ్ ఆన్ చేయండి!',
-        ta: 'வணக்கம்! நான் ஆஷா, உங்கள் AI வழிகாட்டி. திரையின் மேல் பகுதியில் உங்கள் மொழியைத் தேர்வுசெய்யுங்கள், அல்லது படப் பயன்முறையை இயக்கவும்!',
-        gu: 'નમસ્તે! હું આશા છું, તમારી AI માર્ગદર્શક. સૌથી પહેલાં ઉપરથી તમારી ભાષા પસંદ કરો, અથવા ચિત્ર મોડ ચાલુ કરો!',
-        kn: 'ನಮಸ್ಕಾರ! ನಾನು ಆಶಾ, ನಿಮ್ಮ AI ಮಾರ್ಗದರ್ಶಿ. ಮೇಲ್ಭಾಗದಲ್ಲಿ ನಿಮ್ಮ ಭಾಷೆಯನ್ನು ಆರಿಸಿ, ಅಥವಾ ಸುಲಭ ಚಿತ್ರಗಳಿಗಾಗಿ ಪಿಕ್ಚರ್ ಮೋಡ್ ಆನ್ ಮಾಡಿ!',
-        ml: 'നമസ്കാരം! ഞാൻ ആശ, നിങ്ങളുടെ AI ഗൈഡ്. മുകളിൽ നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക, അല്ലെങ്കിൽ പിക്ചർ മോഡ് ഓൺ ചെയ്യുക!',
-        pa: 'ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ ਆਸ਼ਾ ਹਾਂ। ਸਭ ਤੋਂ ਪਹਿਲਾਂ ਉੱਪਰ ਦਿੱਤੇ ਬਟਨ ਤੋਂ ਆਪਣੀ ਭਾਸ਼ਾ ਚੁਣੋ, ਜਾਂ ਤਸਵੀਰ ਮੋਡ ਚਾਲੂ ਕਰੋ!',
-        or: 'ନମସ୍କାର! ମୁଁ ଆଶା, ଆପଣଙ୍କ AI ମାର୍ଗଦର୍ଶକ। ଉପରୁ ନିଜ ଭାଷା ବାଛନ୍ତୁ କିମ୍ବା ଚିତ୍ର ମୋଡ୍ ଅନ୍ କରନ୍ତୁ!',
+      dhanu: {
+        en: "Namaste! I am Dhanu, your AI welfare guide. Let's make you comfortable: tap the language button at the top to choose your regional language, or turn on Picture Mode for easy visual cards!",
+        hi: 'नमस्ते! मैं धनू हूं, आपकी एआई मार्गदर्शक। सबसे पहले स्क्रीन पर ऊपर अपनी भाषा चुनें, या आसान चित्रों के लिए चित्र मोड चालू करें!',
+        mr: 'नमस्ते! मी धनू, तुमची एआय मार्गदर्शक. सर्वात आधी वरच्या बटणावरून आपली भाषा निवडा, किंवा सोप्या चित्रांसाठी चित्र मोड सुरू करा!',
+        bn: 'নমস্কার! আমি ধনু, আপনার এআই গাইড। উপরে ভাষা বাটন থেকে নিজের ভাষা বেছে নিন, অথবা ছবির জন্য পিকচার মোড চালু করুন!',
+        te: 'నమస్కారం! నేను ధను, మీ AI గైడ్. పైభాగంలో మీ ప్రాంతీయ భాషను ఎంచుకోండి, లేదా సులభమైన చిత్రాల కోసం పిక్చర్ మోడ్ ఆన్ చేయండి!',
+        ta: 'வணக்கம்! நான் தனு, உங்கள் AI வழிகாட்டி. திரையின் மேல் பகுதியில் உங்கள் மொழியைத் தேர்வுசெய்யுங்கள், அல்லது படப் பயன்முறையை இயக்கவும்!',
+        gu: 'નમસ્તે! હું ધનુ છું, તમારી AI માર્ગદર્શક. સૌથી પહેલાં ઉપરથી તમારી ભાષા પસંદ કરો, અથવા ચિત્ર મોડ ચાલુ કરો!',
+        kn: 'ನಮಸ್ಕಾರ! ನಾನು ಧನು, ನಿಮ್ಮ AI ಮಾರ್ಗದರ್ಶಿ. ಮೇಲ್ಭಾಗದಲ್ಲಿ ನಿಮ್ಮ ಭಾಷೆಯನ್ನು ಆರಿಸಿ, ಅಥವಾ ಸುಲಭ ಚಿತ್ರಗಳಿಗಾಗಿ ಪಿಕ್ಚರ್ ಮೋಡ್ ಆನ್ ಮಾಡಿ!',
+        ml: 'നമസ്കാരം! ഞാൻ ധനു, നിങ്ങളുടെ AI ഗൈഡ്. മുകളിൽ നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക, അല്ലെങ്കിൽ പിക്ചർ മോഡ് ഓൺ ചെയ്യുക!',
+        pa: 'ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ ਧਨੂੰ ਹਾਂ। ਸਭ ਤੋਂ ਪਹਿਲਾਂ ਉੱਪਰ ਦਿੱਤੇ ਬਟਨ ਤੋਂ ਆਪਣੀ ਭਾਸ਼ਾ ਚੁਣੋ, ਜਾਂ ਤਸਵੀਰ ਮੋਡ ਚਾਲੂ ਕਰੋ!',
+        or: 'ନମସ୍କାର! ମୁଁ ଧନୁ, ଆପଣଙ୍କ AI ମାର୍ଗଦର୍ଶକ। ଉପରୁ ନିଜ ଭାଷା ବାଛନ୍ତୁ କିମ୍ବା ଚିତ୍ର ମୋଡ୍ ଅନ୍ କରନ୍ତୁ!',
       },
-      mitra: {
-        en: "Hello! I am Mitra, your smart assistant. To begin using this portal, configure your preferences up top: 11 supported languages, high-contrast display, and voice speech input!",
-        hi: 'नमस्कार! मैं मित्र हूं, आपका स्मार्ट सहायक। शुरुआत करने के लिए ऊपर 11 भाषाओं में से अपनी भाषा और बोलकर सुनाने की सुविधा चुनें!',
-        mr: 'नमस्कार! मी मित्र, तुमचा स्मार्ट साहाय्यक. वरच्या मेनूमधून 11 भाषांपैकी आपली भाषा निवडा आणि आवाज वाचन सुविधा चालू करा!',
-        bn: 'হ্যালো! আমি মিত্র, আপনার স্মার্ট সহকারী। উপরে ১১টি ভাষা ও পড়ে শোনানোর সুবিধার মাধ্যমে নিজের পছন্দ সেট করে নিন!',
-        te: 'హలో! నేను మిత్ర, మీ స్మార్ట్ అసిస్టెంట్. ప్రారంభించడానికి పైభాగంలో మీ భాషను మరియు వాయిస్ రీడింగ్‌ను ఎంచుకోండి!',
-        ta: 'வணக்கம்! நான் மித்ரா, உங்கள் ஸ்மார்ட் உதவியாளர். 11 மொழிகளில் உங்கள் மொழியைத் தேர்வுசெய்து குரல் வழிகாட்டலைத் தொடங்குங்கள்!',
-        gu: 'નમસ્તે! હું મિત્ર છું. શરૂ કરવા માટે ઉપરથી તમારી ભાષા અને અવાજ વાંચન સુવિધા પસંદ કરો!',
-        kn: 'ಹಲೋ! ನಾನು ಮಿತ್ರ, ನಿಮ್ಮ ಸಹಾಯಕ. ಪ್ರಾರಂಭಿಸಲು 11 ಭಾಷೆಗಳಿಂದ ನಿಮ್ಮ ಭಾಷೆಯನ್ನು ಮತ್ತು ಧ್ವನಿ ವಾಚನವನ್ನು ಆಯ್ಕೆಮಾಡಿ!',
-        ml: 'ഹലോ! ഞാൻ മിത്ര. ഉപയോഗിക്കാൻ തുടങ്ങുന്നതിന് മുകളിൽ ഭാഷയും വോയ്‌സ് റീഡിംഗും തിരഞ്ഞെടുക്കുക!',
-        pa: 'ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ ਮਿੱਤਰਾ ਹਾਂ। ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਉੱਪਰੋਂ ਆਪਣੀ ਭਾਸ਼ਾ ਅਤੇ ਆਵਾਜ਼ ਪਾਠ ਦੀ ਚੋਣ ਕਰੋ!',
-        or: 'ହେଲୋ! ମୁଁ ମିତ୍ର। ଆରମ୍ଭ କରିବା ପାଇଁ ଉପରୁ ୧୧ଟି ଭାଷାରୁ ନିଜ ଭାଷା ଏବଂ ସ୍ୱର ପଠନ ସୁବିଧା ବାଛନ୍ତୁ!',
+      vedu: {
+        en: "Hello! I am Vedu, your smart assistant. To begin using this portal, configure your preferences up top: 11 supported languages, high-contrast display, and voice speech input!",
+        hi: 'नमस्कार! मैं वेदू हूं, आपका स्मार्ट सहायक। शुरुआत करने के लिए ऊपर 11 भाषाओं में से अपनी भाषा और बोलकर सुनाने की सुविधा चुनें!',
+        mr: 'नमस्कार! मी वेदू, तुमचा स्मार्ट साहाय्यक. वरच्या मेनूमधून 11 भाषांपैकी आपली भाषा निवडा आणि आवाज वाचन सुविधा चालू करा!',
+        bn: 'হ্যালো! আমি বেদূ, আপনার স্মার্ট সহকারী। উপরে ১১টি ভাষা ও পড়ে শোনানোর সুবিধার মাধ্যমে নিজের পছন্দ সেট করে নিন!',
+        te: 'హలో! నేను వేదు, మీ స్మార్ట్ అసిస్టెంట్. ప్రారంభించడానికి పైభాగంలో మీ భాషను మరియు వాయిస్ రీడింగ్‌ను ఎంచుకోండి!',
+        ta: 'வணக்கம்! நான் வேது, உங்கள் ஸ்மார்ட் உதவியாளர். 11 மொழிகளில் உங்கள் மொழியைத் தேர்வுசெய்து குரல் வழிகாட்டலைத் தொடங்குங்கள்!',
+        gu: 'નમસ્તે! હું વેદુ છું. શરૂ કરવા માટે ઉપરથી તમારી ભાષા અને અવાજ વાંચન સુવિધા પસંદ કરો!',
+        kn: 'ಹಲೋ! ನಾನು ವೇದು, ನಿಮ್ಮ ಸಹಾಯಕ. ಪ್ರಾರಂಭಿಸಲು 11 ಭಾಷೆಗಳಿಂದ ನಿಮ್ಮ ಭಾಷೆಯನ್ನು ಮತ್ತು ಧ್ವನಿ ವಾಚನವನ್ನು ಆಯ್ಕೆಮಾಡಿ!',
+        ml: 'ഹലോ! ഞാൻ വേദു. ഉപയോഗിക്കാൻ തുടങ്ങുന്നതിന് മുകളിൽ ഭാഷയും വോയ്‌സ് റീഡിംഗും തിരഞ്ഞെടുക്കുക!',
+        pa: 'ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ ਵੇਦੂ ਹਾਂ। ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਉੱਪਰੋਂ ਆਪਣੀ ਭਾਸ਼ਾ ਅਤੇ ਆਵਾਜ਼ ਪਾਠ ਦੀ ਚੋਣ ਕਰੋ!',
+        or: 'ହେଲୋ! ମୁଁ ବେଦୁ। ଆରମ୍ଭ କରିବା ପାଇଁ ଉପରୁ ୧୧ଟି ଭାଷାରୁ ନିଜ ଭାଷା ଏବଂ ସ୍ୱର ପଠନ ସୁବିଧା ବାଛନ୍ତୁ!',
       },
+      get asha() { return this.dhanu; },
+      get mitra() { return this.vedu; },
     },
     narration: {
       en: 'Step one: Personalize your screen. Tap the language selector in the top bar to choose from 11 Indian languages. If you prefer visual icons instead of text, toggle Picture Mode. You can also turn on Voice Read-Aloud to hear every question spoken clearly.',
@@ -878,7 +877,7 @@ export const ISL_CHAPTER_GLOSS: Record<number, IslSignGloss> = {
 };
 
 // ─────────────────────────────────────────────────────────────
-// Indian Sign Language (ISL) Animated Interpreter Avatar (Divya)
+// Indian Sign Language (ISL) Animated Interpreter Avatar (Chaitu)
 // ─────────────────────────────────────────────────────────────
 interface IslInterpreterAvatarProps {
   isSigning: boolean;
@@ -917,7 +916,7 @@ export const IslInterpreterAvatar: React.FC<IslInterpreterAvatarProps> = ({
         }`}
       />
 
-      {/* SVG Character Graphic for Divya (Certified ISL Guide) */}
+      {/* SVG Character Graphic for Chaitu (Certified ISL Guide) */}
       <div
         className={`relative select-none filter drop-shadow-xl transition-all duration-300 ${
           compact ? 'w-28 h-36 sm:w-32 sm:h-40' : 'w-36 h-44 sm:w-44 sm:h-52'
@@ -1210,7 +1209,7 @@ export const IslInterpreterAvatar: React.FC<IslInterpreterAvatarProps> = ({
           }`}
         />
         <span className="text-xs font-bold text-white tracking-wide flex items-center gap-1">
-          <span>Divya (दिव्या)</span>
+          <span>Chaitu (चैतू)</span>
           <span className="text-[10px] text-cyan-300">🤟</span>
         </span>
         <span className="text-[10px] text-cyan-300 uppercase font-semibold">
@@ -1227,7 +1226,7 @@ export const IslInterpreterAvatar: React.FC<IslInterpreterAvatarProps> = ({
 };
 
 // ─────────────────────────────────────────────────────────────
-// Animated AI Character Vector Component (Asha & Mitra)
+// Animated AI Character Vector Component (Dhanu & Vedu)
 // ─────────────────────────────────────────────────────────────
 interface AiCharacterAvatarProps {
   character: AiCharacterType;
@@ -1236,11 +1235,12 @@ interface AiCharacterAvatarProps {
 }
 
 const AiCharacterAvatar: React.FC<AiCharacterAvatarProps> = ({ character, isSpeaking, stepNumber }) => {
-  if (character === 'divya_isl') {
+  if (character === 'chaitu_isl' || character === 'divya_isl') {
     return <IslInterpreterAvatar isSigning={isSpeaking} stepNumber={stepNumber} />;
   }
 
-  const isAsha = character === 'asha';
+  const isDhanu = character === 'dhanu' || character === 'asha';
+  const isAsha = isDhanu;
 
   return (
     <div className="relative flex flex-col items-center">
@@ -1538,10 +1538,10 @@ const AiCharacterAvatar: React.FC<AiCharacterAvatarProps> = ({ character, isSpea
           }`}
         />
         <span className="text-xs font-bold text-white tracking-wide">
-          {isAsha ? 'Asha (आशा)' : 'Mitra (मित्र)'}
+          {isDhanu ? 'Dhanu (धनू)' : 'Vedu (वेदू)'}
         </span>
         <span className="text-[10px] text-stone-400 uppercase font-medium">
-          {isAsha ? 'AI Guide' : 'AI Assistant'}
+          {isDhanu ? 'AI Guide' : 'AI Assistant'}
         </span>
       </div>
     </div>
@@ -1849,7 +1849,7 @@ export const AiTutorVideoModal: React.FC<AiTutorVideoModalProps> = ({
   onResetFirstVisitDemo,
 }) => {
   const [currentLang, setCurrentLang] = useState<SupportedLanguage>(lang);
-  const [character, setCharacter] = useState<AiCharacterType>('asha');
+  const [character, setCharacter] = useState<AiCharacterType>('dhanu');
 
   useEffect(() => {
     setCurrentLang(lang);
@@ -2081,11 +2081,18 @@ export const AiTutorVideoModal: React.FC<AiTutorVideoModalProps> = ({
 
   const currentChapterIsl = ISL_CHAPTER_GLOSS[currentChapter.stepNumber] || ISL_CHAPTER_GLOSS[1];
 
+  const isChaitu = character === 'chaitu_isl' || character === 'divya_isl';
+  const isDhanu = character === 'dhanu' || character === 'asha';
+
+  const speechMap = currentChapter.characterSpeech;
+  const characterDialogue = isDhanu
+    ? (speechMap.dhanu?.[currentLang] || speechMap.asha?.[currentLang] || speechMap.dhanu?.en || speechMap.asha?.en || '')
+    : (speechMap.vedu?.[currentLang] || speechMap.mitra?.[currentLang] || speechMap.vedu?.en || speechMap.mitra?.en || '');
+
   const activeSpeechText =
-    character === 'divya_isl'
+    isChaitu
       ? `${currentChapterIsl.glossEn} — ${currentChapterIsl.visualDescription[currentLang] || currentChapterIsl.visualDescription.en}`
-      : currentChapter.characterSpeech[character][currentLang] ||
-        currentChapter.characterSpeech[character].en;
+      : characterDialogue;
 
   return (
     <div
@@ -2131,40 +2138,40 @@ export const AiTutorVideoModal: React.FC<AiTutorVideoModalProps> = ({
             {/* AI Character Switcher Pill */}
             <div className="flex items-center bg-stone-800 rounded-xl p-0.5 border border-stone-700">
               <button
-                onClick={() => setCharacter('asha')}
+                onClick={() => setCharacter('dhanu')}
                 className={`px-2 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1 ${
-                  character === 'asha'
+                  isDhanu
                     ? 'bg-amber-500 text-stone-950 shadow-sm'
                     : 'text-stone-400 hover:text-white'
                 }`}
-                title="AI Guide: Asha (Community Welfare Expert)"
+                title="AI Guide: Dhanu (Community Welfare Expert)"
               >
                 <span>👩🏽</span>
-                <span className="hidden sm:inline">Asha</span>
+                <span className="hidden sm:inline">Dhanu</span>
               </button>
               <button
-                onClick={() => setCharacter('mitra')}
+                onClick={() => setCharacter('vedu')}
                 className={`px-2 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1 ${
-                  character === 'mitra'
+                  !isDhanu && !isChaitu
                     ? 'bg-teal-500 text-stone-950 shadow-sm'
                     : 'text-stone-400 hover:text-white'
                 }`}
-                title="AI Guide: Mitra (Smart Tech Assistant)"
+                title="AI Guide: Vedu (Smart Tech Assistant)"
               >
                 <span>👨🏽</span>
-                <span className="hidden sm:inline">Mitra</span>
+                <span className="hidden sm:inline">Vedu</span>
               </button>
               <button
-                onClick={() => setCharacter('divya_isl')}
+                onClick={() => setCharacter('chaitu_isl')}
                 className={`px-2 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1 ${
-                  character === 'divya_isl'
+                  isChaitu
                     ? 'bg-cyan-500 text-stone-950 shadow-sm'
                     : 'text-cyan-400 hover:text-cyan-200'
                 }`}
-                title="Indian Sign Language (ISL) Interpreter: Divya"
+                title="Indian Sign Language (ISL) Interpreter: Chaitu"
               >
                 <span>🤟</span>
-                <span className="hidden sm:inline">Divya (ISL)</span>
+                <span className="hidden sm:inline">Chaitu (ISL)</span>
               </button>
             </div>
 
@@ -2275,7 +2282,7 @@ export const AiTutorVideoModal: React.FC<AiTutorVideoModalProps> = ({
             {/* Left Column: AI Character & Speech Bubble */}
             <div className="md:col-span-5 flex flex-col items-center">
               {/* Character Avatar or Real MP4 Video Player */}
-              {character === 'divya_isl' && useRealVideo ? (
+              {isChaitu && useRealVideo ? (
                 <div className="relative flex flex-col items-center w-full max-w-xs animate-in fade-in duration-300">
                   {/* Real MP4 Video Screen */}
                   <div className="relative w-full aspect-4/3 rounded-2xl overflow-hidden border-2 border-cyan-500/60 shadow-2xl bg-black group">
@@ -2318,7 +2325,7 @@ export const AiTutorVideoModal: React.FC<AiTutorVideoModalProps> = ({
                       }`}
                     />
                     <span className="text-xs font-bold text-white tracking-wide flex items-center gap-1">
-                      <span>Divya (दिव्या)</span>
+                      <span>Chaitu (चैतू)</span>
                       <span className="text-[10px] text-cyan-300">🤟</span>
                     </span>
                     <span className="text-[10px] text-cyan-300 uppercase font-semibold">
@@ -2333,7 +2340,7 @@ export const AiTutorVideoModal: React.FC<AiTutorVideoModalProps> = ({
                     isSpeaking={speechActive || isPlaying}
                     stepNumber={currentChapter.stepNumber}
                   />
-                  {character === 'divya_isl' && !useRealVideo && (
+                  {isChaitu && !useRealVideo && (
                     <button
                       onClick={() => setUseRealVideo(true)}
                       className="mt-1.5 px-2.5 py-0.5 rounded-full bg-cyan-950/80 hover:bg-cyan-900 border border-cyan-500/40 text-[10px] font-bold text-cyan-300 transition-colors shadow-sm"
@@ -2347,7 +2354,7 @@ export const AiTutorVideoModal: React.FC<AiTutorVideoModalProps> = ({
               {/* Character Dialogue Speech Bubble */}
               <div
                 className={`relative mt-3 p-3 rounded-2xl bg-stone-900/95 text-left shadow-lg w-full max-w-xs border ${
-                  character === 'divya_isl'
+                  isChaitu
                     ? 'border-cyan-500/40 shadow-cyan-950/50'
                     : 'border-amber-500/30'
                 }`}
@@ -2356,23 +2363,23 @@ export const AiTutorVideoModal: React.FC<AiTutorVideoModalProps> = ({
                 <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-0 h-0 border-x-8 border-x-transparent border-b-8 border-b-stone-900" />
 
                 <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider mb-1">
-                  <span className={character === 'divya_isl' ? 'text-cyan-400' : 'text-amber-400'}>
-                    {character === 'divya_isl'
-                      ? 'Divya signs (ISL):'
-                      : character === 'asha'
-                      ? 'Asha speaks:'
-                      : 'Mitra speaks:'}
+                  <span className={isChaitu ? 'text-cyan-400' : 'text-amber-400'}>
+                    {isChaitu
+                      ? 'Chaitu signs (ISL):'
+                      : isDhanu
+                      ? 'Dhanu speaks:'
+                      : 'Vedu speaks:'}
                   </span>
                   {(speechActive || isPlaying) && (
                     <span className="flex h-1.5 w-1.5 relative">
                       <span
                         className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
-                          character === 'divya_isl' ? 'bg-cyan-400' : 'bg-emerald-400'
+                          isChaitu ? 'bg-cyan-400' : 'bg-emerald-400'
                         }`}
                       ></span>
                       <span
                         className={`relative inline-flex rounded-full h-1.5 w-1.5 ${
-                          character === 'divya_isl' ? 'bg-cyan-500' : 'bg-emerald-500'
+                          isChaitu ? 'bg-cyan-500' : 'bg-emerald-500'
                         }`}
                       ></span>
                     </span>
@@ -2409,7 +2416,7 @@ export const AiTutorVideoModal: React.FC<AiTutorVideoModalProps> = ({
           </div>
 
           {/* Picture-in-Picture (PiP) Real Indian Sign Language Video Window */}
-          {isIslPipActive && character !== 'divya_isl' && (
+          {isIslPipActive && !isChaitu && (
             <div className="absolute bottom-16 right-4 z-30 p-2 rounded-2xl bg-stone-950/95 border-2 border-cyan-500/70 shadow-2xl backdrop-blur-md flex flex-col items-center animate-in zoom-in-95 duration-200 w-48 sm:w-56">
               <div className="flex items-center justify-between w-full pb-1 mb-1 border-b border-stone-800 text-[10px] font-bold text-cyan-300">
                 <span className="flex items-center gap-1">
@@ -2449,7 +2456,7 @@ export const AiTutorVideoModal: React.FC<AiTutorVideoModalProps> = ({
           )}
 
           {/* Indian Sign Language (ISL) Gloss Captions Strip */}
-          {(character === 'divya_isl' || isIslPipActive) && (
+          {(isChaitu || isIslPipActive) && (
             <div className="relative z-10 mt-2 p-2.5 rounded-xl bg-cyan-950/80 backdrop-blur-sm border border-cyan-500/40 text-left max-w-2xl mx-auto w-full shadow-lg">
               <div className="flex items-center justify-between gap-2 mb-1">
                 <div className="flex items-center gap-1.5 text-[11px] font-bold text-cyan-300">
