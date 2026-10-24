@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import * as Icons from 'lucide-react';
-import { Volume2, Mic, MicOff, ArrowRight, ArrowLeft, SkipForward, Search } from 'lucide-react';
+import { Volume2, Mic, MicOff, ArrowRight, ArrowLeft, SkipForward, Search, Sparkles, MessageSquare } from 'lucide-react';
 import { UserProfile, SupportedLanguage } from '../lib/engine/types.ts';
 import { QUESTIONS, QuestionOption } from '../data/questions.ts';
 import { TRANSLATIONS } from '../lib/i18n/translations.ts';
@@ -23,6 +23,7 @@ interface QuestionFlowProps {
   onComplete: () => void;
   lang: SupportedLanguage;
   isLowLiteracy: boolean;
+  onOpenChatbot?: () => void;
 }
 
 export const QuestionFlow: React.FC<QuestionFlowProps> = ({
@@ -31,6 +32,7 @@ export const QuestionFlow: React.FC<QuestionFlowProps> = ({
   onComplete,
   lang,
   isLowLiteracy,
+  onOpenChatbot,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isListening, setIsListening] = useState(false);
@@ -250,6 +252,38 @@ export const QuestionFlow: React.FC<QuestionFlowProps> = ({
 
   return (
     <div className="w-full max-w-3xl mx-auto px-4 py-6 sm:py-10">
+      {/* AI Benefit Recommendation Engine Header Banner */}
+      <div className="mb-6 p-4 rounded-2xl bg-gradient-to-r from-amber-500/10 via-emerald-500/10 to-blue-500/10 border border-amber-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+            <Sparkles className="w-5 h-5 animate-pulse" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400">
+                AI-Powered Benefit Recommendation Engine
+              </span>
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 font-semibold border border-emerald-300 dark:border-emerald-700">
+                Deterministic 35+ Schemes Match
+              </span>
+            </div>
+            <p className="text-xs text-stone-600 dark:text-stone-300 mt-0.5">
+              Enter your basic details (State, Age, Occupation, Income, Category) to instantly receive your personalized list of eligible public welfare benefits.
+            </p>
+          </div>
+        </div>
+
+        {onOpenChatbot && (
+          <button
+            onClick={onOpenChatbot}
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white dark:bg-stone-800 hover:bg-stone-50 dark:hover:bg-stone-700 text-stone-800 dark:text-stone-200 text-xs font-semibold border border-stone-200 dark:border-stone-700 shrink-0 transition-colors shadow-xs"
+          >
+            <MessageSquare className="w-3.5 h-3.5 text-amber-500" />
+            <span>Chat with AI Guide instead</span>
+          </button>
+        )}
+      </div>
+
       {/* Progress Strip */}
       <div className="mb-6">
         <div className="flex items-center justify-between text-xs font-semibold text-stone-500 dark:text-stone-400 mb-2">

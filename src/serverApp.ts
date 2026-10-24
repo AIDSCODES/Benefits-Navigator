@@ -453,29 +453,27 @@ Citizen's Question: "${message}"`;
     // 2. Fallback: Local Welfare Knowledge Engine
     const lower = message.toLowerCase();
     const isFarmer = lower.includes('kisan') || lower.includes('farmer') || lower.includes('fasal') || lower.includes('bima') || lower.includes('mahadbt') || lower.includes('कृषि') || lower.includes('किसान') || lower.includes('खेती');
+    const isStudent = lower.includes('student') || lower.includes('scholarship') || lower.includes('college') || lower.includes('youth') || lower.includes('yuva') || lower.includes('छात्र') || lower.includes('विद्यार्थी');
+    const isSenior = lower.includes('senior') || lower.includes('elder') || lower.includes('old age') || lower.includes('pensioner') || lower.includes('60') || lower.includes('वृद्ध') || lower.includes('ज्येष्ठ');
+    const isVendor = lower.includes('vendor') || lower.includes('svanidhi') || lower.includes('thela') || lower.includes('रेहड़ी') || lower.includes('फेरीवाला');
     const isWomenSHG = lower.includes('umed') || lower.includes('msrlm') || lower.includes('lakhpati') || lower.includes('shg') || lower.includes('bachat') || lower.includes('बचत') || lower.includes('लखपति') || lower.includes('उमेद') || lower.includes('महिला') || lower.includes('women');
     const isTender = lower.includes('tender') || lower.includes('gem') || lower.includes('procurement') || lower.includes('contractor') || lower.includes('निविदा') || lower.includes('टेंडर') || lower.includes('कंत्राटदार') || lower.includes('खरेदी');
     const isHealth = lower.includes('health') || lower.includes('hospital') || lower.includes('ayushman') || lower.includes('pmjay') || lower.includes('आरोग्य') || lower.includes('इलाज') || lower.includes('दवा');
     const isBusiness = lower.includes('business') || lower.includes('loan') || lower.includes('mudra') || lower.includes('startup') || lower.includes('udyam') || lower.includes('कर्ज') || lower.includes('ऋण') || lower.includes('उद्योग');
-    const isPension = lower.includes('pension') || lower.includes('atal') || lower.includes('apy') || lower.includes('वृद्ध') || lower.includes('पेंशन') || lower.includes('निवृत्तीवेतन');
-
-    let matchedCategory = 'general';
-    if (isFarmer) matchedCategory = 'agriculture';
-    else if (isWomenSHG) matchedCategory = 'women_shg';
-    else if (isTender) matchedCategory = 'procurement_tenders';
-    else if (isHealth) matchedCategory = 'health';
-    else if (isBusiness) matchedCategory = 'enterprise';
-    else if (isPension) matchedCategory = 'pension';
+    const isPension = lower.includes('pension') || lower.includes('atal') || lower.includes('apy') || isSenior;
 
     const matchedSchemes = SCHEMES.filter((s) => {
       if (isFarmer) return s.category === 'agriculture';
+      if (isStudent) return s.category === 'education' || s.id === 'ka-yuva-nidhi' || s.id === 'nsp-post-matric';
+      if (isSenior) return s.category === 'pension' || s.id.includes('pension');
+      if (isVendor) return s.id === 'pm-svanidhi';
       if (isWomenSHG) return s.code === 'LAKHPATI-DIDI' || s.code === 'UMED-MSRLM' || s.category === 'women_child';
       if (isTender) return s.code === 'MSE-PROCUREMENT-GEM';
       if (isHealth) return s.category === 'health';
       if (isBusiness) return s.category === 'banking' || s.category === 'livelihood';
       if (isPension) return s.category === 'pension';
       return false;
-    }).slice(0, 3);
+    }).slice(0, 4);
 
     const matchedPortals = OFFICIAL_PORTALS.filter((p) => {
       if (isFarmer) return p.category === 'agriculture';
@@ -489,6 +487,12 @@ Citizen's Question: "${message}"`;
     if (lang === 'hi') {
       if (isFarmer) {
         reply = `नमस्ते! किसान भाइयों के लिए मुख्य योजनाएं हैं: **पीएम-किसान (₹6,000/वर्ष)**, **महाडीबीटी शेतकरी पोर्टल** और **पीएम फसल बीमा (PMFBY)**। आवेदन हेतु आधार कार्ड, 7/12 खतौनी और बैंक पासबुक आवश्यक है। आप सीधे https://pmkisan.gov.in पर ई-केवाईसी कर सकते हैं।`;
+      } else if (isStudent) {
+        reply = `नमस्ते! विद्यार्थियों और युवाओं के लिए **राष्ट्रीय छात्रवृत्ति पोर्टल (NSP Post-Matric Scholarship)** एवं राज्य युवा निधि योजनाएं सक्रिय हैं, जिनके तहत शिक्षण शुल्क प्रतिपूर्ति एवं ₹1,500-₹3,000 मासिक भत्ता मिलता है।`;
+      } else if (isSenior) {
+        reply = `नमस्ते! वरिष्ठ नागरिकों (60+ वर्ष) के लिए **अटल पेंशन योजना (APY)**, **इंदिरा गांधी राष्ट्रीय वृद्धावस्था पेंशन** और राज्य वरिष्ठ पेंशन योजनाएं उपलब्ध हैं, जिनमें ₹1,000 से ₹3,000 तक मासिक वित्तीय सुरक्षा दी जाती है।`;
+      } else if (isVendor) {
+        reply = `नमस्ते! स्ट्रीट वेंडर्स और छोटे दुकानदारों के लिए **पीएम स्वनिधि (PM SVANidhi)** योजना उपलब्ध है, जिसके तहत बिना गारंटी ₹10,000, ₹20,000 और ₹50,000 तक का कार्यशील पूंजी ऋण 7% ब्याज सब्सिडी के साथ मिलता है।`;
       } else if (isWomenSHG) {
         reply = `नमस्ते! महिला स्वयं सहायता समूहों (बचत गट) के लिए **उमेद (महाराष्ट्र MSRLM - https://umed.in)** और **लखपति दीदी योजना (https://lakhpatididi.gov.in)** सक्रिय हैं। इनके तहत बिना गारंटी रियायती ऋण (7% ब्याज), रिवॉल्विंग फंड (₹15,000) और सीआईएफ फंड मिलता है।`;
       } else if (isTender) {
@@ -498,11 +502,17 @@ Citizen's Question: "${message}"`;
       } else if (isBusiness) {
         reply = `व्यवसाय और ऋण हेतु **मुद्रा योजना (PMMY)** के तहत ₹50,000 से ₹20 लाख तक बिना गारंटी ऋण उपलब्ध है। इसके अलावा **उद्यम पोर्टल (https://udyamregistration.gov.in)** पर निःशुल्क एमएसएमई प्रमाण पत्र प्राप्त करें।`;
       } else {
-        reply = `नमस्ते! मैं आपका जनकल्याण साथी हूँ। आप खेती (PM-Kisan), स्वास्थ्य (Ayushman Bharat), महिला बचत गट (UMED/लखपति दीदी), व्यवसाय ऋण (Mudra) या सरकारी टेंडर (GeM) के बारे में पूछ सकते हैं। आप प्रश्न पूछें, मैं सहायता करूँगा।`;
+        reply = `नमस्ते! मैं आपका जनकल्याण साथी हूँ। आप खेती (PM-Kisan), छात्रवृत्ति, वरिष्ठ नागरिक पेंशन, स्वास्थ्य (Ayushman Bharat), महिला बचत गट (UMED/लखपति दीदी), या व्यवसाय ऋण (Mudra) के बारे में पूछ सकते हैं। आप प्रश्न पूछें, मैं सहायता करूँगा।`;
       }
     } else if (lang === 'mr') {
       if (isFarmer) {
         reply = `नमस्कार! शेतकरी बांधवांसाठी मुख्य योजना: **पीएम-किसान (दरवर्षी ₹६,०००)**, **महाडीबीटी कृषी पोर्टल (ट्रॅक्टर, ठिबक व शेततळे)** आणि **पीएम पीक विमा (PMFBY)** आहेत. आवश्यक कागदपत्रे: अद्ययावत ७/१२, ८-अ, आधार कार्ड व बँक पासबुक. अधिकृत संकेतस्थळ: https://mahadbt.maharashtra.gov.in`;
+      } else if (isStudent) {
+        reply = `नमस्कार! विद्यार्थी व तरुणांसाठी **राष्ट्रीय शिष्यवृत्ती पोर्टल (NSP Post-Matric)** आणि युवा निधी योजना सक्रिय आहेत, ज्यातून शिक्षण शुल्क प्रतिपूर्ती व दरमहा आर्थिक साहाय्य मिळते.`;
+      } else if (isSenior) {
+        reply = `नमस्कार! ज्येष्ठ नागरिकांसाठी (६०+ वर्षे) **अटल पेन्शन योजना (APY)**, **संजय गांधी निराधार योजना** आणि वृद्धावस्था निवृत्तीवेतन योजनांमधून दरमहा आर्थिक संरक्षण मिळते.`;
+      } else if (isVendor) {
+        reply = `नमस्कार! फेरीवाले व लहान व्यावसायिकांसाठी **पीएम स्वनिधी (PM SVANidhi)** योजना उपलब्ध आहे, ज्यातून ₹१०,००० ते ₹५०,००० पर्यंत विनातारण खेळते भांडवल कर्ज मिळते.`;
       } else if (isWomenSHG) {
         reply = `नमस्कार! महिला बचत गटांसाठी **उमेद (महाराष्ट्र राज्य ग्रामीण जीवनोन्नती अभियान - https://umed.in)** आणि **लखपती दीदी योजना (https://lakhpatididi.gov.in)** सुरू आहेत. बचत गटांना फिरता निधी (₹१५,०००), समुदाय गुंतवणूक निधी आणि ७% सवलतीच्या दरात विनातारण बँक कर्ज मिळते.`;
       } else if (isTender) {
@@ -512,11 +522,17 @@ Citizen's Question: "${message}"`;
       } else if (isBusiness) {
         reply = `नवीन व्यवसाय व विस्तारासाठी **मुद्रा कर्ज योजना (₹५० हजार ते ₹२० लाख विनातारण)** आणि **उद्यम नोंदणी पोर्टल (https://udyamregistration.gov.in)** वरून मोफत अधिकृत एमएसएमई प्रमाणपत्र मिळवता येते.`;
       } else {
-        reply = `नमस्कार! मी आपला जनकल्याण मार्गदर्शक आहे. शेती योजना, महिला बचत गट (उमेद/लखपती दीदी), व्यवसाय कर्ज (मुद्रा), शासकीय टेंडर किंवा आरोग्य योजनांबद्दल विचारा, मी माहिती देईन.`;
+        reply = `नमस्कार! मी आपला जनकल्याण मार्गदर्शक आहे. शेती योजना, विद्यार्थी शिष्यवृत्ती, ज्येष्ठ नागरिक पेन्शन, महिला बचत गट (उमेद/लखपती दीदी), व्यवसाय कर्ज (मुद्रा) किंवा आरोग्य योजनांबद्दल विचारा, मी माहिती देईन.`;
       }
     } else {
       if (isFarmer) {
         reply = `Hello! Primary farmer welfare initiatives include **PM-KISAN (₹6,000/year DBT)**, **MahaDBT Farmer Portal (subsidies for farm ponds, drip, tractors)**, and **PM Fasal Bima (Crop Insurance)**. Apply with your updated 7/12 extract, Aadhaar, and active bank passbook on https://pmkisan.gov.in or https://mahadbt.maharashtra.gov.in.`;
+      } else if (isStudent) {
+        reply = `Hello! For students and youth, major welfare schemes include the **National Scholarship Portal (NSP Post-Matric Scholarship)** and state youth initiatives offering complete tuition reimbursement and monthly allowances.`;
+      } else if (isSenior) {
+        reply = `Hello! For senior citizens (aged 60+), key welfare programs include **Atal Pension Yojana (APY)**, **Indira Gandhi National Old Age Pension Scheme (IGNOAPS)**, and state senior pensions providing guaranteed monthly financial security.`;
+      } else if (isVendor) {
+        reply = `Hello! For street vendors and micro-traders, **PM SVANidhi** provides collateral-free working capital micro-credit of ₹10,000, ₹20,000, and ₹50,000 with 7% interest subsidy on digital repayments.`;
       } else if (isWomenSHG) {
         reply = `Hello! For Women Self-Help Groups (SHGs), key programs are **UMED – Maharashtra SRLM (https://umed.in)** and **Lakhpati Didi (https://lakhpatididi.gov.in)**. Eligible SHGs receive ₹15,000 revolving funds, Community Investment Funds up to ₹1.5 Lakh, and collateral-free bank credit at 7% interest subvention.`;
       } else if (isTender) {
@@ -526,7 +542,7 @@ Citizen's Question: "${message}"`;
       } else if (isBusiness) {
         reply = `For business enterprises and trade, **Pradhan Mantri MUDRA Yojana** provides collateral-free loans from ₹50,000 up to ₹20 Lakhs, and the **Udyam Portal (https://udyamregistration.gov.in)** provides free official MSME certification.`;
       } else {
-        reply = `Hello! I am your welfare advisor on Yojana360. You can ask me about agriculture schemes, Women SHGs (UMED / Lakhpati Didi), MSME loans, government tenders, or health benefits. How can I help you today?`;
+        reply = `Hello! I am your welfare advisor on Yojana360. You can ask me about agriculture schemes, scholarships for students, senior citizen pensions, Women SHGs, MSME loans, or health benefits. How can I help you today?`;
       }
     }
 

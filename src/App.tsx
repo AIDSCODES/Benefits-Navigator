@@ -265,6 +265,7 @@ export default function App() {
             onComplete={() => setCurrentTab('results')}
             lang={lang}
             isLowLiteracy={isLowLiteracy}
+            onOpenChatbot={() => setShowChatbot(true)}
           />
         )}
 
@@ -371,6 +372,12 @@ export default function App() {
         onToggle={() => setShowChatbot((prev) => !prev)}
         onOpenTutorVideo={() => setShowTutorModal(true)}
         onNavigateTab={(tab) => setCurrentTab(tab)}
+        onApplyProfile={(profile) => {
+          setUserProfile((prev) => ({ ...prev, ...profile }));
+          setCurrentTab('results');
+          setToastMessage('🎉 Personalized schemes loaded from AI Assistant!');
+          setTimeout(() => setToastMessage(null), 3500);
+        }}
       />
 
       {/* New Scheme Arrival & Citizen Message Dispatch Modal */}
