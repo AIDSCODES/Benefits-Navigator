@@ -141,28 +141,6 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
 
           <button
-            onClick={() => handleTabClick('privacy')}
-            className={`whitespace-nowrap shrink-0 transition-colors py-1 ${
-              currentTab === 'privacy'
-                ? 'text-stone-950 dark:text-white font-semibold border-b-2 border-stone-900 dark:border-white'
-                : 'hover:text-stone-950 dark:hover:text-white'
-            }`}
-          >
-            {t.navPrivacy}
-          </button>
-
-          <button
-            onClick={() => handleTabClick('developers')}
-            className={`whitespace-nowrap shrink-0 transition-colors py-1 ${
-              currentTab === 'developers'
-                ? 'text-stone-950 dark:text-white font-semibold border-b-2 border-stone-900 dark:border-white'
-                : 'hover:text-stone-950 dark:hover:text-white'
-            }`}
-          >
-            {t.navDevelopers}
-          </button>
-
-          <button
             onClick={() => handleTabClick('about')}
             className={`whitespace-nowrap shrink-0 transition-colors py-1 ${
               currentTab === 'about'
@@ -396,22 +374,6 @@ export const Header: React.FC<HeaderProps> = ({
             }`}
           >
             {t.navRegistry}
-          </button>
-          <button
-            onClick={() => handleTabClick('privacy')}
-            className={`w-full text-left px-3 py-3 rounded-xl font-medium text-sm min-h-[44px] ${
-              currentTab === 'privacy' ? 'bg-stone-100 dark:bg-stone-800 font-bold' : ''
-            }`}
-          >
-            {t.navPrivacy}
-          </button>
-          <button
-            onClick={() => handleTabClick('developers')}
-            className={`w-full text-left px-3 py-3 rounded-xl font-medium text-sm min-h-[44px] ${
-              currentTab === 'developers' ? 'bg-stone-100 dark:bg-stone-800 font-bold' : ''
-            }`}
-          >
-            {t.navDevelopers}
           </button>
           <button
             onClick={() => handleTabClick('about')}

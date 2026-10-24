@@ -14,8 +14,6 @@ import { Header } from './components/Header.tsx';
 import { QuestionFlow } from './components/QuestionFlow.tsx';
 import { ResultsView } from './components/ResultsView.tsx';
 import { RegistryBrowser } from './components/RegistryBrowser.tsx';
-import { PrivacyView } from './components/PrivacyView.tsx';
-import { DevelopersView } from './components/DevelopersView.tsx';
 import { AboutView } from './components/AboutView.tsx';
 import { LoginView } from './components/LoginView.tsx';
 import { WorkspaceModal } from './components/WorkspaceModal.tsx';
@@ -172,7 +170,7 @@ export default function App() {
     setCurrentTab('navigator');
     setTimeout(() => setToastMessage(null), 3500);
   };
-
+ 
   // Evaluate schemes deterministically
   const evaluation = useMemo(() => {
     return evaluateAllSchemes(allSchemes, userProfile);
@@ -286,16 +284,7 @@ export default function App() {
         {/* Tab 3: Scheme Registry Browser */}
         {currentTab === 'registry' && <RegistryBrowser lang={lang} />}
 
-        {/* Tab 4: Trust & Data Minimization */}
-        {currentTab === 'privacy' && (
-          <PrivacyView
-            lang={lang}
-            onClearAnswers={handleClearAnswers}
-            hasAnswers={hasAnswers}
-          />
-        )}
-
-        {/* Tab 5: Citizen Login & Account Portal */}
+        {/* Tab 4: Citizen Login & Account Portal */}
         {currentTab === 'login' && (
           <LoginView
             lang={lang}
@@ -313,10 +302,7 @@ export default function App() {
           />
         )}
 
-        {/* Tab 6: Developers & Interoperable API */}
-        {currentTab === 'developers' && <DevelopersView />}
-
-        {/* Tab 7: About, Sources & Reporting */}
+        {/* Tab 5: About, Sources & Reporting */}
         {currentTab === 'about' && <AboutView lang={lang} />}
       </main>
 
@@ -333,14 +319,6 @@ export default function App() {
           <div className="flex items-center gap-4 text-stone-600 dark:text-stone-400 font-medium">
             <button onClick={() => setCurrentTab('login')} className="hover:underline font-semibold text-emerald-600 dark:text-emerald-400">
               {citizenUser ? 'My Account' : 'Sign In'}
-            </button>
-            <span>·</span>
-            <button onClick={() => setCurrentTab('privacy')} className="hover:underline">
-              {t.navPrivacy}
-            </button>
-            <span>·</span>
-            <button onClick={() => setCurrentTab('developers')} className="hover:underline">
-              {t.navDevelopers}
             </button>
             <span>·</span>
             <button onClick={() => setCurrentTab('about')} className="hover:underline">
