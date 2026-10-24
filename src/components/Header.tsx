@@ -19,9 +19,11 @@ import {
   Sparkles,
   MessageSquare,
   Bell,
+  LogIn,
 } from 'lucide-react';
 import { SupportedLanguage } from '../lib/engine/types.ts';
 import { TRANSLATIONS } from '../lib/i18n/translations.ts';
+import { CitizenUser } from '../lib/citizenAuth.ts';
 
 interface HeaderProps {
   currentTab: string;
@@ -41,6 +43,7 @@ interface HeaderProps {
   onOpenChatbot?: () => void;
   onOpenNotifications?: () => void;
   newSchemesCount?: number;
+  citizenUser?: CitizenUser | null;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -61,6 +64,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenChatbot,
   onOpenNotifications,
   newSchemesCount = 0,
+  citizenUser,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showClearConfirm, setShowClearConfirm] = useState(false);
@@ -167,6 +171,17 @@ export const Header: React.FC<HeaderProps> = ({
             }`}
           >
             {t.navAbout}
+          </button>
+
+          <button
+            onClick={() => handleTabClick('login')}
+            className={`whitespace-nowrap shrink-0 transition-colors py-1 ${
+              currentTab === 'login'
+                ? 'text-stone-950 dark:text-white font-semibold border-b-2 border-stone-900 dark:border-white'
+                : 'hover:text-stone-950 dark:hover:text-white'
+            }`}
+          >
+            {citizenUser ? 'My Account' : 'Sign In'}
           </button>
         </nav>
 
@@ -295,6 +310,26 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
           )}
 
+          {/* Citizen Account / Sign In Action Button */}
+          {citizenUser ? (
+            <button
+              onClick={() => onTabChange('login')}
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-800 dark:text-emerald-300 border border-emerald-500/40 rounded-xl text-xs font-bold transition-all shadow-2xs min-h-[36px] cursor-pointer"
+              title={`Signed in as ${citizenUser.name}`}
+            >
+              <span className="text-sm">{citizenUser.avatarUrl || '👤'}</span>
+              <span className="hidden sm:inline max-w-[110px] truncate">{citizenUser.name.split(' ')[0]}</span>
+            </button>
+          ) : (
+            <button
+              onClick={() => onTabChange('login')}
+              className="flex items-center gap-1.5 px-3.5 py-1.5 bg-stone-900 hover:bg-stone-800 text-white dark:bg-white dark:text-stone-900 dark:hover:bg-stone-100 rounded-xl text-xs font-bold transition-all shadow-xs min-h-[36px] cursor-pointer"
+            >
+              <LogIn className="w-3.5 h-3.5" />
+              <span>Sign In</span>
+            </button>
+          )}
+
           {/* Clear My Answers Button */}
           {hasAnswers && (
             <button
@@ -322,6 +357,30 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="lg:hidden bg-white dark:bg-stone-900 border-b border-stone-200 dark:border-stone-800 px-4 pt-2 pb-6 space-y-2">
+          {/* Mobile Sign In / Account Entry */}
+          <button
+            onClick={() => handleTabClick('login')}
+            className={`w-full text-left px-3 py-3 rounded-xl font-medium text-sm min-h-[44px] flex items-center gap-2 ${
+              currentTab === 'login'
+                ? 'bg-stone-100 dark:bg-stone-800 font-bold'
+                : citizenUser
+                ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-900 dark:text-emerald-200 border border-emerald-500/30'
+                : 'bg-stone-900 text-white dark:bg-white dark:text-stone-900 font-bold'
+            }`}
+          >
+            {citizenUser ? (
+              <>
+                <span className="text-base">{citizenUser.avatarUrl || '👤'}</span>
+                <span>My Account ({citizenUser.name})</span>
+              </>
+            ) : (
+              <>
+                <LogIn className="w-4 h-4" />
+                <span>Citizen Sign In / Register</span>
+              </>
+            )}
+          </button>
+
           <button
             onClick={() => handleTabClick('navigator')}
             className={`w-full text-left px-3 py-3 rounded-xl font-medium text-sm min-h-[44px] ${

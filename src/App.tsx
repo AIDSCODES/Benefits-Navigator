@@ -17,11 +17,14 @@ import { RegistryBrowser } from './components/RegistryBrowser.tsx';
 import { PrivacyView } from './components/PrivacyView.tsx';
 import { DevelopersView } from './components/DevelopersView.tsx';
 import { AboutView } from './components/AboutView.tsx';
+import { LoginView } from './components/LoginView.tsx';
 import { WorkspaceModal } from './components/WorkspaceModal.tsx';
 import { AiTutorVideoModal } from './components/AiTutorVideoModal.tsx';
 import { AiAssistantChatbot } from './components/AiAssistantChatbot.tsx';
 import { NewSchemeAlertModal } from './components/NewSchemeAlertModal.tsx';
+import { CitizenUser, getStoredCitizen } from './lib/citizenAuth.ts';
 import { ShieldAlert, Check, Bell } from 'lucide-react';
+
 
 const STORAGE_KEY = 'benefits_navigator_answers_session_only';
 const TUTORIAL_SEEN_KEY = 'benefits_navigator_has_seen_tutorial';
@@ -49,6 +52,17 @@ export default function App() {
   const [showNotificationsModal, setShowNotificationsModal] = useState<boolean>(false);
   const [allSchemes, setAllSchemes] = useState<Scheme[]>(SCHEMES);
   const [availableNewSchemes, setAvailableNewSchemes] = useState<Scheme[]>(SIMULATION_NEW_SCHEMES);
+
+  // Authenticated citizen state
+  const [citizenUser, setCitizenUser] = useState<CitizenUser | null>(() => getStoredCitizen());
+
+  useEffect(() => {
+    const handleAuthChange = (e: any) => {
+      setCitizenUser(e.detail);
+    };
+    window.addEventListener('yojana360_auth_change', handleAuthChange);
+    return () => window.removeEventListener('yojana360_auth_change', handleAuthChange);
+  }, []);
 
   // In-memory / session user profile
   const [userProfile, setUserProfile] = useState<UserProfile>(() => {
@@ -219,6 +233,7 @@ export default function App() {
         onOpenChatbot={() => setShowChatbot(true)}
         onOpenNotifications={() => setShowNotificationsModal(true)}
         newSchemesCount={applicableNewSchemes.length}
+        citizenUser={citizenUser}
       />
 
       {/* Main Content Workspace */}
@@ -280,6 +295,24 @@ export default function App() {
           />
         )}
 
+        {/* Tab 5: Citizen Login & Account Portal */}
+        {currentTab === 'login' && (
+          <LoginView
+            lang={lang}
+            onLoginSuccess={(user) => {
+              setCitizenUser(user);
+              setToastMessage(`Welcome back, ${user.name}!`);
+              setTimeout(() => setToastMessage(null), 3500);
+            }}
+            onNavigateToTab={(tab) => setCurrentTab(tab)}
+            onApplyProfilePreset={(preset) => {
+              setUserProfile((prev) => ({ ...prev, ...preset }));
+              setToastMessage('Persona loaded! Matched schemes updated.');
+              setTimeout(() => setToastMessage(null), 3500);
+            }}
+          />
+        )}
+
         {/* Tab 6: Developers & Interoperable API */}
         {currentTab === 'developers' && <DevelopersView />}
 
@@ -298,6 +331,10 @@ export default function App() {
           </div>
 
           <div className="flex items-center gap-4 text-stone-600 dark:text-stone-400 font-medium">
+            <button onClick={() => setCurrentTab('login')} className="hover:underline font-semibold text-emerald-600 dark:text-emerald-400">
+              {citizenUser ? 'My Account' : 'Sign In'}
+            </button>
+            <span>·</span>
             <button onClick={() => setCurrentTab('privacy')} className="hover:underline">
               {t.navPrivacy}
             </button>
