@@ -47,7 +47,7 @@ export async function uploadReportToDrive(
   const metadata = {
     name: filename,
     mimeType: mimeType,
-    description: 'Benefits Navigator public welfare guidance checklist & matched entitlements report.',
+    description: 'Yojana360 public welfare guidance checklist & matched entitlements report.',
   };
 
 

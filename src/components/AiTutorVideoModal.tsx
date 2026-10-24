@@ -664,8 +664,8 @@ const CHAPTERS: Chapter[] = [
         or: 'ଆପଣଙ୍କ ପ୍ରସ୍ତୁତି ସରିଲା! ତାଲିକା ପ୍ରିଣ୍ଟ କରନ୍ତୁ, ପିଡିଏଫ୍ ରଖନ୍ତୁ ଏବଂ ବିନା କୌଣସି ଦଲାଲରେ ସିଧାସଳଖ ସରକାରୀ ୱେବସାଇଟ୍‌ରେ ଆବେଦନ କରନ୍ତୁ!',
       },
       mitra: {
-        en: 'One-click integrations: Connect to Google Drive or Gmail to store your report securely in your own cloud. Tap "Finish" now to start using Benefits Navigator!',
-        hi: 'एक क्लिक में सुविधा: अपनी रिपोर्ट को गूगल ड्राइव या जीमेल में सुरक्षित रखें। अब "समाप्त" दबाएं और बेनिफिट्स नेविगेटर का उपयोग शुरू करें!',
+        en: 'One-click integrations: Connect to Google Drive or Gmail to store your report securely in your own cloud. Tap "Finish" now to start using Yojana360!',
+        hi: 'एक क्लिक में सुविधा: अपनी रिपोर्ट को गूगल ड्राइव या जीमेल में सुरक्षित रखें। अब "समाप्त" दबाएं और योजना360 का उपयोग शुरू करें!',
         mr: 'एका क्लिकवर सुविधा: आपला अहवाल गुगल ड्राइव्ह किंवा जीमेलवर सुरक्षित ठेवा. आता "समाप्त" वर क्लिक करून प्रत्यक्ष वापर सुरू करा!',
         bn: 'এক ক্লিকেই সুবিধা: রিপোর্টটি গুগল ড্রাইভে সুরক্ষিত রাখুন। এখন "সমাপ্ত" চেপে ওয়েবসাইট ব্যবহার শুরু করুন!',
         te: 'ఒకే క్లిక్‌తో సౌకర్యం: మీ రిపోర్ట్‌ను గూగుల్ డ్రైవ్‌లో భద్రపరచుకోండి. ఇప్పుడు ఉపయోగించడం ప్రారంభించడానికి సిద్ధంగా ఉన్నారు!',
@@ -1566,7 +1566,7 @@ const WalkthroughStage: React.FC<WalkthroughStageProps> = ({ stepNumber, lang })
           <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block" />
           <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
           <span className="ml-2 font-sans font-semibold text-stone-300">
-            Benefits Navigator Walkthrough
+            Yojana360 Walkthrough
           </span>
         </div>
         <span className="px-2 py-0.5 rounded-md bg-stone-900 border border-stone-800 text-amber-400 font-sans font-bold text-[10px]">

@@ -264,7 +264,7 @@ Output only the simplified explanation text.`;
       try {
         const ai = new GoogleGenAI();
         const langName = lang === 'hi' ? 'Hindi (हिंदी)' : lang === 'mr' ? 'Marathi (मराठी)' : 'English';
-        const prompt = `You are a Senior Welfare & Public Administration Specialist for Benefits Navigator in India.
+        const prompt = `You are a Senior Welfare & Public Administration Specialist for Yojana360 in India.
 Provide a concise, highly practical AI analysis for the scheme/portal "${title}" (${officialUrl}).
 Respond in ${langName}.
 Analyze:
@@ -320,15 +320,15 @@ Keep the advice empowering, accurate, jargon-free, and remind citizens never to 
         const characterName = isVedu ? 'Vedu (AI Smart Assistant)' : 'Dhanu (AI Welfare Guide)';
         const langInstruction = lang === 'hi' ? 'Respond in Hindi (हिंदी)' : lang === 'mr' ? 'Respond in Marathi (मराठी)' : `Respond in the user's language (${lang})`;
 
-        const prompt = `You are ${characterName} for the Benefits Navigator open-source public welfare platform in India.
+        const prompt = `You are ${characterName} for the Yojana360 open-source public welfare platform in India.
 ${langInstruction}.
 Answer the citizen's question clearly, warmly, and helpfully.
 Your scope:
 - Indian public welfare schemes (PM-Kisan, Ayushman Bharat, PMAY, Pensions, Sukanya Samriddhi, DBT, e-Shram, Ladli Behna, etc.).
 - Explaining required documents and eligibility requirements.
-- Guiding the user on how to use Benefits Navigator step-by-step.
+- Guiding the user on how to use Yojana360 step-by-step.
 - Always cite verified .gov.in websites where citizens can safely apply.
-- Note that Benefits Navigator is a free, non-governmental decision support tool that never asks for passwords, Aadhaar, or fees.
+- Note that Yojana360 is a free, non-governmental decision support tool that never asks for passwords, Aadhaar, or fees.
 
 Citizen's Question: "${message}"`;
 
@@ -427,7 +427,7 @@ Citizen's Question: "${message}"`;
       } else if (isBusiness) {
         reply = `For business enterprises and trade, **Pradhan Mantri MUDRA Yojana** provides collateral-free loans from ₹50,000 up to ₹20 Lakhs, and the **Udyam Portal (https://udyamregistration.gov.in)** provides free official MSME certification.`;
       } else {
-        reply = `Hello! I am your welfare advisor on Benefits Navigator. You can ask me about agriculture schemes, Women SHGs (UMED / Lakhpati Didi), MSME loans, government tenders, or health benefits. How can I help you today?`;
+        reply = `Hello! I am your welfare advisor on Yojana360. You can ask me about agriculture schemes, Women SHGs (UMED / Lakhpati Didi), MSME loans, government tenders, or health benefits. How can I help you today?`;
       }
     }
 

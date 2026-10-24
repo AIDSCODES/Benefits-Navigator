@@ -187,7 +187,19 @@ export default function App() {
   const t = TRANSLATIONS[lang];
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#fafaf9] dark:bg-stone-950 text-stone-900 dark:text-stone-100 transition-colors">
+    <div className="relative min-h-screen flex flex-col bg-[#fafaf9] dark:bg-stone-950 text-stone-900 dark:text-stone-100 transition-colors">
+      {/* Subtle Background Brand Watermark */}
+      <div
+        className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center opacity-[0.035] dark:opacity-[0.025] select-none overflow-hidden"
+        aria-hidden="true"
+      >
+        <img
+          src="/yojana360-logo.png"
+          alt=""
+          className="w-[520px] h-[520px] max-w-[85vw] max-h-[85vh] object-contain filter grayscale"
+        />
+      </div>
+
       {/* Header with Persistent Non-Governmental Disclaimer Banner */}
       <Header
         currentTab={currentTab}
@@ -281,7 +293,7 @@ export default function App() {
           <div className="flex items-center gap-2 text-center sm:text-left">
             <ShieldAlert className="w-4 h-4 text-stone-400 shrink-0" />
             <span>
-              Benefits Navigator — An open-source, privacy-first decision tool. Not affiliated with or endorsed by any government entity.
+              Yojana360 — An open-source, privacy-first decision tool. Not affiliated with or endorsed by any government entity.
             </span>
           </div>
 
@@ -307,7 +319,10 @@ export default function App() {
         onClose={() => setShowGlobalWorkspace(false)}
         reportContentHtml={`
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; line-height: 1.5; color: #1c1917;">
-            <h2 style="color: #0c0a09; margin-bottom: 4px;">Benefits Navigator — Entitlement Report</h2>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+              <img src="${typeof window !== 'undefined' ? window.location.origin : ''}/yojana360-logo.png" alt="Yojana360" style="width: 36px; height: 36px; object-fit: contain; border-radius: 6px;" />
+              <h2 style="color: #0c0a09; margin: 0; font-size: 20px;">Yojana360 — Entitlement Report</h2>
+            </div>
             <p style="color: #78716c; font-size: 12px; margin-top: 0;">Generated on: ${new Date().toLocaleDateString()}</p>
             <div style="background: #f5f5f4; border: 1px solid #e7e5e4; padding: 12px; border-radius: 8px; font-size: 11px; color: #44403c; margin-bottom: 20px;">
               <strong>Notice:</strong> Unofficial guidance document. Not a government issuance. Always verify and apply on official portals.
@@ -318,7 +333,7 @@ export default function App() {
             <ul>${evaluation.consolidatedDocuments.map(d => `<li>${d.name[lang] || d.name.en} ${d.mandatory ? '(Mandatory)' : ''}</li>`).join('') || '<li>No documents specified.</li>'}</ul>
           </div>
         `}
-        reportContentText="Benefits Navigator Public Entitlement Report"
+        reportContentText="Yojana360 Public Entitlement Report"
         likelyMatch={evaluation.likelyMatch}
         consolidatedDocs={evaluation.consolidatedDocuments}
       />

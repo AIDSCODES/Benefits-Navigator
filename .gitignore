@@ -7,3 +7,4 @@ coverage/
 .env*
 !.env.example
 /video_*.mp4
+/Yojana360*.png

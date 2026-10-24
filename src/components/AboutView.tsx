@@ -34,7 +34,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ lang }) => {
       {/* Title */}
       <div className="mb-10 text-center">
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-stone-900 dark:text-white mb-3">
-          About Benefits Navigator
+          About Yojana360
         </h1>
         <p className="text-sm sm:text-base text-stone-600 dark:text-stone-300 max-w-2xl mx-auto leading-relaxed">
           A public interest decision-support service built for Hackathon Track 1-05: Interoperable Benefits & Entitlement Navigation for Financial Inclusion.
@@ -93,7 +93,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ lang }) => {
           </h2>
         </div>
         <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 mb-6 leading-relaxed">
-          Benefits Navigator connects citizens directly to verified Government of India (.gov.in) and Government of Maharashtra portals. We do not intermediate applications; each link opens the authoritative official platform.
+          Yojana360 connects citizens directly to verified Government of India (.gov.in) and Government of Maharashtra portals. We do not intermediate applications; each link opens the authoritative official platform.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

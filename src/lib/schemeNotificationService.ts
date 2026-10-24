@@ -93,7 +93,7 @@ export function formatSchemeAlertMessage(
   const subject = `🔔 New Scheme Alert: ${schemeName} is applicable to you!`;
 
   const plainText = 
-`🔔 BENEFITS NAVIGATOR — NEW SCHEME ALERT
+`🔔 YOJANA360 — NEW SCHEME ALERT
 --------------------------------------------------
 A new government welfare scheme matching your profile has arrived:
 
@@ -113,7 +113,7 @@ ${docs || '• Aadhaar Card\n• Bank Passbook'}
 Official Government Portal:
 ${portal}
 
-Note: Benefits Navigator is an open-source public guidance tool. Apply only on official .gov.in portals.
+Note: Yojana360 is an open-source public guidance tool. Apply only on official .gov.in portals.
 Generated on: ${date}`;
 
   const whatsAppText = 
@@ -131,13 +131,13 @@ ${docs || '• Aadhaar Card\n• Bank Account'}
 ${portal}
 
 ✅ *Check your complete entitlements*:
-${typeof window !== 'undefined' ? window.location.origin : 'https://benefits-navigator.in'}`;
+${typeof window !== 'undefined' ? window.location.origin : 'https://yojana360.in'}`;
 
   const htmlBody = `
 <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; color: #1c1917; background: #ffffff; border: 1px solid #e7e5e4; border-radius: 12px;">
   <div style="background: #166534; padding: 16px; border-radius: 8px; color: #ffffff; margin-bottom: 20px;">
     <h2 style="margin: 0; font-size: 20px;">🔔 New Scheme Alert for You</h2>
-    <p style="margin: 4px 0 0; font-size: 13px; opacity: 0.9;">Benefits Navigator Citizen Entitlement Alert</p>
+    <p style="margin: 4px 0 0; font-size: 13px; opacity: 0.9;">Yojana360 Citizen Entitlement Alert</p>
   </div>
   
   <h3 style="color: #0c0a09; font-size: 18px; margin-bottom: 6px;">${schemeName} (${scheme.code})</h3>
@@ -162,7 +162,7 @@ ${typeof window !== 'undefined' ? window.location.origin : 'https://benefits-nav
 
   <hr style="border: none; border-top: 1px solid #e7e5e4; margin: 24px 0 16px;" />
   <p style="font-size: 11px; color: #78716c; text-align: center; margin: 0;">
-    Benefits Navigator — Open-source decision support. Not affiliated with any government agency. Always verify eligibility on official government portals.
+    Yojana360 — Open-source decision support. Not affiliated with any government agency. Always verify eligibility on official government portals.
   </p>
 </div>`;
 

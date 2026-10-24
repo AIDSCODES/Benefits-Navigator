@@ -90,15 +90,20 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Main Top Bar Contract: 3 Zones */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-8 h-16">
-        {/* Zone 1: Wordmark */}
+        {/* Zone 1: Wordmark with Brand Logo */}
         <div className="flex items-center gap-3 shrink-0">
           <button
             onClick={() => handleTabClick('navigator')}
             className="text-left group cursor-pointer focus:outline-hidden focus-visible:ring-2 focus-visible:ring-stone-900 dark:focus-visible:ring-white rounded-md p-1"
           >
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5">
+              <img
+                src="/yojana360-logo.png"
+                alt="Yojana360 Logo"
+                className="w-9 h-9 object-contain rounded-lg shadow-xs"
+              />
               <span className="text-xl font-bold tracking-tight text-stone-900 dark:text-white whitespace-nowrap">
-                Benefits Navigator
+                Yojana360
               </span>
             </div>
           </button>

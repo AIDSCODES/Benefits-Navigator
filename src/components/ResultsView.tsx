@@ -111,7 +111,10 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
 
     return `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; line-height: 1.5; color: #1c1917;">
-        <h2 style="color: #0c0a09; margin-bottom: 4px;">Benefits Navigator — Entitlement Report</h2>
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+          <img src="${typeof window !== 'undefined' ? window.location.origin : ''}/yojana360-logo.png" alt="Yojana360 Logo" style="width: 36px; height: 36px; object-fit: contain; border-radius: 6px;" />
+          <h2 style="color: #0c0a09; margin: 0; font-size: 20px;">Yojana360 — Entitlement Report</h2>
+        </div>
         <p style="color: #78716c; font-size: 12px; margin-top: 0;">Generated on: ${reportTimestamp}</p>
         <div style="background: #f5f5f4; border: 1px solid #e7e5e4; padding: 12px; border-radius: 8px; font-size: 11px; color: #44403c; margin-bottom: 20px;">
           <strong>Notice:</strong> Unofficial guidance document. Not a government issuance. Always verify and apply on official portals.
@@ -511,15 +514,23 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
 
   return (
     <div className="w-full max-w-5xl mx-auto px-4 py-8">
+      {/* Print Watermark */}
+      <div className="print-only fixed inset-0 pointer-events-none flex items-center justify-center opacity-[0.04] select-none z-0" aria-hidden="true">
+        <img src="/yojana360-logo.png" alt="" className="w-[450px] h-[450px] object-contain filter grayscale" />
+      </div>
+
       {/* Enhanced Print-Only Report Header with App Name and Timestamp */}
-      <div className="print-only mb-6 pb-4 border-b-2 border-stone-900 text-stone-950">
+      <div className="print-only mb-6 pb-4 border-b-2 border-stone-900 text-stone-950 relative z-10">
         <div className="flex items-start justify-between gap-4 mb-2">
-          <div>
-            <h1 className="text-xl font-bold tracking-tight text-black">
-              Benefits Navigator — Public Welfare & Entitlements Report
-            </h1>
-            <div className="text-xs text-stone-700 font-medium mt-0.5">
-              Decentralized Public Welfare Assistance · Unofficial Decision-Support
+          <div className="flex items-center gap-3">
+            <img src="/yojana360-logo.png" alt="Yojana360 Logo" className="w-12 h-12 object-contain rounded-lg shrink-0" />
+            <div>
+              <h1 className="text-xl font-bold tracking-tight text-black">
+                Yojana360 — Public Welfare & Entitlements Report
+              </h1>
+              <div className="text-xs text-stone-700 font-medium mt-0.5">
+                Decentralized Public Welfare Assistance · Unofficial Decision-Support
+              </div>
             </div>
           </div>
           <div className="text-right text-xs font-mono text-stone-700">

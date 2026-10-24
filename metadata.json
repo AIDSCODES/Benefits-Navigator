@@ -1,5 +1,5 @@
 {
-  "name": "Benefits Navigator",
+  "name": "Yojana360",
   "description": "Accessible, privacy-first decision support tool for discovering eligible public welfare schemes and entitlement checklists without storing personal data.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

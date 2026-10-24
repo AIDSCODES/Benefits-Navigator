@@ -9,7 +9,7 @@ import { SCHEMES } from '../data/schemes.ts';
 import { SchemeRegistrySchema } from '../lib/engine/schema.ts';
 import { UserProfile } from '../lib/engine/types.ts';
 
-describe('Benefits Navigator Rules Engine', () => {
+describe('Yojana360 Rules Engine', () => {
   const pmKisan = SCHEMES.find((s) => s.id === 'pm-kisan')!;
   const pmJay = SCHEMES.find((s) => s.id === 'pm-jay')!;
   const pmUjjwala = SCHEMES.find((s) => s.id === 'pm-ujjwala')!;

@@ -92,7 +92,7 @@ export interface Translations {
 
 export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
   en: {
-    appTitle: 'Benefits Navigator',
+    appTitle: 'Yojana360',
     tagline: 'Accessible, privacy-first decision support for public welfare schemes',
     bannerDisclaimer:
       'Unofficial guidance tool. Not a government service. Always verify on the official portal.',
@@ -131,9 +131,9 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     docsRequired: 'Documents You Will Need',
     stepsToApply: 'Steps to Apply',
     officialPortal: 'Official Portal',
-    externalLinkNotice: 'You are now leaving Benefits Navigator',
+    externalLinkNotice: 'You are now leaving Yojana360',
     leaveToOfficialNotice:
-      'You are being redirected to the official government portal. Benefits Navigator is NOT a government website and does not collect or process applications. Always confirm all details on the official website.',
+      'You are being redirected to the official government portal. Yojana360 is NOT a government website and does not collect or process applications. Always confirm all details on the official website.',
     proceedToOfficial: 'Proceed to Official Site',
     cancel: 'Cancel',
     outdatedWarning: 'Warning: This scheme registry data has not been re-verified in over 180 days.',
@@ -159,10 +159,10 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     whatWeStoreZero: 'Your profile is evaluated directly inside your web browser. No name, no phone, no ID numbers, and zero server logging.',
     resultsSummary: 'Summary of Scheme Matches',
     tutorVideoBtn: 'How This Works (Video)',
-    tutorVideoTitle: 'Benefits Navigator Orientation Guide',
+    tutorVideoTitle: 'Yojana360 Orientation Guide',
     tutorFirstVisitBadge: 'First-Time Mandatory Orientation',
     tutorReturningBadge: 'Orientation Guide',
-    tutorCompulsoryNotice: 'Notice: Benefits Navigator is an unofficial advisory tool and NOT a government service. Please watch this short orientation to understand how your privacy is protected and how to verify schemes on official portals.',
+    tutorCompulsoryNotice: 'Notice: Yojana360 is an unofficial advisory tool and NOT a government service. Please watch this short orientation to understand how your privacy is protected and how to verify schemes on official portals.',
     tutorSkipBtn: 'Skip Tutorial',
     tutorFinishBtn: 'Start Checking Schemes',
     tutorReplayBtn: 'Replay Chapter',
@@ -179,7 +179,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     tutorIslPipToggle: 'ISL Signer PiP',
   },
   hi: {
-    appTitle: 'हितलाभ मार्गदर्शक (Benefits Navigator)',
+    appTitle: 'योजना360 (Yojana360)',
     tagline: 'सरकारी कल्याणकारी योजनाओं के लिए सुलभ, गोपनीय और निष्पक्ष परामर्श',
     bannerDisclaimer:
       'अनौपचारिक मार्गदर्शन साधन। यह कोई सरकारी सेवा नहीं है। हमेशा आधिकारिक पोर्टल पर पुष्टि करें।',
@@ -218,9 +218,9 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     docsRequired: 'आवश्यक दस्तावेज',
     stepsToApply: 'आवेदन प्रक्रिया',
     officialPortal: 'आधिकारिक पोर्टल',
-    externalLinkNotice: 'आप हितलाभ मार्गदर्शक से बाहर जा रहे हैं',
+    externalLinkNotice: 'आप योजना360 से बाहर जा रहे हैं',
     leaveToOfficialNotice:
-      'आपको आधिकारिक सरकारी पोर्टल पर भेजा जा रहा है। हितलाभ मार्गदर्शक कोई सरकारी वेबसाइट नहीं है और कोई आवेदन जमा नहीं करता है। हमेशा आधिकारिक वेबसाइट पर जानकारी की पुष्टि करें।',
+      'आपको आधिकारिक सरकारी पोर्टल पर भेजा जा रहा है। योजना360 कोई सरकारी वेबसाइट नहीं है और कोई आवेदन जमा नहीं करता है। हमेशा आधिकारिक वेबसाइट पर जानकारी की पुष्टि करें।',
     proceedToOfficial: 'आधिकारिक पोर्टल पर जाएं',
     cancel: 'रद्द करें',
     outdatedWarning: 'चेतावनी: इस योजना की जानकारी 180 दिनों से अधिक समय से दोबारा जांची नहीं गई है।',
@@ -246,10 +246,10 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     whatWeStoreZero: 'आपका मूल्यांकन सीधे आपके फोन या कंप्यूटर पर होता है। कोई नाम, फोन नंबर या आधार नहीं मांगा जाता।',
     resultsSummary: 'योजना परिणाम सारांश',
     tutorVideoBtn: 'यह कैसे काम करता है (वीडियो)',
-    tutorVideoTitle: 'हितलाभ मार्गदर्शक परिचय मार्गदर्शिका',
+    tutorVideoTitle: 'योजना360 परिचय मार्गदर्शिका',
     tutorFirstVisitBadge: 'पहली बार आए उपयोगकर्ताओं के लिए अनिवार्य परिचय',
     tutorReturningBadge: 'परिचय मार्गदर्शिका',
-    tutorCompulsoryNotice: 'सूचना: हितलाभ मार्गदर्शक एक अनौपचारिक परामर्श साधन है और कोई सरकारी सेवा नहीं है। कृपया अपनी गोपनीयता सुरक्षा और आधिकारिक सत्यापन समझने के लिए यह छोटा वीडियो देखें।',
+    tutorCompulsoryNotice: 'सूचना: योजना360 एक अनौपचारिक परामर्श साधन है और कोई सरकारी सेवा नहीं है। कृपया अपनी गोपनीयता सुरक्षा और आधिकारिक सत्यापन समझने के लिए यह छोटा वीडियो देखें।',
     tutorSkipBtn: 'मार्गदर्शिका छोड़ें',
     tutorFinishBtn: 'योजनाएं जांचना शुरू करें',
     tutorReplayBtn: 'अध्याय दोहराएं',
@@ -266,7 +266,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     tutorIslPipToggle: 'सांकेतिक विंडो (PiP)',
   },
   mr: {
-    appTitle: 'योजना मार्गदर्शक (Benefits Navigator)',
+    appTitle: 'योजना360 (Yojana360)',
     tagline: 'सार्वजनिक कल्याणकारी योजनांसाठी सुलभ, गोपनीय आणि निःपक्षपाती मार्गदर्शन',
     bannerDisclaimer:
       'अनधिकृत मार्गदर्शन साधन. ही कोणतीही शासकीय सेवा नाही. नेहमी अधिकृत पोर्टलवर खात्री करा.',
@@ -305,9 +305,9 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     docsRequired: 'आवश्यक कागदपत्रे',
     stepsToApply: 'अर्ज प्रक्रिया',
     officialPortal: 'अधिकृत पोर्टल',
-    externalLinkNotice: 'तुम्ही योजना मार्गदर्शक बाहेर जात आहात',
+    externalLinkNotice: 'तुम्ही योजना360 बाहेर जात आहात',
     leaveToOfficialNotice:
-      'तुम्हाला अधिकृत शासकीय संकेतस्थळावर पाठवले जात आहे. योजना मार्गदर्शक ही शासकीय वेबसाइट नाही. अधिकृत पोर्टलवर माहिती तपासा.',
+      'तुम्हाला अधिकृत शासकीय संकेतस्थळावर पाठवले जात आहे. योजना360 ही शासकीय वेबसाइट नाही. अधिकृत पोर्टलवर माहिती तपासा.',
     proceedToOfficial: 'अधिकृत पोर्टलवर जा',
     cancel: 'रद्द करा',
     outdatedWarning: 'सूचना: या योजनेची माहिती १८० दिवसांपेक्षा जास्त काळापासून पुन्हा तपासलेली नाही.',
@@ -333,10 +333,10 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     whatWeStoreZero: 'सर्व तपासणी थेट तुमच्या मोबाईल किंवा संगणकावर होते. नाव, फोन किंवा आधार नंबर विचारला जात नाही.',
     resultsSummary: 'योजना निकाल सारांश',
     tutorVideoBtn: 'हे कसे कार्य करते (व्हिडिओ)',
-    tutorVideoTitle: 'योजना मार्गदर्शक माहिती मार्गदर्शिका',
+    tutorVideoTitle: 'योजना360 माहिती मार्गदर्शिका',
     tutorFirstVisitBadge: 'प्रथम भेट देणाऱ्यांसाठी अनिवार्य मार्गदर्शिका',
     tutorReturningBadge: 'मार्गदर्शिका',
-    tutorCompulsoryNotice: 'सूचना: योजना मार्गदर्शक हे अनधिकृत सल्लागार साधन असून शासकीय सेवा नाही. गोपनीयता आणि अधिकृत पडताळणी समजून घेण्यासाठी हा व्हिडिओ पहा.',
+    tutorCompulsoryNotice: 'सूचना: योजना360 हे अनधिकृत सल्लागार साधन असून शासकीय सेवा नाही. गोपनीयता आणि अधिकृत पडताळणी समजून घेण्यासाठी हा व्हिडिओ पहा.',
     tutorSkipBtn: 'मार्गदर्शिका वगळा',
     tutorFinishBtn: 'योजना तपासणे सुरू करा',
     tutorReplayBtn: 'प्रकरण पुन्हा पहा',
@@ -349,7 +349,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     tutorResetFirstTime: 'प्रथम भेट पुन्हा सक्रिय करा',
   },
   bn: {
-    appTitle: 'বেনিফিটস নেভিগেটর (Benefits Navigator)',
+    appTitle: 'যোজনা৩৬০ (Yojana360)',
     tagline: 'সরকারি কল্যাণমূলক প্রকল্পের জন্য সহজলভ্য, নিরাপদ ও নিরপেক্ষ নির্দেশিকা',
     bannerDisclaimer:
       'বেসরকারি নির্দেশিকা মাধ্যম। এটি কোনো সরকারি সেবা নয়। সর্বদা অফিসিয়াল পোর্টালে যাচাই করুন।',
@@ -432,7 +432,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     tutorResetFirstTime: 'প্রথমবারের ট্যুর পুনরায় সক্রিয় করুন',
   },
   te: {
-    appTitle: 'బెనిఫిట్స్ నావిగేటర్ (Benefits Navigator)',
+    appTitle: 'యోజన360 (Yojana360)',
     tagline: 'ప్రజా సంక్షేమ పథకాల కోసం సులభమైన, గోప్యతా మొదటి నిర్ణయ మద్దతు',
     bannerDisclaimer:
       'అనధికారిక మార్గదర్శక సాధనం. ఇది ప్రభుత్వ సేవ కాదు. ఎల్లప్పుడూ అధికారిక పోర్టల్‌లో ధృవీకరించండి.',
@@ -515,7 +515,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     tutorResetFirstTime: 'మొదటిసారి పర్యటనను మళ్లీ ప్రారంభించండి',
   },
   ta: {
-    appTitle: 'பெனிஃபிட்ஸ் நேவிகேட்டர் (Benefits Navigator)',
+    appTitle: 'யோஜனா360 (Yojana360)',
     tagline: 'அரசு நலத்திட்டங்களுக்கான எளிய, தனிநபர் பாதுகாப்புடன் கூடிய வழிகாட்டி',
     bannerDisclaimer:
       'அதிகாரப்பூர்வமற்ற வழிகாட்டுதல் கருவி. இது அரசு சேவை அல்ல. எப்போதும் அதிகாரப்பூர்வ தளத்தில் சரிபார்க்கவும்.',
@@ -598,7 +598,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     tutorResetFirstTime: 'மீண்டும் அறிமுகத்தை இயக்கு',
   },
   gu: {
-    appTitle: 'બેનિફિટ્સ નેવિગેટર (Benefits Navigator)',
+    appTitle: 'યોજના360 (Yojana360)',
     tagline: 'જાહેર કલ્યાણકારી યોજનાઓ માટે સુલભ, સુરક્ષિત અને નિષ્પક્ષ માર્ગદર્શન',
     bannerDisclaimer:
       'બિનસત્તાવાર માર્ગદર્શન સાધન. આ સરકારી સેવા નથી. હંમેશા સત્તાવાર પોર્ટલ પર ચકાસણી કરો.',
@@ -681,7 +681,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     tutorResetFirstTime: 'ફરીથી પરિચય સક્ષમ કરો',
   },
   kn: {
-    appTitle: 'ಬೆನಿಫಿಟ್ಸ್ ನ್ಯಾವಿಗೇಟರ್ (Benefits Navigator)',
+    appTitle: 'ಯೋಜನಾ360 (Yojana360)',
     tagline: 'ಸಾರ್ವಜನಿಕ ಕಲ್ಯಾಣ ಯೋಜನೆಗಳಿಗಾಗಿ ಸುಲಭ, ಗೌಪ್ಯ ಮತ್ತು ನಿಷ್ಪಕ್ಷಪಾತ ಮಾರ್ಗದರ್ಶಿ',
     bannerDisclaimer:
       'ಅನಧಿಕೃತ ಮಾರ್ಗದರ್ಶನ ಸಾಧನ. ಇದು ಸರ್ಕಾರಿ ಸೇವೆಯಲ್ಲ. ಯಾವಾಗಲೂ ಅಧಿಕೃತ ಪೋರ್ಟಲ್‌ನಲ್ಲಿ ಪರಿಶೀಲಿಸಿ.',
@@ -764,7 +764,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     tutorResetFirstTime: 'ಮೊದಲ ಭೇಟಿಯನ್ನು ಮರುಸ್ಥಾಪಿಸಿ',
   },
   ml: {
-    appTitle: 'ബെനിഫിറ്റ്സ് നാവിഗേറ്റർ (Benefits Navigator)',
+    appTitle: 'യോജന360 (Yojana360)',
     tagline: 'പൊതുജനക്ഷേമ പദ്ധതികൾക്കായുള്ള സുതാര്യവും സ്വകാര്യവുമായ വഴികാട്ടി',
     bannerDisclaimer:
       'അനൗദ്യോഗിക മാർഗ്ഗനിർദ്ദേശ ഉപാധി. ഇതൊരു സർക്കാർ സേവനമല്ല. എപ്പോഴും ഔദ്യോഗിക പോർട്ടലിൽ സ്ഥിരീകരിക്കുക.',
@@ -847,7 +847,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     tutorResetFirstTime: 'ആദ്യ ടൂർ പുനഃസ്ഥാപിക്കുക',
   },
   pa: {
-    appTitle: 'ਬੈਨੀਫਿਟਸ ਨੈਵੀਗੇਟਰ (Benefits Navigator)',
+    appTitle: 'ਯੋਜਨਾ360 (Yojana360)',
     tagline: 'ਲੋਕ ਭਲਾਈ ਸਕੀਮਾਂ ਲਈ ਸੁਲਭ, ਸੁਰੱਖਿਅਤ ਅਤੇ ਨਿਰਪੱਖ ਮਾਰਗਦਰਸ਼ਕ',
     bannerDisclaimer:
       'ਗੈਰ-ਸਰਕਾਰੀ ਮਾਰਗਦਰਸ਼ਨ ਸਾਧਨ। ਇਹ ਕੋਈ ਸਰਕਾਰੀ ਸੇਵਾ ਨਹੀਂ ਹੈ। ਹਮੇਸ਼ਾ ਅਧਿਕਾਰਤ ਪੋਰਟਲ ਤੇ ਪੁਸ਼ਟੀ ਕਰੋ।',
@@ -930,7 +930,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     tutorResetFirstTime: 'ਪਹਿਲੀ ਫੇਰੀ ਮੁੜ ਸ਼ੁਰੂ ਕਰੋ',
   },
   or: {
-    appTitle: 'ବେନିଫିଟ୍ସ ନାଭିଗେଟର (Benefits Navigator)',
+    appTitle: 'ଯୋଜନା୩୬୦ (Yojana360)',
     tagline: 'ସରକାରୀ କଲ୍ୟାଣକାରୀ ଯୋଜନା ପାଇଁ ସୁଲଭ, ଗୋପନୀୟ ଏବଂ ନିରପେକ୍ଷ ପରାମର୍ଶ',
     bannerDisclaimer:
       'ଅଣ-ସରକାରୀ ମାର୍ଗଦର୍ଶନ ଉପକରଣ। ଏହା କୌଣସି ସରକାରୀ ସେବା ନୁହେଁ। ସର୍ବଦା ଅଫିସିଆଲ୍ ପୋର୍ଟାଲରେ ଯାଞ୍ଚ କରନ୍ତୁ।',

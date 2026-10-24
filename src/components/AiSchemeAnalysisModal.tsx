@@ -409,7 +409,7 @@ export const AiSchemeAnalysisModal: React.FC<AiSchemeAnalysisModalProps> = ({
             <div className="space-y-4">
               <div className="p-4 rounded-xl bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800 text-xs text-purple-900 dark:text-purple-300">
                 <span className="font-bold">AI Eligibility Scrutiny: </span>
-                Benefits Navigator evaluated this scheme against deterministic entitlement rules. Below are mandatory qualifying criteria and common exclusion traps.
+                Yojana360 evaluated this scheme against deterministic entitlement rules. Below are mandatory qualifying criteria and common exclusion traps.
               </div>
 
               {scheme && scheme.criteria.length > 0 ? (

@@ -373,7 +373,7 @@ export const RegistryBrowser: React.FC<RegistryBrowserProps> = ({
                 Direct Authoritative Access to Government Gateways
               </p>
               <p className="leading-relaxed">
-                Benefits Navigator never accepts applications or charges fees. Below are the verified apex portals of the Government of India and Government of Maharashtra for schemes, public procurement, tenders, and enterprise licenses. Clicking any portal gives you a secure exit notice before proceeding directly to the official government domain.
+                Yojana360 never accepts applications or charges fees. Below are the verified apex portals of the Government of India and Government of Maharashtra for schemes, public procurement, tenders, and enterprise licenses. Clicking any portal gives you a secure exit notice before proceeding directly to the official government domain.
               </p>
             </div>
           </div>

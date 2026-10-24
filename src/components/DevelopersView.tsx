@@ -46,7 +46,7 @@ export const DevelopersView: React.FC = () => {
           Developer API & Scheme Schema
         </h1>
         <p className="text-sm text-stone-600 dark:text-stone-400 mt-2 max-w-3xl leading-relaxed">
-          Benefits Navigator exposes its entire curated welfare catalog via public, read-only JSON endpoints with full CORS headers enabled. Other civic tech tools, NGO caseworkers, and state portals can query or ingest verified eligibility rules without vendor lock-in.
+          Yojana360 exposes its entire curated welfare catalog via public, read-only JSON endpoints with full CORS headers enabled. Other civic tech tools, NGO caseworkers, and state portals can query or ingest verified eligibility rules without vendor lock-in.
         </p>
       </div>
 

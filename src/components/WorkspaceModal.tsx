@@ -71,7 +71,7 @@ export const WorkspaceModal: React.FC<WorkspaceModalProps> = ({
   // Gmail state
   const [recipientEmail, setRecipientEmail] = useState('');
   const [emailSubject, setEmailSubject] = useState(
-    'Benefits Navigator: My Public Welfare Guidance & Document Checklist'
+    'Yojana360: My Public Welfare Guidance & Document Checklist'
   );
   const [gmailMessages, setGmailMessages] = useState<GmailMessageSummary[]>([]);
   const [loadingMessages, setLoadingMessages] = useState(false);
@@ -676,7 +676,7 @@ export const WorkspaceModal: React.FC<WorkspaceModalProps> = ({
             </div>
 
             <p className="text-xs text-stone-600 dark:text-stone-300 leading-relaxed">
-              Are you sure you want to send this Benefits Navigator report to <strong>{recipientEmail}</strong> using your connected Gmail account?
+              Are you sure you want to send this Yojana360 report to <strong>{recipientEmail}</strong> using your connected Gmail account?
             </p>
 
             <div className="flex justify-end gap-3 pt-2">

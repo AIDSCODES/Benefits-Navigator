@@ -38,7 +38,7 @@ async function startServer() {
   }
 
   app.listen(port, '0.0.0.0', () => {
-    console.log(`Benefits Navigator server running at http://localhost:${port}`);
+    console.log(`Yojana360 server running at http://localhost:${port}`);
   });
 }
 

@@ -71,7 +71,7 @@ describe('New Scheme Arrival Notification & Applicability Filtering', () => {
     expect(formatted.whatsAppText).toContain('₹78,000');
 
     // Plain text checks
-    expect(formatted.plainText).toContain('BENEFITS NAVIGATOR — NEW SCHEME ALERT');
+    expect(formatted.plainText).toContain('YOJANA360 — NEW SCHEME ALERT');
     expect(formatted.plainText).toContain('Required Documents Checklist:');
 
     // HTML body checks
