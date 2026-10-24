@@ -8,9 +8,6 @@ import {
   Globe,
   Trash2,
   AlertTriangle,
-  SunMoon,
-  Type,
-  Eye,
   Menu,
   X,
   HardDrive,
@@ -33,12 +30,12 @@ interface HeaderProps {
   onTabChange: (tab: string) => void;
   lang: SupportedLanguage;
   onLanguageChange: (lang: SupportedLanguage) => void;
-  isHighContrast: boolean;
-  onToggleHighContrast: () => void;
-  isLargeText: boolean;
-  onToggleLargeText: () => void;
-  isLowLiteracy: boolean;
-  onToggleLowLiteracy: () => void;
+  isHighContrast?: boolean;
+  onToggleHighContrast?: () => void;
+  isLargeText?: boolean;
+  onToggleLargeText?: () => void;
+  isLowLiteracy?: boolean;
+  onToggleLowLiteracy?: () => void;
   onClearAnswers: () => void;
   hasAnswers: boolean;
   onOpenWorkspace?: () => void;
@@ -202,50 +199,8 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
         </nav>
 
-        {/* Zone 3: Language & Accessibility & Clear Answers */}
+        {/* Zone 3: Language & Clear Answers */}
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-          {/* Accessibility Toggles */}
-          <div className="hidden sm:flex items-center gap-1 bg-stone-100 dark:bg-stone-800 p-1 rounded-xl">
-            <button
-              onClick={onToggleLowLiteracy}
-              title={t.lowLiteracyMode}
-              aria-pressed={isLowLiteracy}
-              className={`p-2 rounded-lg text-xs font-medium min-h-[36px] min-w-[36px] flex items-center justify-center transition-colors ${
-                isLowLiteracy
-                  ? 'bg-amber-600 text-white shadow-xs'
-                  : 'text-stone-600 dark:text-stone-400 hover:text-stone-900'
-              }`}
-            >
-              <Eye className="w-4 h-4" />
-            </button>
-
-            <button
-              onClick={onToggleLargeText}
-              title={t.largeText}
-              aria-pressed={isLargeText}
-              className={`p-2 rounded-lg text-xs font-medium min-h-[36px] min-w-[36px] flex items-center justify-center transition-colors ${
-                isLargeText
-                  ? 'bg-stone-900 text-white dark:bg-white dark:text-stone-900 shadow-xs'
-                  : 'text-stone-600 dark:text-stone-400 hover:text-stone-900'
-              }`}
-            >
-              <Type className="w-4 h-4" />
-            </button>
-
-            <button
-              onClick={onToggleHighContrast}
-              title={t.highContrast}
-              aria-pressed={isHighContrast}
-              className={`p-2 rounded-lg text-xs font-medium min-h-[36px] min-w-[36px] flex items-center justify-center transition-colors ${
-                isHighContrast
-                  ? 'bg-stone-900 text-white dark:bg-white dark:text-stone-900 shadow-xs'
-                  : 'text-stone-600 dark:text-stone-400 hover:text-stone-900'
-              }`}
-            >
-              <SunMoon className="w-4 h-4" />
-            </button>
-          </div>
-
           {/* Language Selector */}
           <div className="flex items-center bg-stone-100 dark:bg-stone-800 rounded-xl p-1">
             <Globe className="w-4 h-4 ml-2 mr-1 text-stone-500 shrink-0" aria-hidden="true" />
@@ -538,37 +493,6 @@ export const Header: React.FC<HeaderProps> = ({
               <option value="pa">ਪੰਜਾਬੀ</option>
               <option value="or">ଓଡ଼ିଆ</option>
             </select>
-          </div>
-
-          {/* Mobile Accessibility Strip */}
-          <div className="pt-2 flex items-center justify-between border-t border-stone-200 dark:border-stone-800">
-            <span className="text-xs text-stone-500">Accessibility:</span>
-            <div className="flex gap-2">
-              <button
-                onClick={onToggleLowLiteracy}
-                className={`p-2 rounded-lg text-xs font-medium min-h-[44px] min-w-[44px] flex items-center justify-center ${
-                  isLowLiteracy ? 'bg-amber-600 text-white' : 'bg-stone-100 dark:bg-stone-800'
-                }`}
-              >
-                <Eye className="w-5 h-5" />
-              </button>
-              <button
-                onClick={onToggleLargeText}
-                className={`p-2 rounded-lg text-xs font-medium min-h-[44px] min-w-[44px] flex items-center justify-center ${
-                  isLargeText ? 'bg-stone-900 text-white' : 'bg-stone-100 dark:bg-stone-800'
-                }`}
-              >
-                <Type className="w-5 h-5" />
-              </button>
-              <button
-                onClick={onToggleHighContrast}
-                className={`p-2 rounded-lg text-xs font-medium min-h-[44px] min-w-[44px] flex items-center justify-center ${
-                  isHighContrast ? 'bg-stone-900 text-white' : 'bg-stone-100 dark:bg-stone-800'
-                }`}
-              >
-                <SunMoon className="w-5 h-5" />
-              </button>
-            </div>
           </div>
         </div>
       )}
