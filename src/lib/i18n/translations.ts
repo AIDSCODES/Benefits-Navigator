@@ -12,6 +12,7 @@ export interface Translations {
   navFind: string;
   navRegistry: string;
   navTrending?: string;
+  navCalendar?: string;
   navPrivacy: string;
   navDevelopers: string;
   navAbout: string;
@@ -100,6 +101,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     navFind: 'Check Schemes',
     navRegistry: 'Open Registry',
     navTrending: 'Trending Analytics',
+    navCalendar: 'Deadlines & Calendar',
     navPrivacy: 'Privacy & Trust',
     navDevelopers: 'Developer API',
     navAbout: 'About & Sources',
@@ -188,6 +190,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     navFind: 'योजनाएं जांचें',
     navRegistry: 'खुली योजना सूची',
     navTrending: 'ट्रेंडिंग योजनाएं',
+    navCalendar: 'समय सीमा व कैलेंडर',
     navPrivacy: 'गोपनीयता व भरोसा',
     navDevelopers: 'डेवलपर एपीआई',
     navAbout: 'स्रोत व जानकारी',
@@ -276,6 +279,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     navFind: 'योजना तपासा',
     navRegistry: 'योजना सूची',
     navTrending: 'ट्रेंडिंग योजना',
+    navCalendar: 'मुदत व कॅलेंडर',
     navPrivacy: 'गोपनीयता व विश्वास',
     navDevelopers: 'डेव्हलपर एपीआय',
     navAbout: 'माहिती व संदर्भ',
@@ -360,6 +364,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     navFind: 'প্রকল্প পরীক্ষা করুন',
     navRegistry: 'প্রকল্প তালিকা',
     navTrending: 'ট্রেন্ডিং প্রকল্পসমূহ',
+    navCalendar: 'সময়সীমা ও ক্যালেন্ডার',
     navPrivacy: 'গোপনীয়তা ও সুরক্ষা',
     navDevelopers: 'ডেভেলপার এপিআই',
     navAbout: 'তথ্য ও উৎস',
@@ -444,6 +449,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     navFind: 'పథకాలు చూడండి',
     navRegistry: 'పథకాల జాబితా',
     navTrending: 'ట్రెండింగ్ పథకాలు',
+    navCalendar: 'గడువులు & క్యాలెండర్',
     navPrivacy: 'గోప్యత & భద్రత',
     navDevelopers: 'డెవలపర్ API',
     navAbout: 'సమాచారం & మూలాలు',
@@ -528,6 +534,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     navFind: 'திட்டங்களை காண்க',
     navRegistry: 'திட்டங்களின் பட்டியல்',
     navTrending: 'பிரபலமான திட்டங்கள்',
+    navCalendar: 'காலக்கெடு & காலண்டர்',
     navPrivacy: 'தனியுரிமை & பாதுகாப்பு',
     navDevelopers: 'டெவலப்பர் API',
     navAbout: 'தகவல் & ஆதாரங்கள்',
@@ -612,6 +619,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     navFind: 'યોજનાઓ તપાસો',
     navRegistry: 'યોજના યાદી',
     navTrending: 'ટ્રેન્ડિંગ યોજનાઓ',
+    navCalendar: 'સમયમર્યાદા અને કેલેન્ડર',
     navPrivacy: 'ગોપનીયતા અને વિશ્વાસ',
     navDevelopers: 'ડેવલપર API',
     navAbout: 'માહિતી અને સ્ત્રોતો',
@@ -696,6 +704,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     navFind: 'ಯೋಜನೆಗಳನ್ನು ಪರಿಶೀಲಿಸಿ',
     navRegistry: 'ಯೋಜನೆಗಳ ಪಟ್ಟಿ',
     navTrending: 'ಟ್ರೆಂಡಿಂಗ್ ಯೋಜನೆಗಳು',
+    navCalendar: 'ಗಡುವುಗಳು & ಕ್ಯಾಲೆಂಡರ್',
     navPrivacy: 'ಗೌಪ್ಯತೆ ಮತ್ತು ಭದ್ರತೆ',
     navDevelopers: 'ಡೆವಲಪರ್ API',
     navAbout: 'ಮಾಹಿತಿ ಮತ್ತು ಮೂಲಗಳು',
@@ -780,6 +789,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     navFind: 'പദ്ധതികൾ പരിശോധിക്കുക',
     navRegistry: 'പദ്ധതികളുടെ പട്ടിക',
     navTrending: 'ട്രെൻഡിംഗ് പദ്ധതികൾ',
+    navCalendar: 'സമയപരിധികളും കലണ്ടറും',
     navPrivacy: 'സ്വകാര്യതയും സുരക്ഷയും',
     navDevelopers: 'ഡെവലപ്പർ API',
     navAbout: 'വിവരങ്ങളും സ്രോതസ്സുകളും',
@@ -864,6 +874,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     navFind: 'ਸਕੀਮਾਂ ਜਾਂਚੋ',
     navRegistry: 'ਸਕੀਮਾਂ ਦੀ ਸੂਚੀ',
     navTrending: 'ਟਰੈਂਡਿੰਗ ਸਕੀਮਾਂ',
+    navCalendar: 'ਆਖਰੀ ਮਿਤੀਆਂ ਤੇ ਕੈਲੰਡਰ',
     navPrivacy: 'ਗੋਪਨੀਯਤਾ ਤੇ ਭਰੋਸਾ',
     navDevelopers: 'ਡਿਵੈਲਪਰ API',
     navAbout: 'ਜਾਣਕਾਰੀ ਤੇ ਸਰੋਤ',
@@ -948,6 +959,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
     navFind: 'ଯୋଜନା ଯାଞ୍ଚ କରନ୍ତୁ',
     navRegistry: 'ଯୋଜନା ତାଲିକା',
     navTrending: 'ଟ୍ରେଣ୍ଡିଂ ଯୋଜନା',
+    navCalendar: 'ସମୟସୀମା ଓ କ୍ୟାଲେଣ୍ଡର',
     navPrivacy: 'ଗୋପନୀୟତା ଓ ସୁରକ୍ଷା',
     navDevelopers: 'ଡେଭଲପର API',
     navAbout: 'ତଥ୍ୟ ଓ ଉତ୍ସ',
