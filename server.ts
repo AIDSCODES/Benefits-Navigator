@@ -20,6 +20,9 @@ async function startServer() {
   const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
   const isProduction = process.env.NODE_ENV === 'production';
 
+  // Serve static files from public/ directly (e.g. videos, audio, documents)
+  app.use(express.static(path.resolve(__dirname, 'public')));
+
   // Mount Vite middlewares in development or serve static in production
   if (!isProduction) {
     const vite = await createViteServer({

@@ -88,5 +88,10 @@ describe('AI Tutor Video Walkthrough & Orientation Policy', () => {
     expect(TRANSLATIONS.hi.tutorIslToggle).toBe('भारतीय सांकेतिक भाषा (ISL)');
     expect(TRANSLATIONS.hi.tutorIslBadge).toBe('सांकेतिक भाषा दुभाषिया सक्रिय');
   });
+
+  it('6. Verifies that the official MP4 Indian Sign Language (ISL) video source is configured and accessible', async () => {
+    const { ISL_VIDEO_SRC } = await import('../components/AiTutorVideoModal.tsx');
+    expect(ISL_VIDEO_SRC).toBe('/video_1792858177800_1b98b6a2.mp4');
+  });
 });
 

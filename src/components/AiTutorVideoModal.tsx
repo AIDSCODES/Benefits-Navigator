@@ -1834,6 +1834,8 @@ const WalkthroughStage: React.FC<WalkthroughStageProps> = ({ stepNumber, lang })
   );
 };
 
+export const ISL_VIDEO_SRC = '/video_1792858177800_1b98b6a2.mp4';
+
 // ─────────────────────────────────────────────────────────────
 // Main AI Tutor Video Modal
 // ─────────────────────────────────────────────────────────────
@@ -1863,10 +1865,13 @@ export const AiTutorVideoModal: React.FC<AiTutorVideoModalProps> = ({
   const [hasCompletedAll, setHasCompletedAll] = useState(false);
   const [speechActive, setSpeechActive] = useState(false);
   const [isIslPipActive, setIsIslPipActive] = useState<boolean>(false);
+  const [useRealVideo, setUseRealVideo] = useState<boolean>(true);
 
   const timerRef = useRef<any>(null);
   const speechUtteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
   const modalContainerRef = useRef<HTMLDivElement>(null);
+  const islVideoRef = useRef<HTMLVideoElement | null>(null);
+  const islPipVideoRef = useRef<HTMLVideoElement | null>(null);
 
   const currentChapter = CHAPTERS[currentChapterIndex];
 
@@ -1977,8 +1982,33 @@ export const AiTutorVideoModal: React.FC<AiTutorVideoModalProps> = ({
     } else {
       stopSpeech();
     }
-    return () => stopSpeech();
   }, [isOpen, isPlaying, currentChapterIndex, currentLang, isVoiceMuted, playbackSpeed, speakCurrentChapter, stopSpeech]);
+
+  // Synchronize HTML5 ISL Video Playback with Tutor Controls
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const syncVideo = (videoEl: HTMLVideoElement | null) => {
+      if (!videoEl) return;
+      try {
+        videoEl.playbackRate = playbackSpeed;
+        if (isPlaying) {
+          const promise = videoEl.play();
+          if (promise !== undefined) {
+            promise.catch(() => {
+              videoEl.muted = true;
+              videoEl.play().catch(() => {});
+            });
+          }
+        } else {
+          videoEl.pause();
+        }
+      } catch {}
+    };
+
+    syncVideo(islVideoRef.current);
+    syncVideo(islPipVideoRef.current);
+  }, [isOpen, isPlaying, playbackSpeed, currentChapterIndex, character, isIslPipActive, useRealVideo]);
 
   if (!isOpen) return null;
 
@@ -2244,12 +2274,75 @@ export const AiTutorVideoModal: React.FC<AiTutorVideoModalProps> = ({
           <div className="relative z-10 my-auto py-2 grid grid-cols-1 md:grid-cols-12 gap-4 items-center max-w-3xl mx-auto w-full">
             {/* Left Column: AI Character & Speech Bubble */}
             <div className="md:col-span-5 flex flex-col items-center">
-              {/* Character Avatar with Talking Sync */}
-              <AiCharacterAvatar
-                character={character}
-                isSpeaking={speechActive || isPlaying}
-                stepNumber={currentChapter.stepNumber}
-              />
+              {/* Character Avatar or Real MP4 Video Player */}
+              {character === 'divya_isl' && useRealVideo ? (
+                <div className="relative flex flex-col items-center w-full max-w-xs animate-in fade-in duration-300">
+                  {/* Real MP4 Video Screen */}
+                  <div className="relative w-full aspect-4/3 rounded-2xl overflow-hidden border-2 border-cyan-500/60 shadow-2xl bg-black group">
+                    <video
+                      ref={islVideoRef}
+                      src={ISL_VIDEO_SRC}
+                      className="w-full h-full object-cover"
+                      playsInline
+                      loop
+                      muted={isVoiceMuted}
+                      controls={false}
+                    />
+                    {/* Top Overlay Badge */}
+                    <div className="absolute top-2 left-2 px-2.5 py-0.5 rounded-full bg-cyan-950/85 backdrop-blur-sm border border-cyan-500/50 text-[10px] font-bold text-cyan-200 flex items-center gap-1 shadow-md">
+                      <span>🤟</span>
+                      <span>Real ISL Video</span>
+                    </div>
+                    {/* Toggle to switch to Animated Signer */}
+                    <button
+                      onClick={() => setUseRealVideo(false)}
+                      className="absolute top-2 right-2 px-2 py-0.5 rounded-lg bg-stone-900/80 hover:bg-stone-800 text-[10px] text-cyan-300 border border-stone-700 transition-colors shadow-md"
+                      title="Switch to Animated ISL Interpreter"
+                    >
+                      3D Signer
+                    </button>
+                    {/* Bottom Step Indicator */}
+                    <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between text-[10px] text-stone-300 bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded-md">
+                      <span className="font-semibold text-cyan-300">Step {currentChapter.stepNumber}</span>
+                      <span className="truncate max-w-[130px] font-medium text-stone-300">
+                        {ISL_CHAPTER_GLOSS[currentChapter.stepNumber]?.keySigns[0]}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Character Identity Pill */}
+                  <div className="mt-2 flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-900/95 border border-cyan-500/40 shadow-lg">
+                    <span
+                      className={`w-2 h-2 rounded-full ${
+                        isPlaying ? 'bg-cyan-400 animate-ping' : 'bg-cyan-500'
+                      }`}
+                    />
+                    <span className="text-xs font-bold text-white tracking-wide flex items-center gap-1">
+                      <span>Divya (दिव्या)</span>
+                      <span className="text-[10px] text-cyan-300">🤟</span>
+                    </span>
+                    <span className="text-[10px] text-cyan-300 uppercase font-semibold">
+                      ISL Video Guide
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <div className="relative flex flex-col items-center">
+                  <AiCharacterAvatar
+                    character={character}
+                    isSpeaking={speechActive || isPlaying}
+                    stepNumber={currentChapter.stepNumber}
+                  />
+                  {character === 'divya_isl' && !useRealVideo && (
+                    <button
+                      onClick={() => setUseRealVideo(true)}
+                      className="mt-1.5 px-2.5 py-0.5 rounded-full bg-cyan-950/80 hover:bg-cyan-900 border border-cyan-500/40 text-[10px] font-bold text-cyan-300 transition-colors shadow-sm"
+                    >
+                      ▶ Watch Real ISL Video
+                    </button>
+                  )}
+                </div>
+              )}
 
               {/* Character Dialogue Speech Bubble */}
               <div
@@ -2315,13 +2408,13 @@ export const AiTutorVideoModal: React.FC<AiTutorVideoModalProps> = ({
             </div>
           </div>
 
-          {/* Picture-in-Picture (PiP) Indian Sign Language Interpreter Floating Window */}
+          {/* Picture-in-Picture (PiP) Real Indian Sign Language Video Window */}
           {isIslPipActive && character !== 'divya_isl' && (
-            <div className="absolute bottom-16 right-4 z-30 p-2 rounded-2xl bg-stone-950/95 border-2 border-cyan-500/70 shadow-2xl backdrop-blur-md flex flex-col items-center animate-in zoom-in-95 duration-200 max-w-[150px] sm:max-w-[170px]">
+            <div className="absolute bottom-16 right-4 z-30 p-2 rounded-2xl bg-stone-950/95 border-2 border-cyan-500/70 shadow-2xl backdrop-blur-md flex flex-col items-center animate-in zoom-in-95 duration-200 w-48 sm:w-56">
               <div className="flex items-center justify-between w-full pb-1 mb-1 border-b border-stone-800 text-[10px] font-bold text-cyan-300">
                 <span className="flex items-center gap-1">
                   <span>🤟</span>
-                  <span>ISL Interpreter</span>
+                  <span>ISL Video (Signer)</span>
                 </span>
                 <button
                   onClick={() => setIsIslPipActive(false)}
@@ -2329,14 +2422,29 @@ export const AiTutorVideoModal: React.FC<AiTutorVideoModalProps> = ({
                   title="Close ISL PiP"
                   aria-label="Close ISL Picture-in-Picture"
                 >
-                  <X className="w-3 h-3" />
+                  <X className="w-3.5 h-3.5" />
                 </button>
               </div>
-              <IslInterpreterAvatar
-                isSigning={speechActive || isPlaying}
-                stepNumber={currentChapter.stepNumber}
-                compact={true}
-              />
+              <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-cyan-500/40 bg-black">
+                <video
+                  ref={islPipVideoRef}
+                  src={ISL_VIDEO_SRC}
+                  className="w-full h-full object-cover"
+                  playsInline
+                  loop
+                  muted
+                  controls={false}
+                />
+                <div className="absolute top-1 left-1 px-1.5 py-0.5 rounded-sm bg-black/70 text-[9px] text-cyan-300 font-mono">
+                  ISLRTC
+                </div>
+                <div className="absolute bottom-1 right-1 px-1.5 py-0.5 rounded-sm bg-black/70 text-[9px] text-stone-300 font-mono">
+                  Step {currentChapter.stepNumber}
+                </div>
+              </div>
+              <div className="mt-1 text-[10px] font-semibold text-cyan-200 truncate w-full text-center">
+                {ISL_CHAPTER_GLOSS[currentChapter.stepNumber]?.keySigns[0]}
+              </div>
             </div>
           )}
 
