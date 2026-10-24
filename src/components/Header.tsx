@@ -22,6 +22,7 @@ import {
   LogIn,
   TrendingUp,
   Calendar,
+  Wallet,
 } from 'lucide-react';
 import { SupportedLanguage } from '../lib/engine/types.ts';
 import { TRANSLATIONS } from '../lib/i18n/translations.ts';
@@ -164,6 +165,18 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <Calendar className="w-3.5 h-3.5 text-rose-500" />
             <span>{t.navCalendar || 'Deadlines & Calendar'}</span>
+          </button>
+
+          <button
+            onClick={() => handleTabClick('wallet')}
+            className={`whitespace-nowrap shrink-0 transition-colors py-1 flex items-center gap-1.5 ${
+              currentTab === 'wallet'
+                ? 'text-stone-950 dark:text-white font-semibold border-b-2 border-stone-900 dark:border-white'
+                : 'hover:text-stone-950 dark:hover:text-white'
+            }`}
+          >
+            <Wallet className="w-3.5 h-3.5 text-emerald-500" />
+            <span>{t.navWallet || 'Benefit Wallet'}</span>
           </button>
 
           <button
@@ -418,6 +431,15 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <Calendar className="w-4 h-4 text-rose-500" />
             <span>{t.navCalendar || 'Deadlines & Calendar'}</span>
+          </button>
+          <button
+            onClick={() => handleTabClick('wallet')}
+            className={`w-full text-left px-3 py-3 rounded-xl font-medium text-sm min-h-[44px] flex items-center gap-2 ${
+              currentTab === 'wallet' ? 'bg-stone-100 dark:bg-stone-800 font-bold' : ''
+            }`}
+          >
+            <Wallet className="w-4 h-4 text-emerald-500" />
+            <span>{t.navWallet || 'Benefit Wallet'}</span>
           </button>
           <button
             onClick={() => handleTabClick('about')}

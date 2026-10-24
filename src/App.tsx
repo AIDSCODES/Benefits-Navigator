@@ -16,6 +16,7 @@ import { ResultsView } from './components/ResultsView.tsx';
 import { RegistryBrowser } from './components/RegistryBrowser.tsx';
 import { TrendingAnalyticsView } from './components/TrendingAnalyticsView.tsx';
 import { DeadlinesCalendarView } from './components/DeadlinesCalendarView.tsx';
+import { BenefitWalletView } from './components/BenefitWalletView.tsx';
 import { AboutView } from './components/AboutView.tsx';
 import { LoginView } from './components/LoginView.tsx';
 import { WorkspaceModal } from './components/WorkspaceModal.tsx';
@@ -319,6 +320,20 @@ export default function App() {
           />
         )}
 
+        {/* Tab: Digital Benefit Wallet (Locker) */}
+        {currentTab === 'wallet' && (
+          <BenefitWalletView
+            lang={lang}
+            onApplyProfileToNavigator={(profile) => {
+              setUserProfile((prev) => ({ ...prev, ...profile }));
+              setCurrentTab('results');
+              setToastMessage('🎉 Form auto-filled from your encrypted Benefit Wallet!');
+              setTimeout(() => setToastMessage(null), 3500);
+            }}
+            onNavigateTab={(tab) => setCurrentTab(tab)}
+          />
+        )}
+
         {/* Tab 4: Citizen Login & Account Portal */}
         {currentTab === 'login' && (
           <LoginView
@@ -358,6 +373,10 @@ export default function App() {
             <span>·</span>
             <button onClick={() => setCurrentTab('calendar')} className="hover:underline">
               {t.navCalendar || 'Deadlines & Calendar'}
+            </button>
+            <span>·</span>
+            <button onClick={() => setCurrentTab('wallet')} className="hover:underline">
+              {t.navWallet || 'Benefit Wallet'}
             </button>
             <span>·</span>
             <button onClick={() => setCurrentTab('login')} className="hover:underline font-semibold text-emerald-600 dark:text-emerald-400">
