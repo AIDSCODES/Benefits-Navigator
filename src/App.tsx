@@ -1,0 +1,358 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import React, { useState, useEffect, useMemo } from 'react';
+import { UserProfile, SupportedLanguage, Scheme } from './lib/engine/types.ts';
+import { SCHEMES } from './data/schemes.ts';
+import { SIMULATION_NEW_SCHEMES } from './data/newSchemesCatalog.ts';
+import { evaluateAllSchemes } from './lib/engine/evaluator.ts';
+import { isSchemeApplicableToUser, triggerBrowserNotification } from './lib/schemeNotificationService.ts';
+import { TRANSLATIONS } from './lib/i18n/translations.ts';
+import { Header } from './components/Header.tsx';
+import { QuestionFlow } from './components/QuestionFlow.tsx';
+import { ResultsView } from './components/ResultsView.tsx';
+import { RegistryBrowser } from './components/RegistryBrowser.tsx';
+import { PrivacyView } from './components/PrivacyView.tsx';
+import { DevelopersView } from './components/DevelopersView.tsx';
+import { AboutView } from './components/AboutView.tsx';
+import { WorkspaceModal } from './components/WorkspaceModal.tsx';
+import { AiTutorVideoModal } from './components/AiTutorVideoModal.tsx';
+import { AiAssistantChatbot } from './components/AiAssistantChatbot.tsx';
+import { NewSchemeAlertModal } from './components/NewSchemeAlertModal.tsx';
+import { ShieldAlert, Check, Bell } from 'lucide-react';
+
+const STORAGE_KEY = 'benefits_navigator_answers_session_only';
+const TUTORIAL_SEEN_KEY = 'benefits_navigator_has_seen_tutorial';
+
+export default function App() {
+  const [lang, setLang] = useState<SupportedLanguage>('en');
+  const [currentTab, setCurrentTab] = useState<string>('navigator');
+  const [isHighContrast, setIsHighContrast] = useState<boolean>(false);
+  const [isLargeText, setIsLargeText] = useState<boolean>(false);
+  const [isLowLiteracy, setIsLowLiteracy] = useState<boolean>(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [showGlobalWorkspace, setShowGlobalWorkspace] = useState<boolean>(false);
+
+  // Tutorial tracking: on first visit it is compulsory, next visits it has skip option
+  const [hasSeenTutorial, setHasSeenTutorial] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return true;
+    try {
+      return localStorage.getItem(TUTORIAL_SEEN_KEY) === 'true';
+    } catch {
+      return true;
+    }
+  });
+  const [showTutorModal, setShowTutorModal] = useState<boolean>(false);
+  const [showChatbot, setShowChatbot] = useState<boolean>(false);
+  const [showNotificationsModal, setShowNotificationsModal] = useState<boolean>(false);
+  const [allSchemes, setAllSchemes] = useState<Scheme[]>(SCHEMES);
+  const [availableNewSchemes, setAvailableNewSchemes] = useState<Scheme[]>(SIMULATION_NEW_SCHEMES);
+
+  // In-memory / session user profile
+  const [userProfile, setUserProfile] = useState<UserProfile>(() => {
+    if (typeof window === 'undefined') return {};
+    try {
+      // 1. Check URL hash for peer-to-peer shared answers
+      const hash = window.location.hash;
+      if (hash && hash.includes('profile=')) {
+        const encoded = hash.split('profile=')[1];
+        if (encoded) {
+          const parsed = JSON.parse(decodeURIComponent(encoded));
+          if (parsed && typeof parsed === 'object') return parsed;
+        }
+      }
+
+      // 2. Fallback to session storage
+      const saved = sessionStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        return JSON.parse(saved);
+      }
+    } catch {
+      // Ignore parse errors
+    }
+    return {};
+  });
+
+  // Sync to session storage (never local storage, never server)
+  useEffect(() => {
+    try {
+      if (Object.keys(userProfile).length > 0) {
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(userProfile));
+      } else {
+        sessionStorage.removeItem(STORAGE_KEY);
+      }
+    } catch {
+      // Storage unavailable
+    }
+  }, [userProfile]);
+
+  // Sync accessibility classes to HTML document
+  useEffect(() => {
+    const root = document.documentElement;
+    if (isHighContrast) {
+      root.classList.add('high-contrast');
+    } else {
+      root.classList.remove('high-contrast');
+    }
+
+    if (isLargeText) {
+      root.classList.add('large-text');
+    } else {
+      root.classList.remove('large-text');
+    }
+  }, [isHighContrast, isLargeText]);
+
+  // If initial URL had hash answers, start on results view
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.hash.includes('profile=')) {
+      setCurrentTab('results');
+    }
+  }, []);
+
+  // Check if first-time visitor on load -> Open video tutorial compulsory
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const seen = localStorage.getItem(TUTORIAL_SEEN_KEY);
+        if (!seen) {
+          setShowTutorModal(true);
+        }
+      } catch {}
+    }
+  }, []);
+
+  const handleFirstVisitComplete = () => {
+    try {
+      localStorage.setItem(TUTORIAL_SEEN_KEY, 'true');
+    } catch {}
+    setHasSeenTutorial(true);
+  };
+
+  const handleResetFirstVisitDemo = () => {
+    try {
+      localStorage.removeItem(TUTORIAL_SEEN_KEY);
+    } catch {}
+    setHasSeenTutorial(false);
+    setShowTutorModal(true);
+  };
+
+  const handleUpdateProfile = (field: keyof UserProfile, value: any) => {
+    setUserProfile((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
+  const handleClearAnswers = () => {
+    setUserProfile({});
+    try {
+      sessionStorage.removeItem(STORAGE_KEY);
+      if (window.location.hash) {
+        window.history.replaceState(null, '', window.location.pathname);
+      }
+    } catch {}
+
+    setToastMessage(TRANSLATIONS[lang].clearedToast);
+    setCurrentTab('navigator');
+    setTimeout(() => setToastMessage(null), 3500);
+  };
+
+  // Evaluate schemes deterministically
+  const evaluation = useMemo(() => {
+    return evaluateAllSchemes(allSchemes, userProfile);
+  }, [allSchemes, userProfile]);
+
+  // Compute newly arrived schemes that match user eligibility
+  const applicableNewSchemes = useMemo(() => {
+    return availableNewSchemes.filter((s) => isSchemeApplicableToUser(s, userProfile).isApplicable);
+  }, [availableNewSchemes, userProfile]);
+
+  const handleAddNewSchemeToRegistry = (newScheme: Scheme) => {
+    setAllSchemes((prev) => {
+      if (prev.some((s) => s.id === newScheme.id)) return prev;
+      return [newScheme, ...prev];
+    });
+
+    const evalResult = isSchemeApplicableToUser(newScheme, userProfile);
+    if (evalResult.isApplicable) {
+      setToastMessage(`🔔 New scheme "${newScheme.name[lang] || newScheme.name.en}" is applicable to your profile! Click to send alert.`);
+      triggerBrowserNotification(newScheme, lang, () => setShowNotificationsModal(true));
+      setTimeout(() => setToastMessage(null), 8000);
+    }
+  };
+
+  const hasAnswers = Object.keys(userProfile).length > 0;
+  const t = TRANSLATIONS[lang];
+
+  return (
+    <div className="min-h-screen flex flex-col bg-[#fafaf9] dark:bg-stone-950 text-stone-900 dark:text-stone-100 transition-colors">
+      {/* Header with Persistent Non-Governmental Disclaimer Banner */}
+      <Header
+        currentTab={currentTab}
+        onTabChange={setCurrentTab}
+        lang={lang}
+        onLanguageChange={setLang}
+        isHighContrast={isHighContrast}
+        onToggleHighContrast={() => setIsHighContrast(!isHighContrast)}
+        isLargeText={isLargeText}
+        onToggleLargeText={() => setIsLargeText(!isLargeText)}
+        isLowLiteracy={isLowLiteracy}
+        onToggleLowLiteracy={() => setIsLowLiteracy(!isLowLiteracy)}
+        onClearAnswers={handleClearAnswers}
+        hasAnswers={hasAnswers}
+        onOpenWorkspace={() => setShowGlobalWorkspace(true)}
+        onOpenTutorVideo={() => setShowTutorModal(true)}
+        onOpenChatbot={() => setShowChatbot(true)}
+        onOpenNotifications={() => setShowNotificationsModal(true)}
+        newSchemesCount={applicableNewSchemes.length}
+      />
+
+      {/* Main Content Workspace */}
+      <main className="flex-1 flex flex-col justify-start">
+        {/* Toast Notification */}
+        {toastMessage && (
+          <div
+            onClick={() => {
+              if (toastMessage.includes('🔔')) setShowNotificationsModal(true);
+            }}
+            className={`max-w-md mx-auto my-4 px-4 py-3 text-xs sm:text-sm font-semibold rounded-2xl shadow-lg flex items-center gap-2 transition-transform cursor-pointer hover:scale-102 ${
+              toastMessage.includes('🔔')
+                ? 'bg-emerald-900 text-white border border-emerald-500/60 shadow-emerald-900/30'
+                : 'bg-stone-900 text-white dark:bg-white dark:text-stone-900'
+            }`}
+          >
+            {toastMessage.includes('🔔') ? (
+              <Bell className="w-4 h-4 text-emerald-400 shrink-0 animate-bounce" />
+            ) : (
+              <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+            )}
+            <span>{toastMessage}</span>
+          </div>
+        )}
+
+        {/* Tab 1: Guided Question Flow */}
+        {currentTab === 'navigator' && (
+          <QuestionFlow
+            userProfile={userProfile}
+            onUpdateProfile={handleUpdateProfile}
+            onComplete={() => setCurrentTab('results')}
+            lang={lang}
+            isLowLiteracy={isLowLiteracy}
+          />
+        )}
+
+        {/* Tab 2: Results View */}
+        {currentTab === 'results' && (
+          <ResultsView
+            likelyMatch={evaluation.likelyMatch}
+            needMoreInfo={evaluation.needMoreInfo}
+            notMatched={evaluation.notMatched}
+            consolidatedDocuments={evaluation.consolidatedDocuments}
+            profile={userProfile}
+            lang={lang}
+            onRetake={() => setCurrentTab('navigator')}
+          />
+        )}
+
+        {/* Tab 3: Scheme Registry Browser */}
+        {currentTab === 'registry' && <RegistryBrowser lang={lang} />}
+
+        {/* Tab 4: Trust & Data Minimization */}
+        {currentTab === 'privacy' && (
+          <PrivacyView
+            lang={lang}
+            onClearAnswers={handleClearAnswers}
+            hasAnswers={hasAnswers}
+          />
+        )}
+
+        {/* Tab 6: Developers & Interoperable API */}
+        {currentTab === 'developers' && <DevelopersView />}
+
+        {/* Tab 7: About, Sources & Reporting */}
+        {currentTab === 'about' && <AboutView lang={lang} />}
+      </main>
+
+      {/* Clean Non-Governmental Footer */}
+      <footer className="mt-auto border-t border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900 text-xs text-stone-500 py-6 px-4 no-print">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2 text-center sm:text-left">
+            <ShieldAlert className="w-4 h-4 text-stone-400 shrink-0" />
+            <span>
+              Benefits Navigator — An open-source, privacy-first decision tool. Not affiliated with or endorsed by any government entity.
+            </span>
+          </div>
+
+          <div className="flex items-center gap-4 text-stone-600 dark:text-stone-400 font-medium">
+            <button onClick={() => setCurrentTab('privacy')} className="hover:underline">
+              {t.navPrivacy}
+            </button>
+            <span>·</span>
+            <button onClick={() => setCurrentTab('developers')} className="hover:underline">
+              {t.navDevelopers}
+            </button>
+            <span>·</span>
+            <button onClick={() => setCurrentTab('about')} className="hover:underline">
+              {t.navAbout}
+            </button>
+          </div>
+        </div>
+      </footer>
+
+      {/* Global Google Workspace Drive & Gmail Modal */}
+      <WorkspaceModal
+        isOpen={showGlobalWorkspace}
+        onClose={() => setShowGlobalWorkspace(false)}
+        reportContentHtml={`
+          <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; line-height: 1.5; color: #1c1917;">
+            <h2 style="color: #0c0a09; margin-bottom: 4px;">Benefits Navigator — Entitlement Report</h2>
+            <p style="color: #78716c; font-size: 12px; margin-top: 0;">Generated on: ${new Date().toLocaleDateString()}</p>
+            <div style="background: #f5f5f4; border: 1px solid #e7e5e4; padding: 12px; border-radius: 8px; font-size: 11px; color: #44403c; margin-bottom: 20px;">
+              <strong>Notice:</strong> Unofficial guidance document. Not a government issuance. Always verify and apply on official portals.
+            </div>
+            <h3 style="color: #166534; border-bottom: 1px solid #e7e5e4; padding-bottom: 6px;">Likely Matched Public Schemes (${evaluation.likelyMatch.length})</h3>
+            <ul>${evaluation.likelyMatch.map(m => `<li><strong>${m.scheme.name[lang] || m.scheme.name.en}</strong> (${m.scheme.code}): ${m.scheme.short_summary[lang] || m.scheme.short_summary.en}</li>`).join('') || '<li>No direct likely matches found.</li>'}</ul>
+            <h3 style="color: #1c1917; border-bottom: 1px solid #e7e5e4; padding-bottom: 6px; margin-top: 24px;">Consolidated Document Checklist</h3>
+            <ul>${evaluation.consolidatedDocuments.map(d => `<li>${d.name[lang] || d.name.en} ${d.mandatory ? '(Mandatory)' : ''}</li>`).join('') || '<li>No documents specified.</li>'}</ul>
+          </div>
+        `}
+        reportContentText="Benefits Navigator Public Entitlement Report"
+        likelyMatch={evaluation.likelyMatch}
+        consolidatedDocs={evaluation.consolidatedDocuments}
+      />
+
+      {/* Interactive AI Tutor Video Walkthrough Modal */}
+      <AiTutorVideoModal
+        isOpen={showTutorModal}
+        onClose={() => setShowTutorModal(false)}
+        lang={lang}
+        onLanguageChange={setLang}
+        isFirstVisit={!hasSeenTutorial}
+        onFirstVisitComplete={handleFirstVisitComplete}
+        onResetFirstVisitDemo={handleResetFirstVisitDemo}
+      />
+
+      {/* Interactive AI Welfare Assistant Chatbot (Floating launcher & interactive modal) */}
+      <AiAssistantChatbot
+        lang={lang}
+        isOpen={showChatbot}
+        onToggle={() => setShowChatbot((prev) => !prev)}
+        onOpenTutorVideo={() => setShowTutorModal(true)}
+        onNavigateTab={(tab) => setCurrentTab(tab)}
+      />
+
+      {/* New Scheme Arrival & Citizen Message Dispatch Modal */}
+      <NewSchemeAlertModal
+        isOpen={showNotificationsModal}
+        onClose={() => setShowNotificationsModal(false)}
+        userProfile={userProfile}
+        lang={lang}
+        availableNewSchemes={availableNewSchemes}
+        onAddNewSchemeToRegistry={handleAddNewSchemeToRegistry}
+        onStartQuestions={() => setCurrentTab('navigator')}
+      />
+    </div>
+  );
+}
