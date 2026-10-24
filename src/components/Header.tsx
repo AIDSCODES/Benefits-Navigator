@@ -20,6 +20,7 @@ import {
   MessageSquare,
   Bell,
   LogIn,
+  TrendingUp,
 } from 'lucide-react';
 import { SupportedLanguage } from '../lib/engine/types.ts';
 import { TRANSLATIONS } from '../lib/i18n/translations.ts';
@@ -138,6 +139,18 @@ export const Header: React.FC<HeaderProps> = ({
             }`}
           >
             {t.navRegistry}
+          </button>
+
+          <button
+            onClick={() => handleTabClick('trending')}
+            className={`whitespace-nowrap shrink-0 transition-colors py-1 flex items-center gap-1.5 ${
+              currentTab === 'trending'
+                ? 'text-stone-950 dark:text-white font-semibold border-b-2 border-stone-900 dark:border-white'
+                : 'hover:text-stone-950 dark:hover:text-white'
+            }`}
+          >
+            <TrendingUp className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+            <span>{t.navTrending || 'Trending Analytics'}</span>
           </button>
 
           <button
@@ -374,6 +387,15 @@ export const Header: React.FC<HeaderProps> = ({
             }`}
           >
             {t.navRegistry}
+          </button>
+          <button
+            onClick={() => handleTabClick('trending')}
+            className={`w-full text-left px-3 py-3 rounded-xl font-medium text-sm min-h-[44px] flex items-center gap-2 ${
+              currentTab === 'trending' ? 'bg-stone-100 dark:bg-stone-800 font-bold' : ''
+            }`}
+          >
+            <TrendingUp className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+            <span>{t.navTrending || 'Trending Analytics'}</span>
           </button>
           <button
             onClick={() => handleTabClick('about')}

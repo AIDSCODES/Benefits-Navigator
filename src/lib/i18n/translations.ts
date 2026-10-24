@@ -11,6 +11,7 @@ export interface Translations {
   bannerDisclaimer: string;
   navFind: string;
   navRegistry: string;
+  navTrending?: string;
   navPrivacy: string;
   navDevelopers: string;
   navAbout: string;
@@ -98,6 +99,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
       'Unofficial guidance tool. Not a government service. Always verify on the official portal.',
     navFind: 'Check Schemes',
     navRegistry: 'Open Registry',
+    navTrending: 'Trending Analytics',
     navPrivacy: 'Privacy & Trust',
     navDevelopers: 'Developer API',
     navAbout: 'About & Sources',
@@ -185,6 +187,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
       'अनौपचारिक मार्गदर्शन साधन। यह कोई सरकारी सेवा नहीं है। हमेशा आधिकारिक पोर्टल पर पुष्टि करें।',
     navFind: 'योजनाएं जांचें',
     navRegistry: 'खुली योजना सूची',
+    navTrending: 'ट्रेंडिंग योजनाएं',
     navPrivacy: 'गोपनीयता व भरोसा',
     navDevelopers: 'डेवलपर एपीआई',
     navAbout: 'स्रोत व जानकारी',
@@ -272,6 +275,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
       'अनधिकृत मार्गदर्शन साधन. ही कोणतीही शासकीय सेवा नाही. नेहमी अधिकृत पोर्टलवर खात्री करा.',
     navFind: 'योजना तपासा',
     navRegistry: 'योजना सूची',
+    navTrending: 'ट्रेंडिंग योजना',
     navPrivacy: 'गोपनीयता व विश्वास',
     navDevelopers: 'डेव्हलपर एपीआय',
     navAbout: 'माहिती व संदर्भ',
@@ -355,6 +359,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
       'বেসরকারি নির্দেশিকা মাধ্যম। এটি কোনো সরকারি সেবা নয়। সর্বদা অফিসিয়াল পোর্টালে যাচাই করুন।',
     navFind: 'প্রকল্প পরীক্ষা করুন',
     navRegistry: 'প্রকল্প তালিকা',
+    navTrending: 'ট্রেন্ডিং প্রকল্পসমূহ',
     navPrivacy: 'গোপনীয়তা ও সুরক্ষা',
     navDevelopers: 'ডেভেলপার এপিআই',
     navAbout: 'তথ্য ও উৎস',
@@ -438,6 +443,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
       'అనధికారిక మార్గదర్శక సాధనం. ఇది ప్రభుత్వ సేవ కాదు. ఎల్లప్పుడూ అధికారిక పోర్టల్‌లో ధృవీకరించండి.',
     navFind: 'పథకాలు చూడండి',
     navRegistry: 'పథకాల జాబితా',
+    navTrending: 'ట్రెండింగ్ పథకాలు',
     navPrivacy: 'గోప్యత & భద్రత',
     navDevelopers: 'డెవలపర్ API',
     navAbout: 'సమాచారం & మూలాలు',
@@ -521,6 +527,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
       'அதிகாரப்பூர்வமற்ற வழிகாட்டுதல் கருவி. இது அரசு சேவை அல்ல. எப்போதும் அதிகாரப்பூர்வ தளத்தில் சரிபார்க்கவும்.',
     navFind: 'திட்டங்களை காண்க',
     navRegistry: 'திட்டங்களின் பட்டியல்',
+    navTrending: 'பிரபலமான திட்டங்கள்',
     navPrivacy: 'தனியுரிமை & பாதுகாப்பு',
     navDevelopers: 'டெவலப்பர் API',
     navAbout: 'தகவல் & ஆதாரங்கள்',
@@ -604,6 +611,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
       'બિનસત્તાવાર માર્ગદર્શન સાધન. આ સરકારી સેવા નથી. હંમેશા સત્તાવાર પોર્ટલ પર ચકાસણી કરો.',
     navFind: 'યોજનાઓ તપાસો',
     navRegistry: 'યોજના યાદી',
+    navTrending: 'ટ્રેન્ડિંગ યોજનાઓ',
     navPrivacy: 'ગોપનીયતા અને વિશ્વાસ',
     navDevelopers: 'ડેવલપર API',
     navAbout: 'માહિતી અને સ્ત્રોતો',
@@ -687,6 +695,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
       'ಅನಧಿಕೃತ ಮಾರ್ಗದರ್ಶನ ಸಾಧನ. ಇದು ಸರ್ಕಾರಿ ಸೇವೆಯಲ್ಲ. ಯಾವಾಗಲೂ ಅಧಿಕೃತ ಪೋರ್ಟಲ್‌ನಲ್ಲಿ ಪರಿಶೀಲಿಸಿ.',
     navFind: 'ಯೋಜನೆಗಳನ್ನು ಪರಿಶೀಲಿಸಿ',
     navRegistry: 'ಯೋಜನೆಗಳ ಪಟ್ಟಿ',
+    navTrending: 'ಟ್ರೆಂಡಿಂಗ್ ಯೋಜನೆಗಳು',
     navPrivacy: 'ಗೌಪ್ಯತೆ ಮತ್ತು ಭದ್ರತೆ',
     navDevelopers: 'ಡೆವಲಪರ್ API',
     navAbout: 'ಮಾಹಿತಿ ಮತ್ತು ಮೂಲಗಳು',
@@ -770,6 +779,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
       'അനൗദ്യോഗിക മാർഗ്ഗനിർദ്ദേശ ഉപാധി. ഇതൊരു സർക്കാർ സേവനമല്ല. എപ്പോഴും ഔദ്യോഗിക പോർട്ടലിൽ സ്ഥിരീകരിക്കുക.',
     navFind: 'പദ്ധതികൾ പരിശോധിക്കുക',
     navRegistry: 'പദ്ധതികളുടെ പട്ടിക',
+    navTrending: 'ട്രെൻഡിംഗ് പദ്ധതികൾ',
     navPrivacy: 'സ്വകാര്യതയും സുരക്ഷയും',
     navDevelopers: 'ഡെവലപ്പർ API',
     navAbout: 'വിവരങ്ങളും സ്രോതസ്സുകളും',
@@ -853,6 +863,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
       'ਗੈਰ-ਸਰਕਾਰੀ ਮਾਰਗਦਰਸ਼ਨ ਸਾਧਨ। ਇਹ ਕੋਈ ਸਰਕਾਰੀ ਸੇਵਾ ਨਹੀਂ ਹੈ। ਹਮੇਸ਼ਾ ਅਧਿਕਾਰਤ ਪੋਰਟਲ ਤੇ ਪੁਸ਼ਟੀ ਕਰੋ।',
     navFind: 'ਸਕੀਮਾਂ ਜਾਂਚੋ',
     navRegistry: 'ਸਕੀਮਾਂ ਦੀ ਸੂਚੀ',
+    navTrending: 'ਟਰੈਂਡਿੰਗ ਸਕੀਮਾਂ',
     navPrivacy: 'ਗੋਪਨੀਯਤਾ ਤੇ ਭਰੋਸਾ',
     navDevelopers: 'ਡਿਵੈਲਪਰ API',
     navAbout: 'ਜਾਣਕਾਰੀ ਤੇ ਸਰੋਤ',
@@ -936,6 +947,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Translations> = {
       'ଅଣ-ସରକାରୀ ମାର୍ଗଦର୍ଶନ ଉପକରଣ। ଏହା କୌଣସି ସରକାରୀ ସେବା ନୁହେଁ। ସର୍ବଦା ଅଫିସିଆଲ୍ ପୋର୍ଟାଲରେ ଯାଞ୍ଚ କରନ୍ତୁ।',
     navFind: 'ଯୋଜନା ଯାଞ୍ଚ କରନ୍ତୁ',
     navRegistry: 'ଯୋଜନା ତାଲିକା',
+    navTrending: 'ଟ୍ରେଣ୍ଡିଂ ଯୋଜନା',
     navPrivacy: 'ଗୋପନୀୟତା ଓ ସୁରକ୍ଷା',
     navDevelopers: 'ଡେଭଲପର API',
     navAbout: 'ତଥ୍ୟ ଓ ଉତ୍ସ',

@@ -14,6 +14,7 @@ import { Header } from './components/Header.tsx';
 import { QuestionFlow } from './components/QuestionFlow.tsx';
 import { ResultsView } from './components/ResultsView.tsx';
 import { RegistryBrowser } from './components/RegistryBrowser.tsx';
+import { TrendingAnalyticsView } from './components/TrendingAnalyticsView.tsx';
 import { AboutView } from './components/AboutView.tsx';
 import { LoginView } from './components/LoginView.tsx';
 import { WorkspaceModal } from './components/WorkspaceModal.tsx';
@@ -285,6 +286,20 @@ export default function App() {
         {/* Tab 3: Scheme Registry Browser */}
         {currentTab === 'registry' && <RegistryBrowser lang={lang} />}
 
+        {/* Tab: Trending Schemes Analytics */}
+        {currentTab === 'trending' && (
+          <TrendingAnalyticsView
+            lang={lang}
+            onCheckEligibility={(preset) => {
+              setUserProfile((prev) => ({ ...prev, ...preset }));
+              setCurrentTab('results');
+              setToastMessage('Target scheme loaded! Showing matched requirements.');
+              setTimeout(() => setToastMessage(null), 3500);
+            }}
+            onNavigateTab={(tab) => setCurrentTab(tab)}
+          />
+        )}
+
         {/* Tab 4: Citizen Login & Account Portal */}
         {currentTab === 'login' && (
           <LoginView
@@ -318,6 +333,10 @@ export default function App() {
           </div>
 
           <div className="flex items-center gap-4 text-stone-600 dark:text-stone-400 font-medium">
+            <button onClick={() => setCurrentTab('trending')} className="hover:underline">
+              {t.navTrending || 'Trending Analytics'}
+            </button>
+            <span>·</span>
             <button onClick={() => setCurrentTab('login')} className="hover:underline font-semibold text-emerald-600 dark:text-emerald-400">
               {citizenUser ? 'My Account' : 'Sign In'}
             </button>
